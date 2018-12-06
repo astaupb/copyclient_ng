@@ -1,0 +1,13 @@
+image: blacksalt/angulardart:latest
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - pub global activate webdev
+    - webdev build
+  artifacts:
+    paths:
+    - build/
