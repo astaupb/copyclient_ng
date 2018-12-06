@@ -1,4 +1,4 @@
-image: blacksalt/angulardart:latest
+image: ubuntu:latest
 
 stages:
   - build
@@ -6,6 +6,11 @@ stages:
 build:
   stage: build
   script:
+    - apt update
+    - apt install apt-transport-https
+    - sudo sh -c 'curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+    - apt update
+    - apt install dart
     - pub global activate webdev
     - pub get
     - pub upgrade
