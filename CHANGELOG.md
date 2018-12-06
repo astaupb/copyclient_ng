@@ -1,3 +1,3 @@
-## 1.0.0
-
-- Initial version, created by Stagehand
+## 0.1.0
+- not initial but far better
+- login form and bloc integration works, no routing though

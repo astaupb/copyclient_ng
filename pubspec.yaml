@@ -12,6 +12,10 @@ dependencies:
   angular_components: ^0.10.0
   angular_forms: ^2.1.0
   http: ^0.12.0
+  blocs_copyclient:
+    path: /Users/ltappe/projects/blocs_copyclient
+  angular_bloc: ^0.2.1
+  logger: ^0.3.1
 
 dev_dependencies:
   angular_test: ^2.1.0
