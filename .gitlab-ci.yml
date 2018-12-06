@@ -14,6 +14,7 @@ build:
     - apt install -y dart
     - export PATH="$PATH:/usr/lib/dart/bin"
     - pub global activate webdev
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
     - pub get
     - pub upgrade
     - webdev build
