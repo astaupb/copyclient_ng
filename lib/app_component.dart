@@ -9,6 +9,7 @@ import 'package:http/src/client.dart';
 
 import 'src/backend_sunrise.dart';
 import 'src/login/login_component.dart';
+import 'src/joblist/joblist_component.dart';
 
 @Component(
     selector: 'copyclient',
@@ -16,6 +17,7 @@ import 'src/login/login_component.dart';
     templateUrl: 'app_component.html',
     directives: [
       LoginComponent,
+      JobListComponent,
       NgIf,
     ],
     pipes: [BlocPipe],
@@ -42,10 +44,8 @@ class AppComponent implements OnInit, OnDestroy {
   void ngOnInit() {
     authBloc.state.listen((AuthState state) {
       if (state.isAuthorized) {
-        print('authorized! ${state.token}');
         authorized = true;
       } else if (state.isUnauthorized) {
-        print('unauthorized!');
         authorized = false;
       }
     });

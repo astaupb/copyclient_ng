@@ -2,4 +2,6 @@
 
 <button (click)="onLogout()">Logout</button>
 
-<login-form *ngIf="!authorized">login-form></login-form>
+<login-form *ngIf="!authorized"></login-form>
+
+<joblist *ngIf="authorized"></joblist>

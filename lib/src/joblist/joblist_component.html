@@ -1,5 +1,12 @@
 <h2>Jobliste:</h2>
 
-<ul class="jobs">
-    <li *ngFor="let job of jobs">{{job.filename}}</li>
-</ul>
+<table>
+    <tr>
+        <td>Dateiname</td>
+        <td>Timestamp</td>
+    </tr>
+    <tr *ngFor="let job of ((jobsBloc | bloc)?.value)">
+        <td>{{job.jobInfo?.filename}}</td>
+        <td>{{job?.timestamp}}</td>
+    </tr>
+</table>
