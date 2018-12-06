@@ -12,6 +12,7 @@ build:
     - sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
     - apt update
     - apt install -y dart
+    - export PATH="$PATH:/usr/lib/dart/bin"
     - pub global activate webdev
     - pub get
     - pub upgrade
