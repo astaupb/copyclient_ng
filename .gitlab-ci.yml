@@ -7,6 +7,8 @@ build:
   stage: build
   script:
     - pub global activate webdev
+    - pub get
+    - pub upgrade
     - webdev build
   artifacts:
     paths:
