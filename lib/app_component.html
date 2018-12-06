@@ -1,7 +1,5 @@
-<h1>My First AngularDart App</h1>
+<h1>AStA Copyclient</h1>
 
-<div id="output"></div>
+<button (click)="onLogout()">Logout</button>
 
-<login-form></login-form>
-
-<joblist></joblist>
+<login-form *ngIf="!authorized">login-form></login-form>

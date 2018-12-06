@@ -1,62 +1,57 @@
-import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_bloc/angular_bloc.dart';
+import 'package:blocs_copyclient/auth.dart';
+import 'package:blocs_copyclient/src/models/backend.dart';
 
-import 'package:http/browser_client.dart';
+import '../../app_component.dart';
+
+class Credentials {
+  String username;
+  String password;
+  bool saveToken;
+
+  Credentials({
+    this.username,
+    this.password,
+    this.saveToken = false,
+  });
+
+  @override
+  String toString() {
+    return 'username: $username\npassword: $password';
+  }
+}
 
 @Component(
   selector: 'login-form',
   styleUrls: ['login_component.css'],
   templateUrl: 'login_component.html',
   directives: [formDirectives],
+  pipes: [BlocPipe],
 )
 class LoginComponent implements OnInit {
+  static AuthBloc authBloc;
+
   Credentials cred;
-  String token;
-  BrowserClient client;
 
-  bool loggedIn;
-
-  @override
-  void ngOnInit() {
-    cred = new Credentials(username: 'test', password: 'test!420');
-    token = '';
-    loggedIn = (window.sessionStorage['token'] != null && window.sessionStorage['token'].isNotEmpty);
-    client = new BrowserClient();
+  LoginComponent(AuthProvider auth) {
+    authBloc = auth.authBloc;
+    cred = Credentials();
   }
 
-  void submitData() async {
-    print(cred.toString());
-    var response = await client.post(
-      'https://sunrise.upb.de/astaprint-backend/user/login',
-      headers: {
-        'Accept': 'text/plain',
-        'Authorization':
-            'Basic ${base64.encode(utf8.encode(cred.username + ':' + cred.password))}',
-      },
+  @override
+  void ngOnInit() async {
+    authBloc.state.listen(
+      (AuthState state) => (state.isAuthorized && cred.saveToken)
+          ? window.sessionStorage['token'] = state.token
+          : null,
     );
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      token = response.body;
-      loggedIn = true;
-
-      window.sessionStorage['token'] = token;
-    }
   }
-}
 
-class Credentials {
-  String username;
-  String password;
-
-  Credentials({this.username, this.password});
-
-  @override
-  String toString() {
-    return 'username: $username\npassword: $password';
+  void submitForm() {
+    authBloc.login(cred.username, cred.password);
   }
 }

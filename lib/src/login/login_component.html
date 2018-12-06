@@ -1,11 +1,8 @@
 <h2>Login:</h2>
 
 <form>
-    <input type="text" name="username" [(ngModel)]="cred.username">
-    <input type="password" name="password" [(ngModel)]="cred.password">
-    <button (click)="submitData()" >Einloggen</button>
+    Username: <input type="text" name="username" [(ngModel)]="cred.username"><br>
+    Passwort: <input type="password" name="password" [(ngModel)]="cred.password"><br>
+    <input type="checkbox" name="staylogged" [(ngModel)]="cred.saveToken"> Eingeloggt bleiben<br>
+    <button (click)="submitForm()">Einloggen</button>
 </form>
-
-<div>
-    <p>{{(loggedIn ? 'Eingeloggt' : 'Nicht Eingeloggt')}}</p>
-</div>
