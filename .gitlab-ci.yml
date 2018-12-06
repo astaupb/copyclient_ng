@@ -7,7 +7,7 @@ build:
   stage: build
   script:
     - apt update
-    - apt install -y apt-transport-https curl gnupg
+    - apt install -y apt-transport-https curl gnupg git-core
     - sh -c 'curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
     - sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_unstable.list > /etc/apt/sources.list.d/dart_unstable.list'
     - apt update
