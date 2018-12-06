@@ -54,6 +54,7 @@ class AppComponent implements OnInit, OnDestroy {
   onLogout() {
     authBloc.logout();
     window.sessionStorage['token'] = '';
+    window.localStorage['token'] = '';
   }
 }
 
@@ -65,7 +66,7 @@ class AuthProvider {
   factory AuthProvider(Backend backend) => _singleton;
 
   AuthProvider._internal(this.authBloc) {
-    String storageToken = window.sessionStorage['token'] ?? '';
+    String storageToken = window.localStorage['token'] ?? window.sessionStorage['token'] ?? '';
     if (storageToken.isNotEmpty) authBloc.tokenLogin(storageToken);
   }
 }

@@ -45,9 +45,14 @@ class LoginComponent implements OnInit {
   @override
   void ngOnInit() async {
     authBloc.state.listen(
-      (AuthState state) => (state.isAuthorized && cred.saveToken)
-          ? window.sessionStorage['token'] = state.token
-          : null,
+      (AuthState state) {
+          if (state.isAuthorized) {
+            window.sessionStorage['token'] = state.token;
+            if (cred.saveToken) {
+              window.localStorage['token'] = state.token;
+            }
+          }
+      }
     );
   }
 
