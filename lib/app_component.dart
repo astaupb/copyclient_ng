@@ -20,6 +20,7 @@ import 'package:http/src/client.dart';
 import 'src/backend_sunrise.dart';
 import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
+import 'src/fullscreen_spinner.dart';
 
 @Injectable()
 PopupSizeProvider createPopupSizeProvider() {
@@ -48,6 +49,7 @@ PopupSizeProvider createPopupSizeProvider() {
       PopupSourceDirective,
       MaterialListComponent,
       MaterialListItemComponent,
+      FullscreenSpinnerComponent,
     ],
     pipes: [BlocPipe],
     providers: [
@@ -63,6 +65,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool navOptionsVisible = false;
   RelativePosition popupPosition = RelativePosition.OffsetBottomLeft;
   bool customWidth = true;
+  bool appBusy = false;
 
   AppComponent(AuthProvider auth) {
     authBloc = auth.authBloc;
@@ -76,10 +79,14 @@ class AppComponent implements OnInit, OnDestroy {
   @override
   void ngOnInit() {
     authBloc.state.listen((AuthState state) {
-      if (state.isAuthorized) {
+      if (state.isBusy) {
+        appBusy = true;
+      } else if (state.isAuthorized) {
         authorized = true;
+        appBusy = false;
       } else if (state.isUnauthorized) {
         authorized = false;
+        appBusy = false;
       }
     });
   }

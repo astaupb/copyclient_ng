@@ -1,3 +1,5 @@
+<fullscreen-spinner *ngIf="appBusy"></fullscreen-spinner>
+
 <material-drawer persistent #drawer="drawer" [class.custom-width]="customWidth" *ngIf="authorized">
     <material-list *deferredContent>
         <div group class="mat-drawer-spacer"></div>
@@ -36,7 +38,7 @@
     </div>
 </header>
 
-<material-content">
+<material-content *ngIf="!appBusy">
     <login-form *ngIf="!authorized"></login-form>
     <joblist *ngIf="authorized"></joblist>
 </material-content>
