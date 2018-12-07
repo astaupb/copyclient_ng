@@ -62,6 +62,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool authorized = false;
   bool navOptionsVisible = false;
   RelativePosition popupPosition = RelativePosition.OffsetBottomLeft;
+  bool customWidth = true;
 
   AppComponent(AuthProvider auth) {
     authBloc = auth.authBloc;
