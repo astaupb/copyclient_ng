@@ -1,7 +1,23 @@
-<h1>AStA Copyclient</h1>
+<header class="material-header">
+    <div class="material-header-row">
+        <material-button icon class="material-drawer-button" (trigger)="null">
+            <material-icon icon="menu"></material-icon>
+        </material-button>
+        <span class="material-header-title">AStA Copyclient</span>
+        <div class="material-spacer"></div>
+        <material-button popupSource #source="popupSource" icon class="material-drawer-button" (trigger)="navOptionsVisible = !navOptionsVisible">
+            <material-icon icon="more_vert"></material-icon>
+        </material-button>
+        <material-popup [source]="source" [(visible)]="navOptionsVisible" [preferredPositions]="[popupPosition]">
+            <material-list>
+            <material-list-item (click)="onLogout()">Logout</material-list-item>
+            </material-list>
+        </material-popup>
+    </div>
+</header>
 
-<button (click)="onLogout()">Logout</button>
+<material-content>
+    <login-form *ngIf="!authorized"></login-form>
 
-<login-form *ngIf="!authorized"></login-form>
-
-<joblist *ngIf="authorized"></joblist>
+    <joblist *ngIf="authorized"></joblist>
+</material-content>
