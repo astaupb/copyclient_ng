@@ -38,7 +38,8 @@
     </div>
 </header>
 
+<login-form *ngIf="!appBusy && !authorized"></login-form>
+
 <material-content *ngIf="!appBusy">
-    <login-form *ngIf="!authorized"></login-form>
     <joblist *ngIf="authorized"></joblist>
 </material-content>

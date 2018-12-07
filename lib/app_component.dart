@@ -87,6 +87,9 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (state.isUnauthorized) {
         authorized = false;
         appBusy = false;
+      } else if (state.isException) {
+        appBusy = false;
+        authorized = false;
       }
     });
   }
