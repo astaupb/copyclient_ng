@@ -1,12 +1,19 @@
 <h2>Jobliste:</h2>
 
-<table>
-    <tr>
-        <td>Dateiname</td>
-        <td>Timestamp</td>
-    </tr>
-    <tr *ngFor="let job of ((jobsBloc | bloc)?.value)">
-        <td>{{job.jobInfo?.filename}}</td>
-        <td>{{job?.timestamp}}</td>
-    </tr>
-</table>
+<material-list size="x-large">
+    <material-list-item class="job-item" *ngFor="let job of ((jobsBloc | bloc)?.value)">
+        <material-button>
+            <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
+        </material-button>
+        <div>
+            <b><span id="filename">{{job.jobInfo?.filename}}</span></b><br>
+            <span id="timestamp">{{job?.timestamp}}</span>
+        </div>
+        <material-button id="print-button" (trigger)="printJob(job.uid)">
+        <material-icon icon="print"></material-icon>
+        </material-button>
+        <material-button id="show-details-button" (trigger)="showJobDetails(job?.uid)">
+            <material-icon icon="navigate_next"></material-icon>
+        </material-button>
+    </material-list-item>
+</material-list>
