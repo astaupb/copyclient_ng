@@ -58,10 +58,9 @@ class JobListComponent extends AuthGuard implements OnActivate {
       // This converts event's payload from JSON to a Dart Map.
       Map payload = jsonDecode(ce.detail);
       String filename = payload['filename'];
-      io.File file =
-          io.File.fromUri(Uri.dataFromBytes(base64Decode(payload['data'])));
+      List<int> data = base64Decode(payload['data']);
 
-      uploadBloc.onUpload(file, filename: filename);
+      uploadBloc.onUpload(data, filename: filename);
     });
 
     // Tell our custom JS to start watching for fakeprinting
