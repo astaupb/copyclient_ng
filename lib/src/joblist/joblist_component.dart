@@ -44,6 +44,15 @@ class JobListComponent extends AuthGuard implements OnActivate {
   @override
   void onActivate(_, __) {
     jobsBloc.onStart();
+
+    // Listen for uploadJob event to be called by our custom JS
+    document.on["uploadJob"].listen((Event event) {
+      // NYI, should look like this, I dunno:
+      // jobsBloc.doUpload((event as CustomEvent).filename, (event as Customevent).data);
+    });
+
+    // Tell our custom JS to start watching for fakeprinting
+    document.dispatchEvent(new CustomEvent("setupWatches"));
   }
 
   void showJobDetails(int id) {
