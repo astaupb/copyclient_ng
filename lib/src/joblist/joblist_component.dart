@@ -52,10 +52,13 @@ class JobListComponent extends AuthGuard implements OnActivate {
       CustomEvent ce = (event as CustomEvent);
 
       // This converts event's payload from JSON to a Dart Map.
-      Map payload = jsonDecode(ce.detail) as Map;
+      Map payload = jsonDecode(ce.detail);
+      String filename = payload['filename'];
+      List<int> data = base64Decode(payload['data']);
 
       // TODO: Actually upload job
-      String filename = payload['filename'];
+
+      print('data: $data');
       print('filename: $filename');
     });
 
