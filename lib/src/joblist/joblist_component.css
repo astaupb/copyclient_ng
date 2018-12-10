@@ -1,0 +1,26 @@
+material-list {
+    min-width: 100%;
+}
+
+material-list-item {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 10% 70% 10% 10%;
+    padding-left: 4px;
+}
+
+#filename {
+    grid-column: 2;
+}
+
+#timestamp {
+    grid-column: 2;
+}
+
+#print-button {
+    grid-column: 3;
+}
+
+#show-details-button {
+    grid-column: 4;
+}

@@ -1,8 +1,12 @@
-<h2>Login:</h2>
-
-<form>
-    Username: <input type="text" name="username" [(ngModel)]="cred.username"><br>
-    Passwort: <input type="password" name="password" [(ngModel)]="cred.password"><br>
-    <input type="checkbox" name="staylogged" [(ngModel)]="cred.saveToken"> Eingeloggt bleiben<br>
-    <button (click)="submitForm()">Einloggen</button>
-</form>
+<div class="mdc-card login-card">
+    <h2>Login:</h2>
+    <form #loginForm="ngForm">
+        <material-input autoFocus id="username" class="login-input" label="Username" [maxRows]="1" [checkValid]="validateUsername"
+            required type="text" #username="ngForm" ngControl="username" [(ngModel)]="cred.username"></material-input><br>
+        <material-input id="password" type="password" class="login-input" label="Passwort" #password="ngForm" ngControl="password"
+            [maxRows]="1" [checkValid]="validatePassword" required name="password" [(ngModel)]="cred.password"></material-input><br>
+        <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"></material-checkbox><br>
+        <material-button (trigger)="submitForm()" type="submit" class="login-button" raised>Einloggen</material-button>
+        <material-button class="login-button" raised (trigger)="clearForm()">Reset</material-button>
+    </form>
+</div>

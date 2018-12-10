@@ -1,7 +1,46 @@
-<h1>AStA Copyclient</h1>
+<material-drawer persistent #drawer="drawer" [class.custom-width]="true" *ngIf="authorized">
+    <material-list *deferredContent>
+        <div group class="mat-drawer-spacer"></div>
+        <div group>
+            <a [routerLink]="RoutePaths.dashboard.toUrl()">
+                <material-list-item>
+                    <material-icon icon="inbox"></material-icon>Dashboard
+                </material-list-item>
+            </a>
+            <a [routerLink]="RoutePaths.joblist.toUrl()">
+                <material-list-item>
+                    <material-icon icon="inbox"></material-icon>Jobliste
+                </material-list-item>
+            </a>
+            <a>
+                <material-list-item>
+                    <material-icon icon="cloud_upload"></material-icon>Hochladen
+                </material-list-item>
+            </a>
+        </div>
+    </material-list>
+</material-drawer>
 
-<button (click)="onLogout()">Logout</button>
+<header class="material-header" *ngIf="authorized">
+    <div class="material-header-row">
+        <material-button icon class="material-drawer-button" (trigger)="null">
+            <material-icon icon="menu"></material-icon>
+        </material-button>
+        <span class="material-header-title">AStA Copyclient</span>
+        <div class="material-spacer"></div>
+        <material-button popupSource #source="popupSource" icon class="material-drawer-button" (trigger)="navOptionsVisible = !navOptionsVisible">
+            <material-icon icon="more_vert"></material-icon>
+        </material-button>
+        <material-popup [source]="source" [(visible)]="navOptionsVisible" [preferredPositions]="[popupPosition]">
+            <material-list>
+                <material-list-item (click)="onLogout()">Logout</material-list-item>
+            </material-list>
+        </material-popup>
+    </div>
+</header>
 
-<login-form *ngIf="!authorized"></login-form>
+<material-content>
+    <router-outlet [routes]="Routes.all"></router-outlet>
+</material-content>
 
-<joblist *ngIf="authorized"></joblist>
+<fullscreen-spinner *ngIf="appBusy"></fullscreen-spinner>
