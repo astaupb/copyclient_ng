@@ -115,6 +115,10 @@ class AppComponent implements OnInit, OnDestroy {
     document.dispatchEvent(new CustomEvent("unsetWatches"));
     document.dispatchEvent(new CustomEvent("unsetDragDrop"));
   }
+
+  onOpenDialog() {
+    document.dispatchEvent(new CustomEvent("showOpenPDF"));
+  }
 }
 
 @Directive(

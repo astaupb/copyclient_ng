@@ -10,6 +10,7 @@ import 'package:angular_components/material_list/material_list.dart';
 import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/upload.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 
 import '../auth_provider.dart';
@@ -33,12 +34,15 @@ import '../auth_guard.dart';
 )
 class JobListComponent extends AuthGuard implements OnActivate {
   JoblistBloc jobsBloc;
+  UploadBloc uploadBloc;
   Location location;
   Router _router;
 
   JobListComponent(
       Backend backend, AuthProvider authProvider, this._router, this.location)
       : jobsBloc = JoblistBloc(backend,
+            window.localStorage['token'] ?? window.sessionStorage['token']),
+        uploadBloc = UploadBloc(backend,
             window.localStorage['token'] ?? window.sessionStorage['token']),
         super(authProvider, _router);
 
@@ -57,9 +61,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
       List<int> data = base64Decode(payload['data']);
 
       // TODO: Actually upload job
-
-      print('data: $data');
-      print('filename: $filename');
+      uploadBloc.onUpload(data, filename:filename);
     });
 
     // Tell our custom JS to start watching for fakeprinting
