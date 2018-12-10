@@ -112,6 +112,7 @@ class AppComponent implements OnInit, OnDestroy {
     authBloc.logout();
     window.sessionStorage.remove('token');
     window.localStorage.remove('token');
+    document.dispatchEvent(new CustomEvent("unsetWatches"));
   }
 }
 
