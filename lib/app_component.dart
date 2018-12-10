@@ -110,8 +110,8 @@ class AppComponent implements OnInit, OnDestroy {
 
   onLogout() {
     authBloc.logout();
-    window.sessionStorage['token'] = '';
-    window.localStorage['token'] = '';
+    window.sessionStorage.remove('token');
+    window.localStorage.remove('token');
   }
 }
 
