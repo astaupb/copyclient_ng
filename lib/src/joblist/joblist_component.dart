@@ -53,6 +53,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
 
     // Tell our custom JS to start watching for fakeprinting
     document.dispatchEvent(new CustomEvent("setupWatches"));
+    document.dispatchEvent(new CustomEvent("setupDragDrop"));
   }
 
   void showJobDetails(int id) {

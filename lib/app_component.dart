@@ -113,6 +113,7 @@ class AppComponent implements OnInit, OnDestroy {
     window.sessionStorage.remove('token');
     window.localStorage.remove('token');
     document.dispatchEvent(new CustomEvent("unsetWatches"));
+    document.dispatchEvent(new CustomEvent("unsetDragDrop"));
   }
 }
 
