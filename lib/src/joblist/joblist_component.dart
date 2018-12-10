@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:core';
+import 'dart:convert';
 
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
@@ -42,13 +43,20 @@ class JobListComponent extends AuthGuard implements OnActivate {
         super(authProvider, _router);
 
   @override
+
   void onActivate(_, __) {
     jobsBloc.onStart();
 
     // Listen for uploadJob event to be called by our custom JS
     document.on["uploadJob"].listen((Event event) {
-      // NYI, should look like this, I dunno:
-      // jobsBloc.doUpload((event as CustomEvent).detail.filename, (event as Customevent).detail.data);
+      CustomEvent ce = (event as CustomEvent);
+
+      // This converts event's payload from JSON to a Dart Map.
+      Map payload = jsonDecode(ce.detail) as Map;
+
+      // TODO: Actually upload job
+      String filename = payload['filename'];
+      print('filename: $filename');
     });
 
     // Tell our custom JS to start watching for fakeprinting
