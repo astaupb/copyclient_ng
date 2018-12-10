@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'dart:core';
 import 'dart:convert';
+import 'dart:io' as io;
 
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
@@ -47,7 +48,6 @@ class JobListComponent extends AuthGuard implements OnActivate {
         super(authProvider, _router);
 
   @override
-
   void onActivate(_, __) {
     jobsBloc.onStart();
 
@@ -58,10 +58,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
       // This converts event's payload from JSON to a Dart Map.
       Map payload = jsonDecode(ce.detail);
       String filename = payload['filename'];
-      List<int> data = base64Decode(payload['data']);
+      io.File file =
+          io.File.fromUri(Uri.dataFromBytes(base64Decode(payload['data'])));
 
-      // TODO: Actually upload job
-      uploadBloc.onUpload(data, filename:filename);
+      uploadBloc.onUpload(file, filename: filename);
     });
 
     // Tell our custom JS to start watching for fakeprinting
