@@ -16,6 +16,7 @@ dependencies:
     git: https://git.uni-paderborn.de/asta/blocs_copyclient.git
   angular_bloc: ^0.2.1
   logger: ^0.3.1
+  angular_router: ^2.0.0-alpha+20
 
 dev_dependencies:
   angular_test: ^2.1.0

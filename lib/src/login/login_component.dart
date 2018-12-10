@@ -8,7 +8,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 import 'package:blocs_copyclient/auth.dart';
 
-import '../../app_component.dart';
+import '../auth_provider.dart';
 
 class Credentials {
   String username;
