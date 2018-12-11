@@ -73,6 +73,7 @@ PopupSizeProvider createPopupSizeProvider() {
   exports: [RoutePaths, Routes],
 )
 class AppComponent implements OnInit, OnDestroy {
+  Router _router;
   AuthBloc authBloc;
 
   bool authorized = false;
@@ -81,7 +82,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool customWidth = true;
   bool appBusy = false;
 
-  AppComponent(AuthProvider auth, UploadsProvider uploads) {
+  AppComponent(AuthProvider auth, UploadsProvider uploads, this._router) {
     authBloc = auth.authBloc;
   }
 
@@ -114,6 +115,7 @@ class AppComponent implements OnInit, OnDestroy {
     window.localStorage.remove('token');
     document.dispatchEvent(new CustomEvent("unsetWatches"));
     document.dispatchEvent(new CustomEvent("unsetDragDrop"));
+    _router.navigate(RoutePaths.login.path);
   }
 
   onOpenDialog() {
