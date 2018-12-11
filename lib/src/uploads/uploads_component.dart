@@ -2,7 +2,9 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
-import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/material_button/material_fab.dart';
+import 'package:angular_components/material_list/material_list.dart';
+import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/upload.dart';
 
@@ -18,6 +20,7 @@ import '../providers/uploads_provider.dart';
     NgFor,
     MaterialListComponent,
     MaterialListItemComponent,
+    MaterialFabComponent,
   ],
   pipes: [BlocPipe],
 )
@@ -52,10 +55,13 @@ class UploadsComponent extends AuthGuard implements OnInit {
     reader.readAsArrayBuffer(files[0]);
 
     reader.onLoadEnd.listen((progress) {
-      print('uploading into bloc ${progress.loaded.toString()}/${progress.total}');
+      print(
+          'uploading into bloc ${progress.loaded.toString()}/${progress.total}');
       if (progress.loaded == progress.total)
         uploadBloc.onUpload(reader.result as List<int>,
             filename: files[0].name, color: true);
     });
   }
+
+  void reloadQueue() => uploadBloc.onRefresh();
 }
