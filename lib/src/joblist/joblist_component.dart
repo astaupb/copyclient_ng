@@ -15,7 +15,7 @@ import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
 
 import '../auth_guard.dart';
-import '../auth_provider.dart';
+import '../providers/auth_provider.dart';
 import '../route_paths.dart';
 
 @Component(

@@ -2,7 +2,7 @@ import 'package:angular/core.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 
-import 'auth_provider.dart';
+import 'providers/auth_provider.dart';
 import 'route_paths.dart';
 
 @Injectable()

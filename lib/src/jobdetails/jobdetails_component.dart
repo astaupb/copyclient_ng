@@ -9,7 +9,7 @@ import 'package:copyclient_ng/src/backend_sunrise.dart';
 import 'package:http/browser_client.dart';
 
 import '../auth_guard.dart';
-import '../auth_provider.dart';
+import '../providers/auth_provider.dart';
 import '../route_paths.dart';
 
 @Component(
