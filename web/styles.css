@@ -15,3 +15,40 @@ body {
 * {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  min-height: 16px;
+  max-height: 32px;
+  left: 256px;
+  width: calc(100% - 256px);
+  background-color: teal;
+  color: whitesmoke;
+  padding: 2px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+}
+
+#refresh-action-bar {
+  grid-column: 2;
+  max-height: 32px;
+}
+
+#version {
+  grid-column: 1;
+  padding: 6px;
+}
+
+.action-bar-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 100%;
+}
+
+.action-bar-icon {
+  max-height: 16px;
+  position: absolute;
+  left: 16px;
+}

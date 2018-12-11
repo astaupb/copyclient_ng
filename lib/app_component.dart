@@ -81,7 +81,6 @@ class AppComponent implements OnInit, OnDestroy {
   JoblistBloc joblistBloc;
   UploadBloc uploadBloc;
 
-
   bool authorized = false;
   bool navOptionsVisible = false;
   RelativePosition popupPosition = RelativePosition.OffsetBottomLeft;

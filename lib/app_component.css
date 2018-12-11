@@ -1,17 +1,27 @@
 material-content {
     max-width: 900px;
-    max-height: calc(100% - 64px);
+    max-height: calc(100% - 96px);
     overflow-y: scroll;
     position: absolute;
     margin: 0px auto;
+    padding-top: 1vw;
     padding-left: 2vw;
     padding-right: 2vw;
 }
 
-material-header {
-    background-color: #d81b60;
+.pink-header{
+    background-color: #d81b60 !important;
 }
 
 .drawer-link {
     text-decoration-line: none;
+
+}
+
+.dense-drawer-spacer {
+    height: 40px !important;
+}
+
+.drawer-list-item {
+    border-right: 1px solid rgba(0,0,0,0.12);
 }

@@ -16,7 +16,15 @@
             <material-icon icon="navigate_next"></material-icon>
         </material-button>
     </material-list-item>
-    <material-fab class="bottom-right-fab" (trigger)="refreshJobs()">
-        <material-icon icon="refresh"></material-icon>
-    </material-fab>
 </material-list>
+
+<footer>
+    <section id="version">
+        Joblist length: {{(jobsBloc | bloc)?.value?.length}}
+    </section>
+    <section id="refresh-action-bar">
+        <material-button class="action-bar-button" (trigger)="refreshJobs()">
+            <material-icon class="action-bar-icon" icon="refresh"></material-icon>
+        </material-button>
+    </section>
+</footer>
