@@ -16,12 +16,15 @@ class Routes {
     joblist,
     login,
     uploads,
+    RouteDefinition.redirect(
+      path: '',
+      redirectTo: joblist.path,
+    ),
   ];
 
   static final dashboard = RouteDefinition(
     routePath: RoutePaths.dashboard,
     component: dashboard_template.DashboardComponentNgFactory,
-    useAsDefault: true,
   );
 
   static final login = RouteDefinition(

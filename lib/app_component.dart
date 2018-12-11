@@ -74,8 +74,6 @@ PopupSizeProvider createPopupSizeProvider() {
 )
 class AppComponent implements OnInit, OnDestroy {
   AuthBloc authBloc;
-  Location _location;
-  Router _router;
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -83,7 +81,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool customWidth = true;
   bool appBusy = false;
 
-  AppComponent(AuthProvider auth, UploadsProvider uploads, this._location, this._router) {
+  AppComponent(AuthProvider auth, UploadsProvider uploads) {
     authBloc = auth.authBloc;
   }
 
@@ -100,11 +98,9 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (state.isAuthorized) {
         authorized = true;
         appBusy = false;
-        _router.navigate(RoutePaths.joblist.path);
       } else if (state.isUnauthorized) {
         authorized = false;
         appBusy = false;
-        _router.navigate(RoutePaths.login.path);
       } else if (state.isException) {
         appBusy = false;
         authorized = false;

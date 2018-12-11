@@ -6,8 +6,10 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 
+import '../route_paths.dart';
 import '../providers/auth_provider.dart';
 
 class Credentials {
@@ -49,10 +51,11 @@ class Credentials {
 )
 class LoginComponent implements OnInit {
   static AuthBloc authBloc;
+  Router _router;
 
   Credentials cred;
 
-  LoginComponent(AuthProvider auth) {
+  LoginComponent(AuthProvider auth, this._router) {
     authBloc = auth.authBloc;
     cred = Credentials();
   }
@@ -67,6 +70,7 @@ class LoginComponent implements OnInit {
         if (cred.saveToken) {
           window.localStorage['token'] = state.token;
         }
+      _router.navigate(RoutePaths.joblist.path);
       }
     });
   }
