@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/upload.dart';
@@ -18,10 +19,10 @@ import '../providers/uploads_provider.dart';
     MaterialListComponent,
     MaterialListItemComponent,
   ],
+  pipes: [BlocPipe],
 )
 class UploadsComponent extends AuthGuard implements OnInit {
   UploadBloc uploadBloc;
-  List<DispatcherTask> queue;
   String statusString = '';
 
   UploadsComponent(
@@ -35,7 +36,6 @@ class UploadsComponent extends AuthGuard implements OnInit {
     // init listener for uploadBloc states
     uploadBloc.state.listen((UploadState state) {
       if (state.isResult) {
-        queue = state.value;
         statusString = 'Fertig';
       } else if (state.isException) {
         statusString = 'Error: ${state.error.toString()}';

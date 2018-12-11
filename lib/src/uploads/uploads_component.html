@@ -6,7 +6,7 @@
 </p>
 
 <material-list>
-    <material-list-item *ngFor="let task of queue">
+    <material-list-item *ngFor="let task of (uploadBloc | bloc)?.value">
         <b>{{task.filename}}</b>
     </material-list-item>
 </material-list>
