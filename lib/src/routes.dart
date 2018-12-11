@@ -1,10 +1,11 @@
 import 'package:angular_router/angular_router.dart';
 
-import 'joblist/joblist_component.template.dart' as joblist_template;
-import 'jobdetails/jobdetails_component.template.dart' as jobdetails_template;
-import 'login/login_component.template.dart' as login_template;
 import 'dashboard/dashboard_component.template.dart' as dashboard_template;
+import 'jobdetails/jobdetails_component.template.dart' as jobdetails_template;
+import 'joblist/joblist_component.template.dart' as joblist_template;
+import 'login/login_component.template.dart' as login_template;
 import 'route_paths.dart';
+import 'uploads/uploads_component.template.dart' as uploads_template;
 
 export 'route_paths.dart';
 
@@ -35,6 +36,5 @@ class Routes {
   static final joblist = RouteDefinition(
     routePath: RoutePaths.joblist,
     component: joblist_template.JobListComponentNgFactory,
-    
   );
 }

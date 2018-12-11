@@ -18,12 +18,12 @@ import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/src/client.dart';
 
+import 'src/auth_guard.dart';
 import 'src/auth_provider.dart';
 import 'src/backend_sunrise.dart';
 import 'src/fullscreen_spinner.dart';
 import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
-import 'src/auth_guard.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 

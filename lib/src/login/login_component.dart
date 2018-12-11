@@ -1,11 +1,11 @@
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'package:angular_bloc/angular_bloc.dart';
 import 'package:blocs_copyclient/auth.dart';
 
 import '../auth_provider.dart';
@@ -57,6 +57,8 @@ class LoginComponent implements OnInit {
     cred = Credentials();
   }
 
+  void clearForm() => cred = Credentials();
+
   @override
   void ngOnInit() async {
     authBloc.state.listen((AuthState state) {
@@ -74,15 +76,13 @@ class LoginComponent implements OnInit {
     authBloc.login(cred.username, cred.password);
   }
 
-  void clearForm() => cred = Credentials();
-
-  /// TODO: implement username validation
-  String validateUsername(String input) {
+  /// TODO: implement password validation
+  String validatePassword(String input) {
     return '';
   }
 
-  /// TODO: implement password validation
-  String validatePassword(String input) {
+  /// TODO: implement username validation
+  String validateUsername(String input) {
     return '';
   }
 }

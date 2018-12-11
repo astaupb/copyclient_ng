@@ -3,14 +3,14 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:blocs_copyclient/src/models/job.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
+import 'package:blocs_copyclient/src/models/job.dart';
 import 'package:copyclient_ng/src/backend_sunrise.dart';
 import 'package:http/browser_client.dart';
 
-import '../route_paths.dart';
-import '../auth_provider.dart';
 import '../auth_guard.dart';
+import '../auth_provider.dart';
+import '../route_paths.dart';
 
 @Component(
   selector: 'jobdetails',
@@ -29,6 +29,8 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   JobDetailsComponent(AuthProvider authProvider, Router router, this._location)
       : super(authProvider, router);
 
+  void goBack() => _location.back();
+
   @override
   void onActivate(_, RouterState current) async {
     id = getId(current.parameters);
@@ -41,6 +43,4 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
     _jobBloc.state
         .listen((state) => (state.isResult) ? job = state.value : null);
   }
-
-  void goBack() => _location.back();
 }

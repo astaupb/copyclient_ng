@@ -1,11 +1,10 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
-
 import 'package:blocs_copyclient/auth.dart';
 
-import '../auth_provider.dart';
 import '../auth_guard.dart';
+import '../auth_provider.dart';
 
 @Component(
   selector: 'dashboard',
