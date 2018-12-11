@@ -6,6 +6,4 @@ material-content {
     margin: 0px auto;
     padding-left: 2vw;
     padding-right: 2vw;
-    height: calc(100% - 100px);
-    display: block;
 }

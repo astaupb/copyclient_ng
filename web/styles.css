@@ -1,13 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Material+Icons);
 
-html, body {
-  height: 100%;
-  width: 100%;
-}
-
 body {
-  min-height: 100%;
   margin: 0 auto;
   position: fixed;
   top: 0px;
@@ -20,14 +14,4 @@ body {
 
 * {
   font-family: Roboto, Helvetica, Arial, sans-serif;
-}
-
-copyclient {
-  display: block;
-  height: 100%;
-}
-
-joblist {
-  display: block;
-  height: calc(100% - 100px);
 }
