@@ -1,5 +1,8 @@
 material-list {
     min-width: 100%;
+    max-height: calc(100% - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 material-list-item {
