@@ -1,15 +1,18 @@
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
+import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:copyclient_ng/src/backend_sunrise.dart';
 import 'package:http/browser_client.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/joblist_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -19,28 +22,38 @@ import '../route_paths.dart';
   directives: [
     MaterialButtonComponent,
   ],
+  pipes: [BlocPipe],
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
-  JobBloc _jobBloc;
-  int id;
+  final Backend _backend;
+  final JoblistProvider _joblistProvider;
+  JobBloc jobBloc;
   Location _location;
   Job job;
 
-  JobDetailsComponent(AuthProvider authProvider, Router router, this._location)
+  JobDetailsComponent(this._backend, this._joblistProvider, this._location,
+      AuthProvider authProvider, Router router)
       : super(authProvider, router);
 
   void goBack() => _location.back();
 
   @override
   void onActivate(_, RouterState current) async {
-    id = getId(current.parameters);
-    if (id != null)
-      _jobBloc = JobBloc(
-        BackendSunrise(BrowserClient()),
-        window.localStorage['token'] ?? window.sessionStorage['token'],
-        id: id,
-      );
-    _jobBloc.state
-        .listen((state) => (state.isResult) ? job = state.value : null);
+    print(current.parameters);
+    int id = getId(current.parameters);
+    print(id);
+    if (id != null) {
+      job = _joblistProvider.joblistBloc.jobs.firstWhere((job) => job.id == id);
+      
+      jobBloc = JobBloc(BackendSunrise(BrowserClient()),
+          window.localStorage['token'] ?? window.sessionStorage['token'],
+          id: id);
+
+      jobBloc.state.listen((state) {
+        if (state.isResult) {
+          job = state.value;
+        }
+      });
+    }
   }
 }
