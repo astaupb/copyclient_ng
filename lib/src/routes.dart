@@ -15,6 +15,7 @@ class Routes {
     jobdetails,
     joblist,
     login,
+    uploads,
   ];
 
   static final dashboard = RouteDefinition(
@@ -36,5 +37,10 @@ class Routes {
   static final joblist = RouteDefinition(
     routePath: RoutePaths.joblist,
     component: joblist_template.JobListComponentNgFactory,
+  );
+
+  static final uploads = RouteDefinition(
+    routePath: RoutePaths.uploads,
+    component: uploads_template.UploadsComponentNgFactory,
   );
 }

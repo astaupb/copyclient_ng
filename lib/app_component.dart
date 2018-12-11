@@ -24,6 +24,7 @@ import 'src/backend_sunrise.dart';
 import 'src/fullscreen_spinner.dart';
 import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
+import 'src/providers/uploads_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -63,6 +64,7 @@ PopupSizeProvider createPopupSizeProvider() {
     popupBindings,
     routerProvidersHash,
     ClassProvider(AuthProvider),
+    ClassProvider(UploadsProvider),
     ClassProvider(Backend, useClass: BackendSunrise),
     ClassProvider(Client, useClass: BrowserClient),
   ],
@@ -79,7 +81,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool customWidth = true;
   bool appBusy = false;
 
-  AppComponent(AuthProvider auth, this._location, this._router) {
+  AppComponent(AuthProvider auth, UploadsProvider uploads, this._location, this._router) {
     authBloc = auth.authBloc;
   }
 
