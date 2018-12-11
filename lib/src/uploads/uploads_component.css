@@ -1,6 +1,6 @@
 .bottom-right-fab {
-    position: absolute;
-    bottom: 8px;
+    position: fixed;
+    bottom: 32px;
     right: 8px;
     background-color: teal;
     color: whitesmoke;
