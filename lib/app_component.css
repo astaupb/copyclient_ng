@@ -11,3 +11,7 @@ material-content {
 material-header {
     background-color: #d81b60;
 }
+
+.drawer-link {
+    text-decoration-line: none;
+}

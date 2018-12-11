@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
@@ -29,14 +30,16 @@ import '../route_paths.dart';
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
   final Backend _backend;
-  final JoblistProvider _joblistProvider;
+  JoblistBloc joblistBloc;
   JobBloc jobBloc;
   Location _location;
   Job job;
 
-  JobDetailsComponent(this._backend, this._joblistProvider, this._location,
-      AuthProvider authProvider, Router router)
-      : super(authProvider, router);
+  JobDetailsComponent(this._backend, JoblistProvider joblistProvider,
+      this._location, AuthProvider authProvider, Router router)
+      : super(authProvider, router) {
+    joblistBloc = joblistProvider.joblistBloc;
+  }
 
   void goBack() => _location.back();
 
@@ -44,20 +47,25 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
     if (id != null) {
-      if (_joblistProvider.joblistBloc.jobs == null)
-        job =
-            _joblistProvider.joblistBloc.jobs.firstWhere((job) => job.id == id);
-
       jobBloc = JobBloc(BackendSunrise(BrowserClient()));
-
-      jobBloc.onStart(
-          job, window.sessionStorage['token'] ?? window.localStorage['token']);
 
       jobBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value;
         }
       });
+
+      joblistBloc.state.first.then((state) {
+        if (state.isResult) {
+          job = state.value.firstWhere((Job job) => job.id == id);
+          jobBloc.onStart(job,
+              window.sessionStorage['token'] ?? window.localStorage['token']);
+        }
+      });
+
+      if (joblistBloc.jobs == null) {
+        joblistBloc.onRefresh();
+      }
     }
   }
 }

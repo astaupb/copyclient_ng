@@ -1,6 +1,6 @@
 <material-button (trigger)="goBack()">Zurück</material-button>
 
-<h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
+<h2>Jobdetails für {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}</h2>
 
 <div class="mdc-card mdc-card--outlined">
     <h4>Optionen</h4>
