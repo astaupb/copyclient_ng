@@ -7,3 +7,7 @@ material-content {
     padding-left: 2vw;
     padding-right: 2vw;
 }
+
+material-header {
+    background-color: #d81b60;
+}

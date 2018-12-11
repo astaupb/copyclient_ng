@@ -24,3 +24,11 @@ material-list-item {
 #show-details-button {
     grid-column: 4;
 }
+
+.bottom-right-fab {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background-color: teal;
+    color: whitesmoke;
+}

@@ -6,6 +6,7 @@ import 'dart:io' as io;
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_list/material_list.dart';
 import 'package:angular_components/material_list/material_list_item.dart';
@@ -30,6 +31,7 @@ import '../route_paths.dart';
     MaterialListItemComponent,
     MaterialIconComponent,
     MaterialButtonComponent,
+    MaterialFabComponent,
   ],
   pipes: [commonPipes, BlocPipe],
   exports: [DateTime],
@@ -40,18 +42,14 @@ class JobListComponent extends AuthGuard implements OnActivate {
   Location location;
   Router _router;
 
-  JobListComponent(
-      Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider, this._router, this.location)
-      : uploadBloc = UploadBloc(backend,
-            window.localStorage['token'] ?? window.sessionStorage['token']),
-        super(authProvider, _router) {
-          jobsBloc = joblistProvider.joblistBloc;
-        }
+  JobListComponent(Backend backend, JoblistProvider joblistProvider,
+      AuthProvider authProvider, this._router, this.location)
+      : super(authProvider, _router) {
+    jobsBloc = joblistProvider.joblistBloc;
+  }
 
   @override
   void onActivate(_, __) {
-    jobsBloc.onStart();
-
     // Listen for uploadJob event to be called by our custom JS
     document.on["uploadJob"].listen((Event event) {
       CustomEvent ce = (event as CustomEvent);
@@ -79,5 +77,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
   void showJobDetails(int id) {
     print('showing job details for $id');
     _router.navigateByUrl(jobDetailsUrl(id));
+  }
+
+  void refreshJobs() {
+    print('refresh those jobs dude');
+    jobsBloc.onRefresh();
   }
 }

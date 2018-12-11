@@ -18,7 +18,10 @@ import '../route_paths.dart';
 @Component(
   selector: 'jobdetails',
   templateUrl: 'jobdetails_component.html',
-  styleUrls: ['jobdetails_component.css'],
+  styleUrls: [
+    'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
+    'jobdetails_component.css'
+  ],
   directives: [
     MaterialButtonComponent,
   ],
@@ -39,15 +42,16 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
 
   @override
   void onActivate(_, RouterState current) async {
-    print(current.parameters);
     int id = getId(current.parameters);
-    print(id);
     if (id != null) {
-      job = _joblistProvider.joblistBloc.jobs.firstWhere((job) => job.id == id);
-      
-      jobBloc = JobBloc(BackendSunrise(BrowserClient()),
-          window.localStorage['token'] ?? window.sessionStorage['token'],
-          id: id);
+      if (_joblistProvider.joblistBloc.jobs == null)
+        job =
+            _joblistProvider.joblistBloc.jobs.firstWhere((job) => job.id == id);
+
+      jobBloc = JobBloc(BackendSunrise(BrowserClient()));
+
+      jobBloc.onStart(
+          job, window.sessionStorage['token'] ?? window.localStorage['token']);
 
       jobBloc.state.listen((state) {
         if (state.isResult) {

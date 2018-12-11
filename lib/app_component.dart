@@ -14,7 +14,9 @@ import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_components/material_popup/material_popup.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
+import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
+import 'package:blocs_copyclient/upload.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/src/client.dart';
 
@@ -74,7 +76,11 @@ PopupSizeProvider createPopupSizeProvider() {
 )
 class AppComponent implements OnInit, OnDestroy {
   Router _router;
+  
   AuthBloc authBloc;
+  JoblistBloc joblistBloc;
+  UploadBloc uploadBloc;
+
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -82,13 +88,17 @@ class AppComponent implements OnInit, OnDestroy {
   bool customWidth = true;
   bool appBusy = false;
 
-  AppComponent(AuthProvider auth, UploadsProvider uploads, this._router) {
-    authBloc = auth.authBloc;
+  AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider, UploadsProvider uploadsProvider, this._router) {
+    authBloc = authProvider.authBloc;
+    joblistBloc = joblistProvider.joblistBloc;
+    uploadBloc = uploadsProvider.uploadBloc;
   }
 
   @override
   void ngOnDestroy() {
     authBloc.dispose();
+    joblistBloc.dispose();
+    uploadBloc.dispose();
   }
 
   @override
@@ -99,6 +109,8 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (state.isAuthorized) {
         authorized = true;
         appBusy = false;
+        joblistBloc.onStart(state.token);
+        uploadBloc.onStart(state.token);
       } else if (state.isUnauthorized) {
         authorized = false;
         appBusy = false;

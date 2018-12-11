@@ -41,9 +41,6 @@ class UploadsComponent extends AuthGuard implements OnInit {
         statusString = 'Error: ${state.error.toString()}';
       }
     });
-
-    // start bloc logic
-    uploadBloc.onStart();
   }
 
   void onUploadFileSelected(List<File> files) {

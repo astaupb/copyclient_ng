@@ -10,7 +10,8 @@ void main() {
 
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) {
-    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    print(
+        '${rec.level.name}: ${rec.time.toString().split(' ')[1]}: ${rec.loggerName}: ${rec.message}');
   });
 }
 

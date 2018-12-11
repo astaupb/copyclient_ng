@@ -8,11 +8,8 @@ import '../backend_sunrise.dart';
 
 @Injectable()
 class UploadsProvider {
-  static String _token =
-      window.localStorage['token'] ?? window.sessionStorage['token'];
-
   static final UploadsProvider _singleton = UploadsProvider._internal(
-    UploadBloc(BackendSunrise(BrowserClient()), _token),
+    UploadBloc(BackendSunrise(BrowserClient())),
   );
 
   UploadBloc uploadBloc;
