@@ -34,7 +34,10 @@ import '../route_paths.dart';
     MaterialFabComponent,
   ],
   pipes: [commonPipes, BlocPipe],
-  exports: [DateTime],
+  exports: [
+    DateTime,
+    jobDetailsUrl,
+  ],
 )
 class JobListComponent extends AuthGuard implements OnActivate {
   JoblistBloc jobsBloc;

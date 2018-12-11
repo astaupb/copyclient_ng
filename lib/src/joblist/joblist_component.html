@@ -1,21 +1,24 @@
 <material-list size="x-large">
-    <material-list-item class="job-item" *ngFor="let job of ((jobsBloc | bloc)?.value?.reversed)">
-        <material-button>
-            <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
-        </material-button>
-        <div>
-            <b><span id="filename">{{job.jobInfo?.filename}}</span></b><br>
-            <span id="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
-                1000).toString().split('.')[0]}}</span>
-            <span>{{job?.id}}</span>
-        </div>
-        <material-button id="print-button" (trigger)="printJob(job.id)">
-            <material-icon icon="print"></material-icon>
-        </material-button>
-        <material-button id="show-details-button" (trigger)="showJobDetails(job.id)">
-            <material-icon icon="navigate_next"></material-icon>
-        </material-button>
-    </material-list-item>
+    <a *ngFor="let job of ((jobsBloc | bloc)?.value?.reversed)" [routerLink]="jobDetailsUrl(job.id)">
+        <material-list-item class="job-item">
+            <material-button>
+                <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
+            </material-button>
+            <div>
+                <b><span id="filename">{{job.jobInfo?.filename}}</span></b><br>
+                <span id="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
+                    1000).toString().split('.')[0]}}</span>
+                <span>{{job?.id}}</span>
+            </div>
+            <material-button id="print-button" (trigger)="printJob(job.id)">
+                <material-icon icon="print"></material-icon>
+            </material-button>
+            <material-button id="show-details-button" (trigger)="showJobDetails(job.id)">
+                <material-icon icon="navigate_next"></material-icon>
+            </material-button>
+        </material-list-item>
+    </a>
+
 </material-list>
 
 <footer>

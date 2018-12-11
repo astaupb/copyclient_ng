@@ -33,3 +33,7 @@ material-list-item {
     background-color: teal;
     color: whitesmoke;
 }
+
+a {
+    text-decoration-line: none;
+}
