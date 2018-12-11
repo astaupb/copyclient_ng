@@ -16,6 +16,7 @@ import 'package:blocs_copyclient/upload.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/joblist_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -40,12 +41,12 @@ class JobListComponent extends AuthGuard implements OnActivate {
   Router _router;
 
   JobListComponent(
-      Backend backend, AuthProvider authProvider, this._router, this.location)
-      : jobsBloc = JoblistBloc(backend,
+      Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider, this._router, this.location)
+      : uploadBloc = UploadBloc(backend,
             window.localStorage['token'] ?? window.sessionStorage['token']),
-        uploadBloc = UploadBloc(backend,
-            window.localStorage['token'] ?? window.sessionStorage['token']),
-        super(authProvider, _router);
+        super(authProvider, _router) {
+          jobsBloc = joblistProvider.joblistBloc;
+        }
 
   @override
   void onActivate(_, __) {
