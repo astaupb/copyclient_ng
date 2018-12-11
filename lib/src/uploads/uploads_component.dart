@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
@@ -30,6 +32,7 @@ class UploadsComponent extends AuthGuard implements OnInit {
 
   @override
   void ngOnInit() {
+    // init listener for uploadBloc states
     uploadBloc.state.listen((UploadState state) {
       if (state.isResult) {
         queue = state.value;
@@ -38,6 +41,24 @@ class UploadsComponent extends AuthGuard implements OnInit {
         statusString = 'Error: ${state.error.toString()}';
       }
     });
+
+    // start bloc logic
     uploadBloc.onStart();
+  }
+
+  void onUploadFileSelected(List<File> files) {
+    print(files
+        .expand<String>((file) => [file.name, file.lastModified.toString()]));
+
+    var reader = FileReader();
+
+    reader.readAsArrayBuffer(files[0]);
+
+    reader.onLoadEnd.listen((progress) {
+      print('uploading into bloc ${progress.loaded.toString()}/${progress.total}');
+      if (progress.loaded == progress.total)
+        uploadBloc.onUpload(reader.result as List<int>,
+            filename: files[0].name, color: true);
+    });
   }
 }

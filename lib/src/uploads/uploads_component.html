@@ -1,6 +1,10 @@
 <h2>Uploads</h2>
 <label>{{statusString}}</label>
 
+<p>
+    <input #jobUpload type="file" accept="application/pdf" (change)="onUploadFileSelected(jobUpload.files)">
+</p>
+
 <material-list>
     <material-list-item *ngFor="let task of queue">
         <b>{{task.filename}}</b>
