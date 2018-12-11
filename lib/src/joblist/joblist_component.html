@@ -1,7 +1,7 @@
 <h2>Jobliste:</h2>
 
 <material-list size="x-large">
-    <material-list-item class="job-item" *ngFor="let job of ((jobsBloc | bloc)?.value)">
+    <material-list-item class="job-item" *ngFor="let job of ((jobsBloc | bloc)?.value?.reversed)">
         <material-button>
             <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
         </material-button>
