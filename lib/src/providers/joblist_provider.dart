@@ -8,7 +8,8 @@ import '../backend_sunrise.dart';
 
 @Injectable()
 class JoblistProvider {
-  static String _token;
+  static String _token = window.localStorage['token'];
+  
   static final JoblistProvider _singleton = JoblistProvider._internal(
     JoblistBloc(BackendSunrise(BrowserClient()), _token),
   );
@@ -17,8 +18,5 @@ class JoblistProvider {
 
   factory JoblistProvider() => _singleton;
 
-  JoblistProvider._internal(this.joblistBloc) {
-    _token =
-        window.localStorage['token'] ?? window.sessionStorage['token'] ?? '';
-  }
+  JoblistProvider._internal(this.joblistBloc);
 }
