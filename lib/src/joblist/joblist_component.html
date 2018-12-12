@@ -4,7 +4,7 @@
             <!-- material-button> <-->
                 <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
             <!-- /material-button> <-->
-            <div>
+            <div [routerLink]="jobDetailsUrl(job.id)">
                 <b><span id="filename">{{job.jobInfo?.filename}}</span></b><br>
                 <span id="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
