@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -86,6 +88,7 @@ class AppComponent implements OnInit, OnDestroy {
   RelativePosition popupPosition = RelativePosition.OffsetBottomLeft;
   bool customWidth = true;
   bool appBusy = false;
+  StreamSubscription<Event> uploadListener;
 
   AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider, UploadsProvider uploadsProvider, this._router) {
     authBloc = authProvider.authBloc;
@@ -108,6 +111,7 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (state.isAuthorized) {
         authorized = true;
         appBusy = false;
+        onLogin();
         joblistBloc.onStart(state.token);
         uploadBloc.onStart(state.token);
       } else if (state.isUnauthorized) {
@@ -127,8 +131,27 @@ class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  onLogin() {
+      // Listen for uploadJob event to be called by our custom JS
+    uploadListener = document.on["uploadJob"].listen((Event event) {
+      CustomEvent ce = (event as CustomEvent);
+
+      // This converts event's payload from JSON to a Dart Map.
+      Map payload = jsonDecode(ce.detail);
+      String filename = payload['filename'];
+      List<int> data = base64Decode(payload['data']);
+
+      uploadBloc.onUpload(data, filename: filename);
+    });
+
+    // Tell our custom JS to start watching for fakeprinting
+    document.dispatchEvent(new CustomEvent("setupWatches"));
+    document.dispatchEvent(new CustomEvent("setupDragDrop"));
+  }
+
   onLogout() {
     authBloc.logout();
+    uploadListener.cancel();
     window.sessionStorage.remove('token');
     window.localStorage.remove('token');
     document.dispatchEvent(new CustomEvent("unsetWatches"));

@@ -51,23 +51,15 @@ class JobListComponent extends AuthGuard implements OnActivate {
     jobsBloc = joblistProvider.joblistBloc;
   }
 
+  void deleteJob(int id)
+  {
+    jobsBloc.onDeleteById(id);
+    jobsBloc.onRefresh();
+  }
+
   @override
   void onActivate(_, __) {
-    // Listen for uploadJob event to be called by our custom JS
-    document.on["uploadJob"].listen((Event event) {
-      CustomEvent ce = (event as CustomEvent);
 
-      // This converts event's payload from JSON to a Dart Map.
-      Map payload = jsonDecode(ce.detail);
-      String filename = payload['filename'];
-      List<int> data = base64Decode(payload['data']);
-
-      uploadBloc.onUpload(data, filename: filename);
-    });
-
-    // Tell our custom JS to start watching for fakeprinting
-    document.dispatchEvent(new CustomEvent("setupWatches"));
-    document.dispatchEvent(new CustomEvent("setupDragDrop"));
   }
 
   void printJob(int id) {
@@ -77,19 +69,13 @@ class JobListComponent extends AuthGuard implements OnActivate {
     jobsBloc.onPrintbyId('42000', id);
   }
 
-  void deleteJob(int id)
-  {
-    jobsBloc.onDeleteById(id);
+  void refreshJobs() {
+    print('refresh those jobs dude');
     jobsBloc.onRefresh();
   }
 
   void showJobDetails(int id) {
     print('showing job details for $id');
     _router.navigateByUrl(jobDetailsUrl(id));
-  }
-
-  void refreshJobs() {
-    print('refresh those jobs dude');
-    jobsBloc.onRefresh();
   }
 }
