@@ -77,6 +77,12 @@ class JobListComponent extends AuthGuard implements OnActivate {
     jobsBloc.onPrintbyId('42000', id);
   }
 
+  void deleteJob(int id)
+  {
+    jobsBloc.onDeleteById(id);
+    jobsBloc.onRefresh();
+  }
+
   void showJobDetails(int id) {
     print('showing job details for $id');
     _router.navigateByUrl(jobDetailsUrl(id));
