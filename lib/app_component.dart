@@ -90,6 +90,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool appBusy = false;
   StreamSubscription<Event> uploadListener;
 
+  bool _kiosk = false;
   bool _kioskPrint = false;
   Map _kioskPayload;
 
@@ -114,9 +115,9 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (state.isAuthorized) {
         authorized = true;
         appBusy = false;
-        onLogin();
         joblistBloc.onStart(state.token);
         uploadBloc.onStart(state.token);
+        onLogin();
       } else if (state.isUnauthorized) {
         authorized = false;
         appBusy = false;
@@ -128,11 +129,15 @@ class AppComponent implements OnInit, OnDestroy {
     document.on["logout"].listen((Event event) {
       onLogout();
     });
+    document.on["isKiosk"].listen((Event event) {
+      _kiosk = true;
+    });
     document.on["kioskUpload"].listen((Event event) {
       CustomEvent ce = (event as CustomEvent);
       _kioskPrint = true;
       _kioskPayload = jsonDecode(ce.detail);
     });
+    document.dispatchEvent(new CustomEvent("requestKioskStatus"));
   }
 
   onLogin() {
@@ -143,13 +148,27 @@ class AppComponent implements OnInit, OnDestroy {
       uploadBloc.onUpload(data, filename: filename, color: true);
       uploadBloc.state.listen((UploadState state) {
         if (state.isResult) {
-          document.dispatchEvent(new CustomEvent("kioskUploadDone"));
-          onLogout();
+          List<DispatcherTask> queue = state.toMap()["queue"];
+          print(queue);
+          if (queue.length > 0) {
+            bool doLogout = true;
+            queue.forEach((DispatcherTask queueitem) {
+              if (queueitem.toMap()["isUploading"]) {
+                doLogout = false;
+              }
+            });
+            if (doLogout) {
+              onLogout();
+              document.dispatchEvent(new CustomEvent("kioskUploadDone"));
+            }
+          }
         } else if (state.isException) {
           document.dispatchEvent(new CustomEvent("uploadException"));
         }
       });
       _kioskPrint = false;
+    } else if(_kiosk) {
+      onLogout();
     } else {
         // Listen for uploadJob event to be called by our custom JS
       uploadListener = document.on["uploadJob"].listen((Event event) {
@@ -170,10 +189,16 @@ class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    authBloc.logout();
-    uploadListener.cancel();
-    window.sessionStorage.remove('token');
-    window.localStorage.remove('token');
+    if (authorized) {
+      if (authBloc != null) {
+        authBloc.logout();
+      }
+      if (uploadListener != null) {
+        uploadListener.cancel();
+      }
+      window.sessionStorage.remove('token');
+      window.localStorage.remove('token');
+    }
     document.dispatchEvent(new CustomEvent("unsetWatches"));
     document.dispatchEvent(new CustomEvent("unsetDragDrop"));
     _router.navigate(RoutePaths.login.path);
