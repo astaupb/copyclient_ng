@@ -90,6 +90,9 @@ class AppComponent implements OnInit, OnDestroy {
   bool appBusy = false;
   StreamSubscription<Event> uploadListener;
 
+  bool _kioskPrint = false;
+  Map _kioskPayload;
+
   AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider, UploadsProvider uploadsProvider, this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
@@ -125,24 +128,45 @@ class AppComponent implements OnInit, OnDestroy {
     document.on["logout"].listen((Event event) {
       onLogout();
     });
+    document.on["kioskUpload"].listen((Event event) {
+      CustomEvent ce = (event as CustomEvent);
+      _kioskPrint = true;
+      _kioskPayload = jsonDecode(ce.detail);
+    });
   }
 
   onLogin() {
-      // Listen for uploadJob event to be called by our custom JS
-    uploadListener = document.on["uploadJob"].listen((Event event) {
-      CustomEvent ce = (event as CustomEvent);
-
-      // This converts event's payload from JSON to a Dart Map.
-      Map payload = jsonDecode(ce.detail);
-      String filename = payload['filename'];
-      List<int> data = base64Decode(payload['data']);
+    if (_kioskPrint) {
+      String filename = _kioskPayload['filename'];
+      List<int> data = base64Decode(_kioskPayload['data']);
 
       uploadBloc.onUpload(data, filename: filename);
-    });
+      uploadBloc.state.listen((UploadState state) {
+        if (state.isResult) {
+          document.dispatchEvent(new CustomEvent("kioskUploadDone"));
+          onLogout();
+        } else if (state.isException) {
+          document.dispatchEvent(new CustomEvent("uploadException"));
+        }
+      });
+      _kioskPrint = false;
+    } else {
+        // Listen for uploadJob event to be called by our custom JS
+      uploadListener = document.on["uploadJob"].listen((Event event) {
+        CustomEvent ce = (event as CustomEvent);
 
-    // Tell our custom JS to start watching for fakeprinting
-    document.dispatchEvent(new CustomEvent("setupWatches"));
-    document.dispatchEvent(new CustomEvent("setupDragDrop"));
+        // This converts event's payload from JSON to a Dart Map.
+        Map payload = jsonDecode(ce.detail);
+        String filename = payload['filename'];
+        List<int> data = base64Decode(payload['data']);
+
+        uploadBloc.onUpload(data, filename: filename);
+      });
+
+      // Tell our custom JS to start watching for fakeprinting
+      document.dispatchEvent(new CustomEvent("setupWatches"));
+      document.dispatchEvent(new CustomEvent("setupDragDrop"));
+    }
   }
 
   onLogout() {
