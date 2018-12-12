@@ -76,7 +76,7 @@ PopupSizeProvider createPopupSizeProvider() {
 )
 class AppComponent implements OnInit, OnDestroy {
   Router _router;
-  
+
   AuthBloc authBloc;
   JoblistBloc joblistBloc;
   UploadBloc uploadBloc;
@@ -117,6 +117,13 @@ class AppComponent implements OnInit, OnDestroy {
         appBusy = false;
         authorized = false;
       }
+    });
+    document.dispatchEvent(new CustomEvent("askForKioskMode"));
+    document.on["confirmKioskMode"].listen((Event event) {
+      // TODO: Strip down to kiosk client
+    });
+    document.on["denyKioskMode"].listen((Event event) {
+      // TODO: Maybe, do nothing?
     });
   }
 
