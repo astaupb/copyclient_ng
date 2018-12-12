@@ -122,12 +122,8 @@ class AppComponent implements OnInit, OnDestroy {
         authorized = false;
       }
     });
-    document.dispatchEvent(new CustomEvent("askForKioskMode"));
-    document.on["confirmKioskMode"].listen((Event event) {
-      // TODO: Strip down to kiosk client
-    });
-    document.on["denyKioskMode"].listen((Event event) {
-      // TODO: Maybe, do nothing?
+    document.on["logout"].listen((Event event) {
+      onLogout();
     });
   }
 
