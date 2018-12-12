@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
@@ -24,7 +25,9 @@ import '../route_paths.dart';
     'jobdetails_component.css'
   ],
   directives: [
+    NgIf,
     MaterialButtonComponent,
+    MaterialToggleComponent,
   ],
   pipes: [BlocPipe],
 )

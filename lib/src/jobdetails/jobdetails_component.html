@@ -1,8 +1,16 @@
 <material-button (trigger)="goBack()">Zurück</material-button>
 
-<h2>Jobdetails für {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}</h2>
+<h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
 
 <div class="mdc-card mdc-card--outlined">
-    <h4>Optionen</h4>
-
+    <h4>Infos: {{job?.jobInfo.toString()}}</h4>
 </div>
+
+<div class="mdc-card mdc-card--outlined">
+    <h4>Optionen: {{job?.jobOptions.toString()}}</h4>
+</div>
+
+<div class="mdc-card mdc-card--outlined">
+    <h4>Erwartete Kosten: {{job?.priceEstimation}}</h4>
+</div>
+
