@@ -140,7 +140,7 @@ class AppComponent implements OnInit, OnDestroy {
       String filename = _kioskPayload['filename'];
       List<int> data = base64Decode(_kioskPayload['data']);
 
-      uploadBloc.onUpload(data, filename: filename);
+      uploadBloc.onUpload(data, filename: filename, color: true);
       uploadBloc.state.listen((UploadState state) {
         if (state.isResult) {
           document.dispatchEvent(new CustomEvent("kioskUploadDone"));
