@@ -1,7 +1,7 @@
 material-content {
-    max-width: 900px;
+    max-width: calc(100% - 256px - 4vw);
     max-height: calc(100% - 96px);
-    overflow-y: scroll;
+    overflow-y: auto;
     position: absolute;
     margin: 0px auto;
     padding-top: 1vw;
