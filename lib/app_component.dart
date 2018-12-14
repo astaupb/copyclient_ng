@@ -148,12 +148,12 @@ class AppComponent implements OnInit, OnDestroy {
       uploadBloc.onUpload(data, filename: filename, color: true);
       uploadBloc.state.listen((UploadState state) {
         if (state.isResult) {
-          List<DispatcherTask> queue = state.toMap()["queue"];
+          List<DispatcherTask> queue = state.value;
           print(queue);
           if (queue.length > 0) {
             bool doLogout = true;
             queue.forEach((DispatcherTask queueitem) {
-              if (queueitem.toMap()["isUploading"]) {
+              if (queueitem.isUploading) {
                 doLogout = false;
               }
             });
