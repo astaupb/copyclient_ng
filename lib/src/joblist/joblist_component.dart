@@ -49,15 +49,14 @@ class JobListComponent extends AuthGuard implements OnActivate {
     jobsBloc = joblistProvider.joblistBloc;
   }
 
-  void deleteJob(int id)
-  {
+  void deleteJob(int id) {
     jobsBloc.onDeleteById(id);
     jobsBloc.onRefresh();
   }
 
   @override
   void onActivate(_, __) {
-
+    refreshJobs();
   }
 
   void printJob(int id) {

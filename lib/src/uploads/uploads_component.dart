@@ -56,14 +56,17 @@ class UploadsComponent extends AuthGuard implements OnInit {
 
     reader.readAsArrayBuffer(files[0]);
 
-    reader.onLoadEnd.listen((progress) {
+    reader.onLoadEnd.listen((progress) async {
       print(
           'uploading into bloc ${progress.loaded.toString()}/${progress.total}');
-      if (progress.loaded == progress.total)
+      if (progress.loaded == progress.total) {
         uploadBloc.onUpload(reader.result as List<int>,
             filename: files[0].name, color: true);
+        await Future.delayed(Duration(seconds: 1));
+        refreshQueue();
+      }
     });
   }
 
-  void reloadQueue() => uploadBloc.onRefresh();
+  void refreshQueue() => uploadBloc.onRefresh();
 }

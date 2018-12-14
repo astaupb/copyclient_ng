@@ -94,7 +94,8 @@ class AppComponent implements OnInit, OnDestroy {
   bool _kioskPrint = false;
   Map _kioskPayload;
 
-  AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider, UploadsProvider uploadsProvider, this._router) {
+  AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider,
+      UploadsProvider uploadsProvider, this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
@@ -167,10 +168,10 @@ class AppComponent implements OnInit, OnDestroy {
         }
       });
       _kioskPrint = false;
-    } else if(_kiosk) {
+    } else if (_kiosk) {
       onLogout();
     } else {
-        // Listen for uploadJob event to be called by our custom JS
+      // Listen for uploadJob event to be called by our custom JS
       uploadListener = document.on["uploadJob"].listen((Event event) {
         CustomEvent ce = (event as CustomEvent);
 
