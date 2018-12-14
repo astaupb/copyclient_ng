@@ -29,7 +29,10 @@ import '../route_paths.dart';
     MaterialButtonComponent,
     MaterialToggleComponent,
   ],
-  pipes: [BlocPipe],
+  pipes: [
+    BlocPipe,
+    DecimalPipe,
+  ],
   exports: [base64Encode],
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
@@ -37,6 +40,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   JobBloc jobBloc;
   Location _location;
   Job job;
+  double estimatedDouble = 0.0;
 
   JobDetailsComponent(JoblistProvider joblistProvider, this._location,
       AuthProvider authProvider, Router router)
@@ -55,6 +59,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
       jobBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value;
+          estimatedDouble = (state.value.priceEstimation as double) / 10.0;
           if (job.previews.length == 0) jobBloc.onGetPreview();
         }
       });

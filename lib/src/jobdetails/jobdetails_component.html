@@ -27,7 +27,7 @@
             <label>A3:</label>
             <!--material-checkbox-->
             <label>Seitenbereich:</label>
-            <input name="pagerange" type="text">
+            <input name="pagerange" type="text">˚˚
             <label>Seiten pro Blatt:</label>
             <!--material-chooser-->
             <label>Reihenfolge auf dem Blatt:</label>
@@ -36,11 +36,11 @@
         </div>
 
         <div class="mdc-card mdc-card--outlined job-card">
-            <h4>Erwartete Kosten: {{(jobBloc | bloc)?.value?.priceEstimation}} Cent</h4>
+            <h4>Erwartete Kosten: {{ (estimatedDouble | number:'1.2-2')?.toString() }} €</h4>
         </div>
     </div>
 
-    <div id="preview-container" *ngIf="(jobBloc | bloc)?.value?.hasPreview">
+    <!--<div id="preview-container" *ngIf="(jobBloc | bloc)?.value?.hasPreview">
         <img class="preview-image" [src]="'data:image/jpeg;base64,' + base64Encode(job?.previews?.first)">
-    </div>
+    </div>-->
 </div>
