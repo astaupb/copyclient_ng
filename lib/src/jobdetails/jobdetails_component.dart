@@ -8,7 +8,6 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
-import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:copyclient_ng/src/backend_sunrise.dart';
 import 'package:http/browser_client.dart';
 
@@ -32,14 +31,13 @@ import '../route_paths.dart';
   pipes: [BlocPipe],
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
-  final Backend _backend;
   JoblistBloc joblistBloc;
   JobBloc jobBloc;
   Location _location;
   Job job;
 
-  JobDetailsComponent(this._backend, JoblistProvider joblistProvider,
-      this._location, AuthProvider authProvider, Router router)
+  JobDetailsComponent(JoblistProvider joblistProvider, this._location,
+      AuthProvider authProvider, Router router)
       : super(authProvider, router) {
     joblistBloc = joblistProvider.joblistBloc;
   }
