@@ -56,7 +56,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
         }
       });
 
-      joblistBloc.state.first.then((state) {
+      joblistBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value.firstWhere((Job job) => job.id == id);
           jobBloc.onStart(job,
