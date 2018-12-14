@@ -1,16 +1,46 @@
 <material-button (trigger)="goBack()">Zurück</material-button>
 
-<h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
+<h2>Jobdetails für {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}</h2>
 
-<div class="mdc-card mdc-card--outlined">
-    <h4>Infos: {{job?.jobInfo.toString()}}</h4>
+<div id="jobdetails">
+    <div id="card-grid">
+        <div class="mdc-card mdc-card--outlined job-card">
+            <b>Infos:</b>
+            <label>Dateiname:</label>
+            {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}
+            <label>Seitenzahl:</label>
+            {{ (jobBloc | bloc)?.value?.jobInfo?.pagecount?.toString() }}
+            <label>Farbe:</label>
+            {{ (jobBloc | bloc)?.value?.jobInfo?.color?.toString() }}
+            <label>A3:</label>
+            {{ (jobBloc | bloc)?.value?.jobInfo?.a3?.toString() }}
+        </div>
+
+        <div class="mdc-card mdc-card--outlined job-card">
+            <b>Optionen:</b>
+            <label>Duplex:</label>
+            <!--material-checkbox-->
+            <label>Anzahl Kopien:</label>
+            <input name="copies" type="number">
+            <label>Kopien zusammenstellen:</label>
+            <!--material-checkbox-->
+            <label>A3:</label>
+            <!--material-checkbox-->
+            <label>Seitenbereich:</label>
+            <input name="pagerange" type="text">
+            <label>Seiten pro Blatt:</label>
+            <!--material-chooser-->
+            <label>Reihenfolge auf dem Blatt:</label>
+            <!--material-chooser-->
+            {{ (jobBloc | bloc)?.value?.jobOptions.toString() }}
+        </div>
+
+        <div class="mdc-card mdc-card--outlined job-card">
+            <h4>Erwartete Kosten: {{(jobBloc | bloc)?.value?.priceEstimation}} Cent</h4>
+        </div>
+    </div>
+
+    <div id="preview-container" *ngIf="(jobBloc | bloc)?.value?.hasPreview">
+        <img class="preview-image" [src]="'data:image/jpeg;base64,' + base64Encode(job?.previews?.first)">
+    </div>
 </div>
-
-<div class="mdc-card mdc-card--outlined">
-    <h4>Optionen: {{job?.jobOptions.toString()}}</h4>
-</div>
-
-<div class="mdc-card mdc-card--outlined">
-    <h4>Erwartete Kosten: {{job?.priceEstimation}}</h4>
-</div>
-

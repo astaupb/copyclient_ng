@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:convert';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
@@ -29,6 +30,7 @@ import '../route_paths.dart';
     MaterialToggleComponent,
   ],
   pipes: [BlocPipe],
+  exports: [base64Encode],
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
   JoblistBloc joblistBloc;
@@ -53,6 +55,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
       jobBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value;
+          if (job.previews.length == 0) jobBloc.onGetPreview();
         }
       });
 

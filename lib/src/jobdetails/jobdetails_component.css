@@ -1,0 +1,23 @@
+#jobdetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#card-grid {
+    grid-column: 1;
+}
+
+#preview-container {
+    grid-column: 2;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.job-card {
+    padding: 1vw;
+}
