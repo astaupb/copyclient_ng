@@ -59,7 +59,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
       jobBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value;
-          estimatedDouble = (state.value.priceEstimation as double) / 10.0;
+          estimatedDouble = (state.value.priceEstimation as double) / 100.0;
           if (job.previews.length == 0) jobBloc.onGetPreview();
         }
       });
