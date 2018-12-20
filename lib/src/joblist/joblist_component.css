@@ -1,6 +1,8 @@
 material-list {
-    min-width: 100%;
+    width: 100%;
+    max-width: 900px;
     margin-bottom: 48px;
+    padding-bottom: 0px;
 }
 
 material-list-item {
@@ -24,14 +26,6 @@ material-list-item {
 
 #show-details-button {
     grid-column: 4;
-}
-
-.bottom-right-fab {
-    position: fixed;
-    bottom: 32px;
-    right: 8px;
-    background-color: teal;
-    color: whitesmoke;
 }
 
 a {

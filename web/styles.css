@@ -22,9 +22,9 @@ footer {
   bottom: 0px;
   min-height: 16px;
   max-height: 32px;
-  left: 256px;
-  width: calc(100% - 256px);
-  background-color: teal;
+  width: 100%;
+  max-width: 924px;
+  background-color: lightslategray;
   color: whitesmoke;
   padding: 2px;
   display: grid;
