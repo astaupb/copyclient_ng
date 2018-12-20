@@ -1,20 +1,19 @@
 <material-list>
     <a *ngFor="let job of ((jobsBloc | bloc)?.value?.reversed)">
         <material-list-item class="job-item">
-            <!-- material-button> <-->
+            <material-button (trigger)="keepJob(job.id)">
                 <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
-            <!-- /material-button> <-->
-            <div [routerLink]="jobDetailsUrl(job.id)">
-                <b><span id="filename">{{job.jobInfo?.filename}}</span></b><br>
-                <span id="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
+            </material-button>
+            <div class="jobitem-info" [routerLink]="jobDetailsUrl(job.id)">
+                <b><span class="filename">{{job.jobInfo?.filename}}</span></b><br>
+                <span class="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
-                <span>id: {{job?.id}}</span>
             </div>
-            <material-button id="delete-button" (trigger)="deleteJob(job.id)">
+            <material-button class="delete-button" (trigger)="deleteJob(job.id)">
                 <material-icon icon="delete"></material-icon>
             </material-button>
-            <material-button id="show-details-button" (trigger)="showJobDetails(job.id)">
-                <material-icon icon="navigate_next"></material-icon>
+            <material-button class="print-button" (trigger)="printJob(job.id)">
+                <material-icon icon="printer"></material-icon>
             </material-button>
         </material-list-item>
     </a>

@@ -54,6 +54,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
     jobsBloc.onRefresh();
   }
 
+  void keepJob(int id) {
+    // TODO: keep job in bloc
+  }
+
   @override
   void onActivate(_, __) {
     refreshJobs();
