@@ -5,37 +5,44 @@
 <div id="jobdetails">
     <div id="card-grid">
         <div class="mdc-card mdc-card--outlined job-card">
-            <b>Infos:</b>
-            <label>Dateiname:</label>
-            {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}
-            <label>Seitenzahl:</label>
-            {{ (jobBloc | bloc)?.value?.jobInfo?.pagecount?.toString() }}
-            <label>Farbe:</label>
-            {{ (jobBloc | bloc)?.value?.jobInfo?.color?.toString() }}
-            <label>A3:</label>
-            {{ (jobBloc | bloc)?.value?.jobInfo?.a3?.toString() }}
+            <b class="heading">Infos:</b>
+            <div class="left">
+                <label>Dateiname:</label>
+                {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}<br>
+                <label>Seitenzahl:</label>
+                {{ (jobBloc | bloc)?.value?.jobInfo?.pagecount?.toString() }}
+            </div>
+            <div class="right">
+                <label>Farbe:</label>
+                {{ (jobBloc | bloc)?.value?.jobInfo?.color?.toString() }}<br>
+                <label>A3:</label>
+                {{ (jobBloc | bloc)?.value?.jobInfo?.a3?.toString() }}
+            </div>
         </div>
 
         <div class="mdc-card mdc-card--outlined job-card">
             <b>Optionen:</b>
-            <label>Duplex:</label>
-            <!--material-checkbox-->
-            <label>Anzahl Kopien:</label>
-            <input name="copies" type="number">
-            <label>Kopien zusammenstellen:</label>
-            <!--material-checkbox-->
-            <label>A3:</label>
-            <!--material-checkbox-->
-            <label>Seitenbereich:</label>
-            <input name="pagerange" type="text">
-            <label>Seiten pro Blatt:</label>
-            <!--material-chooser-->
-            <label>Reihenfolge auf dem Blatt:</label>
-            <!--material-chooser-->
-            {{ (jobBloc | bloc)?.value?.jobOptions.toString() }}
+            <div class="left">
+                <label>Duplex:</label>
+                <!--material-checkbox--><br>
+                <label>Anzahl Kopien:</label>
+                <input name="copies" type="number"><br>
+                <label>Kopien zusammenstellen:</label>
+                <!--material-checkbox-->
+            </div>
+            <div class="right">
+                <label>A3:</label>
+                <!--material-checkbox--><br>
+                <label>Seitenbereich:</label>
+                <input name="pagerange" type="text"><br>
+                <label>Seiten pro Blatt:</label>
+                <!--material-chooser--><br>
+                <label>Reihenfolge auf dem Blatt:</label>
+                <!--material-chooser-->
+            </div>
         </div>
 
-        <div class="mdc-card mdc-card--outlined job-card">
+        <div class="mdc-card mdc-card--outlined estimation-card">
             <h4>Erwartete Kosten: {{ (estimatedDouble | number:'1.2-2')?.toString() }} €</h4>
         </div>
     </div>
