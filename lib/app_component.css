@@ -2,6 +2,7 @@ material-content {
     max-width: calc(100% - 256px - 4vw);
     max-height: calc(100% - 96px);
     overflow-y: auto;
+    overflow-x: hidden;
     position: absolute;
     margin: 0px auto;
     padding-top: 1vw;

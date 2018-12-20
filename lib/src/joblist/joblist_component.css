@@ -2,7 +2,6 @@ material-list {
     width: 100%;
     max-width: 900px;
     margin-bottom: 48px;
-    padding-bottom: 0px;
 }
 
 material-list-item {
@@ -12,19 +11,23 @@ material-list-item {
     padding-left: 4px;
 }
 
-#filename {
+.jobitem-info {
+    overflow: hidden;
+}
+
+.jobitem-info.filename {
     grid-column: 2;
 }
 
-#timestamp {
+.jobitem-info.timestamp {
     grid-column: 2;
 }
 
-#print-button {
+.jobitem-info.print-button {
     grid-column: 3;
 }
 
-#show-details-button {
+.jobitem-info.delete-button {
     grid-column: 4;
 }
 
