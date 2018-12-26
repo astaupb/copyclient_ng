@@ -24,21 +24,23 @@
             <b>Optionen:</b>
             <div class="left">
                 <label>Duplex:</label>
-                <!--material-checkbox--><br>
+                {{ (jobBloc | bloc)?.value?.jobOptions?.duplex?.toString() }}<br>
                 <label>Anzahl Kopien:</label>
                 <input name="copies" type="number"><br>
                 <label>Kopien zusammenstellen:</label>
-                <!--material-checkbox-->
+                {{ (jobBloc | bloc)?.value?.jobOptions?.collate?.toString() }}
+                <label>A3:</label>
+                {{ (jobBloc | bloc)?.value?.jobOptions?.a3?.toString() }}<br>
             </div>
             <div class="right">
-                <label>A3:</label>
-                <!--material-checkbox--><br>
                 <label>Seitenbereich:</label>
                 <input name="pagerange" type="text"><br>
                 <label>Seiten pro Blatt:</label>
-                <!--material-chooser--><br>
+                {{ (jobBloc | bloc)?.value?.jobOptions?.nup?.toString() }}<br>
                 <label>Reihenfolge auf dem Blatt:</label>
-                <!--material-chooser-->
+                {{ (jobBloc | bloc)?.value?.jobOptions?.nupPageOrder?.toString() }}<br>
+                <label>Job behalten:</label>
+                {{ (jobBloc | bloc)?.value?.jobOptions?.keep?.toString() }}
             </div>
         </div>
 

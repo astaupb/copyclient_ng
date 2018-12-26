@@ -15,6 +15,7 @@ import 'package:blocs_copyclient/upload.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/job_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../route_paths.dart';
 
@@ -39,18 +40,20 @@ import '../route_paths.dart';
 )
 class JobListComponent extends AuthGuard implements OnActivate {
   JoblistBloc jobsBloc;
+  JobProvider jobProvider;
   UploadBloc uploadBloc;
   Location location;
   Router _router;
 
   JobListComponent(Backend backend, JoblistProvider joblistProvider,
-      AuthProvider authProvider, this._router, this.location)
+      this.jobProvider, AuthProvider authProvider, this._router, this.location)
       : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
   }
 
   void deleteJob(int id) {
     jobsBloc.onDeleteById(id);
+    jobProvider.removeJob(id);
     jobsBloc.onRefresh();
   }
 
@@ -61,6 +64,12 @@ class JobListComponent extends AuthGuard implements OnActivate {
   @override
   void onActivate(_, __) {
     refreshJobs();
+    jobsBloc.state.listen((JoblistState state) {
+      if (state.isResult) {
+        jobProvider.updateJobs(state.value,
+            window.sessionStorage['token'] ?? window.localStorage['token']);
+      }
+    });
   }
 
   void printJob(int id) {

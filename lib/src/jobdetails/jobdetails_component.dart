@@ -14,6 +14,7 @@ import 'package:http/browser_client.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/job_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../route_paths.dart';
 
@@ -37,13 +38,14 @@ import '../route_paths.dart';
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
   JoblistBloc joblistBloc;
+  final JobProvider jobProvider;
   JobBloc jobBloc;
   Location _location;
   Job job;
   double estimatedDouble = 0.0;
 
   JobDetailsComponent(JoblistProvider joblistProvider, this._location,
-      AuthProvider authProvider, Router router)
+      AuthProvider authProvider, Router router, this.jobProvider)
       : super(authProvider, router) {
     joblistBloc = joblistProvider.joblistBloc;
   }
@@ -54,26 +56,20 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
     if (id != null) {
-      jobBloc = JobBloc(BackendSunrise(BrowserClient()));
+      jobBloc = jobProvider.jobBlocs[id];
+      job = jobBloc.job;
+      estimatedDouble = (jobBloc.job.priceEstimation as double) / 100.0;
+      if (!jobBloc.job.hasPreview) jobBloc.onGetPreview();
 
       jobBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value;
-          estimatedDouble = (state.value.priceEstimation as double) / 100.0;
-          if (job.previews.length == 0) jobBloc.onGetPreview();
+          estimatedDouble = (job.priceEstimation as double) / 100.0;
         }
       });
 
-      joblistBloc.state.listen((state) {
-        if (state.isResult) {
-          job = state.value.firstWhere((Job job) => job.id == id);
-          jobBloc.onStart(job,
-              window.sessionStorage['token'] ?? window.localStorage['token']);
-        }
-      });
-
-      if (joblistBloc.jobs == null) {
-        joblistBloc.onRefresh();
+      if (jobBloc.job == null) {
+        jobBloc.onRefresh();
       }
     }
   }
