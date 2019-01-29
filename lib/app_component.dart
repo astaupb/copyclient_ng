@@ -186,8 +186,7 @@ class AppComponent implements OnInit, OnDestroy {
       });
 
       // Tell our custom JS to start watching for fakeprinting
-      document.dispatchEvent(new CustomEvent("setupWatches"));
-      document.dispatchEvent(new CustomEvent("setupDragDrop"));
+      document.dispatchEvent(new CustomEvent("loggedIn"));
     }
   }
 
@@ -202,8 +201,7 @@ class AppComponent implements OnInit, OnDestroy {
       window.sessionStorage.remove('token');
       window.localStorage.remove('token');
     }
-    document.dispatchEvent(new CustomEvent("unsetWatches"));
-    document.dispatchEvent(new CustomEvent("unsetDragDrop"));
+    document.dispatchEvent(new CustomEvent("loggedOut"));
     _router.navigate(RoutePaths.login.path);
   }
 
