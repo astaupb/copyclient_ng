@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
@@ -9,6 +10,7 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
+import 'package:blocs_copyclient/src/exceptions.dart';
 
 import '../providers/auth_provider.dart';
 import '../route_paths.dart';
@@ -38,6 +40,7 @@ class Credentials {
   ],
   templateUrl: 'login_component.html',
   directives: [
+    NgIf,
     coreDirectives,
     formDirectives,
     MaterialButtonComponent,
@@ -57,6 +60,9 @@ class LoginComponent implements OnInit {
 
   Credentials cred;
 
+  bool showException = false;
+  ApiException exception;
+
   LoginComponent(AuthProvider auth, this._router) {
     authBloc = auth.authBloc;
     cred = Credentials();
@@ -66,13 +72,18 @@ class LoginComponent implements OnInit {
 
   @override
   void ngOnInit() async {
-    authBloc.state.listen((AuthState state) {
+    authBloc.state.listen((AuthState state) async {
       if (state.isAuthorized) {
         window.sessionStorage['token'] = state.token;
         if (cred.saveToken) {
           window.localStorage['token'] = state.token;
         }
         _router.navigate(RoutePaths.joblist.path);
+      } else if (state.isException) {
+        showException = true;
+        exception = state.error;
+        await Future.delayed(Duration(seconds: 3));
+        showException = false;
       }
     });
   }
