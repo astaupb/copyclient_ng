@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
@@ -31,6 +32,13 @@ import '../route_paths.dart';
     MaterialIconComponent,
     MaterialButtonComponent,
     MaterialFabComponent,
+    MaterialDialogComponent,
+    MaterialInputComponent,
+    materialInputDirectives,
+    ModalComponent,
+  ],
+  providers: [
+    materialProviders,
   ],
   pipes: [commonPipes, BlocPipe],
   exports: [
@@ -44,6 +52,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
   UploadBloc uploadBloc;
   Location location;
   Router _router;
+
+  int printingJob;
+  String selectedPrinter = '';
+  bool showSelectPrinter = false;
 
   JobListComponent(Backend backend, JoblistProvider joblistProvider,
       this.jobProvider, AuthProvider authProvider, this._router, this.location)
@@ -72,11 +84,15 @@ class JobListComponent extends AuthGuard implements OnActivate {
     });
   }
 
-  void printJob(int id) {
+  void printJobDialog(int id) {
     print('printing job with id $id');
+    printingJob = id;
+    showSelectPrinter = true;
+  }
 
-    /// TODO: make printer selectable
-    jobsBloc.onPrintbyId('42000', id);
+  void printJob() {
+    jobsBloc.onPrintbyId(selectedPrinter, printingJob);
+    showSelectPrinter = false;
   }
 
   void refreshJobs() {

@@ -14,7 +14,7 @@ body {
 }
 
 
-footer {
+app-footer {
   position: fixed;
   bottom: 0px;
   min-height: 16px;

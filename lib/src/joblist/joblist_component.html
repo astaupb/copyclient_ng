@@ -12,7 +12,7 @@
             <material-button class="delete-button" (trigger)="deleteJob(job.id)">
                 <material-icon icon="delete"></material-icon>
             </material-button>
-            <material-button class="print-button" (trigger)="printJob(job.id)">
+            <material-button class="print-button" (trigger)="printJobDialog(job.id)">
                 <material-icon icon="printer"></material-icon>
             </material-button>
         </material-list-item>
@@ -20,7 +20,7 @@
 
 </material-list>
 
-<footer>
+<app-footer>
     <section id="version">
         Joblist length: {{(jobsBloc | bloc)?.value?.length}}
     </section>
@@ -29,4 +29,21 @@
             <material-icon class="action-bar-icon" icon="refresh"></material-icon>
         </material-button>
     </section>
-</footer>
+</app-footer>
+
+<modal [visible]="showSelectPrinter">
+    <material-dialog id="selectPrinter">
+        <h1 header>Drucker auswählen</h1>
+        <p>
+            Stellplatznummer: <material-input type="number" [(ngModel)]="selectedPrinter"></material-input>
+        </p>
+        <div footer>
+            <material-button autoFocus clear-size (trigger)="showSelectPrinter = false">
+                Abbrechen
+            </material-button>
+            <material-button autoFocus clear-size (trigger)="printJob()">
+                Drucken
+            </material-button>
+        </div>
+    </material-dialog>
+</modal>
