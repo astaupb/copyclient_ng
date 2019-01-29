@@ -92,10 +92,6 @@ class AppComponent implements OnInit, OnDestroy {
   bool appBusy = false;
   StreamSubscription<Event> uploadListener;
 
-  bool _kiosk = false;
-  bool _kioskPrint = false;
-  Map _kioskPayload;
-
   AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider,
       UploadsProvider uploadsProvider, this._router) {
     authBloc = authProvider.authBloc;
@@ -132,62 +128,23 @@ class AppComponent implements OnInit, OnDestroy {
     document.on["logout"].listen((Event event) {
       onLogout();
     });
-    document.on["isKiosk"].listen((Event event) {
-      _kiosk = true;
-    });
-    document.on["kioskUpload"].listen((Event event) {
-      CustomEvent ce = (event as CustomEvent);
-      _kioskPrint = true;
-      _kioskPayload = jsonDecode(ce.detail);
-    });
-    document.dispatchEvent(new CustomEvent("requestKioskStatus"));
   }
 
   onLogin() {
-    if (_kioskPrint) {
-      String filename = _kioskPayload['filename'];
-      List<int> data = base64Decode(_kioskPayload['data']);
+    // Listen for uploadJob event to be called by our custom JS
+    uploadListener = document.on["uploadJob"].listen((Event event) {
+      CustomEvent ce = (event as CustomEvent);
 
-      uploadBloc.onUpload(data, filename: filename, color: true);
-      uploadBloc.state.listen((UploadState state) {
-        if (state.isResult) {
-          List<DispatcherTask> queue = state.value;
-          print(queue);
-          if (queue.length > 0) {
-            bool doLogout = true;
-            queue.forEach((DispatcherTask queueitem) {
-              if (queueitem.isUploading) {
-                doLogout = false;
-              }
-            });
-            if (doLogout) {
-              onLogout();
-              document.dispatchEvent(new CustomEvent("kioskUploadDone"));
-            }
-          }
-        } else if (state.isException) {
-          document.dispatchEvent(new CustomEvent("uploadException"));
-        }
-      });
-      _kioskPrint = false;
-    } else if (_kiosk) {
-      onLogout();
-    } else {
-      // Listen for uploadJob event to be called by our custom JS
-      uploadListener = document.on["uploadJob"].listen((Event event) {
-        CustomEvent ce = (event as CustomEvent);
+      // This converts event's payload from JSON to a Dart Map.
+      Map payload = jsonDecode(ce.detail);
+      String filename = payload['filename'];
+      List<int> data = base64Decode(payload['data']);
 
-        // This converts event's payload from JSON to a Dart Map.
-        Map payload = jsonDecode(ce.detail);
-        String filename = payload['filename'];
-        List<int> data = base64Decode(payload['data']);
+      uploadBloc.onUpload(data, filename: filename);
+    });
 
-        uploadBloc.onUpload(data, filename: filename);
-      });
-
-      // Tell our custom JS to start watching for fakeprinting
-      document.dispatchEvent(new CustomEvent("loggedIn"));
-    }
+    // Tell our custom JS to start watching for fakeprinting
+    document.dispatchEvent(new CustomEvent("loggedIn"));
   }
 
   onLogout() {
