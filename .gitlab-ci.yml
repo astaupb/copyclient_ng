@@ -16,7 +16,6 @@ build:
     - pub global activate webdev
     - export PATH="$PATH":"$HOME/.pub-cache/bin"
     - pub get
-    - pub upgrade
     - webdev build
   artifacts:
     paths:
