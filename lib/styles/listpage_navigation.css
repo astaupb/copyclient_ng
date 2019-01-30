@@ -1,0 +1,70 @@
+.navigation-button {
+    float: right;
+    background-color: teal !important;
+    color: whitesmoke;
+  }
+  
+  .navigation {
+    font-size: 10pt;
+    color: #4f4f4f;
+  }
+  
+  .navigation.top {
+    margin-bottom: 4px;
+  }
+  
+  .navigation.bottom {
+    margin-top: 4px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  
+  .post-content {
+    font-size: 11pt;
+  }
+  
+  .bottom-bar {
+    position: fixed;
+    bottom: 0px;
+    min-height: 32px;
+    background-color: teal;
+    color: #f5f5f5;
+  }
+  
+  #refreshButton {
+    position: fixed;
+    bottom: 1%;
+    box-shadow: white 0px 0px 0px 4px;
+    background-color: teal;
+    color: whitesmoke;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    #refreshButton {
+        right: calc(50% - 28px);
+    }
+    .bottom-bar {
+        min-width: 100%;
+        margin-left: -8px;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    #refreshButton {
+        right: 1%;
+    }
+    .bottom-bar {
+        min-width: 100%;
+        left: 0px;
+    }
+  }
+  
+  #settings-button {
+    float: right;
+  }
+  
+  material-spinner {
+    border-color: whitesmoke;
+  }
+  

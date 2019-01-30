@@ -17,19 +17,18 @@
             </material-button>
         </material-list-item>
     </a>
-
 </material-list>
 
-<app-footer>
+<div class="bottom-bar">
     <section id="version">
         Joblist length: {{(jobsBloc | bloc)?.value?.length}}
     </section>
-    <section id="refresh-action-bar">
-        <material-button class="action-bar-button" (trigger)="refreshJobs()">
-            <material-icon class="action-bar-icon" icon="refresh"></material-icon>
-        </material-button>
-    </section>
-</app-footer>
+</div>
+
+<material-fab raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="refreshJobs()">
+    <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
+    <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
+</material-fab>
 
 <modal [visible]="showSelectPrinter">
     <material-dialog id="selectPrinter">

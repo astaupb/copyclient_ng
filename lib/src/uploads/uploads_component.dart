@@ -16,8 +16,12 @@ import '../providers/uploads_provider.dart';
 @Component(
   selector: 'uploads',
   templateUrl: 'uploads_component.html',
-  styleUrls: ['uploads_component.css'],
+  styleUrls: [
+    'uploads_component.css',
+    '../../styles/listpage_navigation.css',
+  ],
   directives: [
+    NgIf,
     NgFor,
     MaterialListComponent,
     MaterialListItemComponent,
@@ -29,6 +33,8 @@ import '../providers/uploads_provider.dart';
 class UploadsComponent extends AuthGuard implements OnInit {
   UploadBloc uploadBloc;
   String statusString = '';
+
+  bool refreshing = true;
 
   UploadsComponent(
       UploadsProvider uploadsProvider, AuthProvider authProvider, Router router)
@@ -45,12 +51,15 @@ class UploadsComponent extends AuthGuard implements OnInit {
       } else if (state.isException) {
         statusString = 'Error: ${state.error.toString()}';
       }
+      refreshing = false;
     });
   }
 
   void onUploadFileSelected(List<File> files) {
     print(files
         .expand<String>((file) => [file.name, file.lastModified.toString()]));
+
+    refreshing = true;
 
     var reader = FileReader();
 
@@ -68,5 +77,8 @@ class UploadsComponent extends AuthGuard implements OnInit {
     });
   }
 
-  void refreshQueue() => uploadBloc.onRefresh();
+  void refreshQueue() {
+    refreshing = true;
+    uploadBloc.onRefresh();
+  }
 }

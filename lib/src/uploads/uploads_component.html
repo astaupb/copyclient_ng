@@ -10,6 +10,13 @@
     </material-list-item>
 </material-list>
 
-<material-fab class="bottom-right-fab" (trigger)="refreshQueue()">
-    <material-icon icon="refresh"></material-icon>
+<div class="bottom-bar">
+    <section id="version">
+        Status: {{statusString}} - Jobs in Uploadschlange: {{(uploadBloc | bloc)?.value?.length}}
+    </section>
+</div>
+
+<material-fab raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="refreshQueue()">
+    <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
+    <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
 </material-fab>

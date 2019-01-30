@@ -22,7 +22,10 @@ import '../route_paths.dart';
 
 @Component(
   selector: 'joblist',
-  styleUrls: ['joblist_component.css'],
+  styleUrls: [
+    'joblist_component.css',
+    '../../styles/listpage_navigation.css',
+  ],
   templateUrl: 'joblist_component.html',
   directives: [
     routerDirectives,
@@ -57,6 +60,8 @@ class JobListComponent extends AuthGuard implements OnActivate {
   String selectedPrinter = '';
   bool showSelectPrinter = false;
 
+  bool refreshing = true;
+
   JobListComponent(Backend backend, JoblistProvider joblistProvider,
       this.jobProvider, AuthProvider authProvider, this._router, this.location)
       : super(authProvider, _router) {
@@ -80,6 +85,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
       if (state.isResult) {
         jobProvider.updateJobs(state.value,
             window.sessionStorage['token'] ?? window.localStorage['token']);
+        refreshing = false;
       }
     });
   }
@@ -97,6 +103,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
 
   void refreshJobs() {
     print('refresh those jobs dude');
+    refreshing = true;
     jobsBloc.onRefresh();
   }
 
