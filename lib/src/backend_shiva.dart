@@ -1,16 +1,15 @@
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
-//import 'backend.dart';
 
-class BackendSunrise implements Backend {
+class BackendShiva implements Backend {
   final String host = 'sunrise.upb.de';
   final String basePath = '/astaprint';
   final Client _innerClient;
 
   Logger _log = new Logger('BackendSunrise');
 
-  BackendSunrise(this._innerClient) {
+  BackendShiva(this._innerClient) {
     _log.fine(
         'Creating Backend with ${_innerClient.toString()} as innerClient');
   }

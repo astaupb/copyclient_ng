@@ -23,7 +23,7 @@ import 'package:http/browser_client.dart';
 import 'package:http/src/client.dart';
 
 import 'src/auth_guard.dart';
-import 'src/backend_sunrise.dart';
+import 'src/backend_shiva.dart';
 import 'src/fullscreen_spinner.dart';
 import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
@@ -73,7 +73,7 @@ PopupSizeProvider createPopupSizeProvider() {
     ClassProvider(JobProvider),
     ClassProvider(JoblistProvider),
     ClassProvider(UploadsProvider),
-    ClassProvider(Backend, useClass: BackendSunrise),
+    ClassProvider(Backend, useClass: BackendShiva),
     ClassProvider(Client, useClass: BrowserClient),
   ],
   exports: [RoutePaths, Routes],

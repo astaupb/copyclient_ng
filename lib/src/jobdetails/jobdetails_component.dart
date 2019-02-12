@@ -9,8 +9,6 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/src/job/job_bloc.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
-import 'package:copyclient_ng/src/backend_sunrise.dart';
-import 'package:http/browser_client.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
