@@ -2,7 +2,7 @@ import 'package:angular/core.dart';
 import 'package:blocs_copyclient/job.dart';
 import 'package:http/browser_client.dart';
 
-import '../backend_sunrise.dart';
+import '../backend_shiva.dart';
 
 @Injectable()
 class JobProvider {
@@ -17,7 +17,7 @@ class JobProvider {
   JobProvider._internal(this.jobBlocs);
 
   void addJob(Job job, String token) {
-    jobBlocs[job.id] = JobBloc(BackendSunrise(BrowserClient()));
+    jobBlocs[job.id] = JobBloc(BackendShiva(BrowserClient()));
     jobBlocs[job.id].onStart(job, token);
   }
 

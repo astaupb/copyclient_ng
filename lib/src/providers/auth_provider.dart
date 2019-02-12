@@ -5,12 +5,12 @@ import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:http/browser_client.dart';
 
-import '../backend_sunrise.dart';
+import '../backend_shiva.dart';
 
 @Injectable()
 class AuthProvider {
   static final AuthProvider _singleton = AuthProvider._internal(
-    AuthBloc(backend: BackendSunrise(BrowserClient())),
+    AuthBloc(backend: BackendShiva(BrowserClient())),
   );
   AuthBloc authBloc;
   factory AuthProvider(Backend backend) => _singleton;

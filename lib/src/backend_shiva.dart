@@ -3,8 +3,8 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 class BackendShiva implements Backend {
-  final String host = 'sunrise.upb.de';
-  final String basePath = '/astaprint';
+  final String host = 'astaprint.upb.de';
+  final String basePath = '/api/v1';
   final Client _innerClient;
 
   Logger _log = new Logger('BackendSunrise');
