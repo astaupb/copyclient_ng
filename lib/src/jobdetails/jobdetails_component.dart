@@ -7,13 +7,13 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
-import 'package:blocs_copyclient/src/job/job_bloc.dart';
+import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
-import '../providers/job_provider.dart';
 import '../providers/joblist_provider.dart';
+import '../providers/preview_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -36,16 +36,21 @@ import '../route_paths.dart';
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate {
   JoblistBloc joblistBloc;
-  final JobProvider jobProvider;
-  JobBloc jobBloc;
+  PreviewBloc previewBloc;
   Location _location;
   Job job;
   double estimatedDouble = 0.0;
+  List<List<int>> previews;
 
-  JobDetailsComponent(JoblistProvider joblistProvider, this._location,
-      AuthProvider authProvider, Router router, this.jobProvider)
+  JobDetailsComponent(
+      JoblistProvider joblistProvider,
+      PreviewProvider previewProvider,
+      this._location,
+      AuthProvider authProvider,
+      Router router)
       : super(authProvider, router) {
     joblistBloc = joblistProvider.joblistBloc;
+    previewBloc = previewProvider.previewBloc;
   }
 
   void goBack() => _location.back();
@@ -54,20 +59,22 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
     if (id != null) {
-      jobBloc = jobProvider.jobBlocs[id];
-      job = jobBloc.job;
-      estimatedDouble = (jobBloc.job.priceEstimation as double) / 100.0;
-      if (!jobBloc.job.hasPreview) jobBloc.onGetPreview();
-
-      jobBloc.state.listen((state) {
+      joblistBloc.state.listen((state) {
         if (state.isResult) {
-          job = state.value;
+          job = state.value.singleWhere((Job job) => job.id == id);
           estimatedDouble = (job.priceEstimation as double) / 100.0;
+          previewBloc.getPreview(job);
         }
       });
-
-      if (jobBloc.job == null) {
-        jobBloc.onRefresh();
+      previewBloc.state.listen((PreviewState state) {
+        if (state.isResult) {
+          previews = state.value
+              .singleWhere((previewSet) => previewSet.jobId == id)
+              .previews;
+        }
+      });
+      if (joblistBloc.jobs.isEmpty) {
+        joblistBloc.onRefresh();
       }
     }
   }

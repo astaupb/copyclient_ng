@@ -70,7 +70,7 @@ class UploadsComponent extends AuthGuard implements OnInit {
           'uploading into bloc ${progress.loaded.toString()}/${progress.total}');
       if (progress.loaded == progress.total) {
         uploadBloc.onUpload(reader.result as List<int>,
-            filename: files[0].name, color: true);
+            filename: files[0].name);
         await Future.delayed(Duration(seconds: 1));
         refreshQueue();
       }

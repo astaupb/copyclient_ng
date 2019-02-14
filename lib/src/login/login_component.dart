@@ -10,7 +10,7 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
-import 'package:blocs_copyclient/src/exceptions.dart';
+import 'package:blocs_copyclient/exceptions.dart';
 
 import '../providers/auth_provider.dart';
 import '../route_paths.dart';

@@ -17,6 +17,7 @@ import 'package:angular_components/material_popup/material_popup.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
 import 'package:http/browser_client.dart';
@@ -28,9 +29,9 @@ import 'src/fullscreen_spinner.dart';
 import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
 import 'src/providers/auth_provider.dart';
-import 'src/providers/job_provider.dart';
 import 'src/providers/joblist_provider.dart';
 import 'src/providers/uploads_provider.dart';
+import 'src/providers/preview_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -70,8 +71,8 @@ PopupSizeProvider createPopupSizeProvider() {
     popupBindings,
     routerProvidersHash,
     ClassProvider(AuthProvider),
-    ClassProvider(JobProvider),
     ClassProvider(JoblistProvider),
+    ClassProvider(PreviewProvider),
     ClassProvider(UploadsProvider),
     ClassProvider(Backend, useClass: BackendShiva),
     ClassProvider(Client, useClass: BrowserClient),
@@ -84,6 +85,7 @@ class AppComponent implements OnInit, OnDestroy {
   AuthBloc authBloc;
   JoblistBloc joblistBloc;
   UploadBloc uploadBloc;
+  PreviewBloc previewBloc;
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -93,10 +95,11 @@ class AppComponent implements OnInit, OnDestroy {
   StreamSubscription<Event> uploadListener;
 
   AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider,
-      UploadsProvider uploadsProvider, this._router) {
+      UploadsProvider uploadsProvider, PreviewProvider previewProvider, this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
+    previewBloc = previewProvider.previewBloc;
   }
 
   @override
@@ -104,6 +107,7 @@ class AppComponent implements OnInit, OnDestroy {
     authBloc.dispose();
     joblistBloc.dispose();
     uploadBloc.dispose();
+    previewBloc.dispose();
   }
 
   @override
@@ -116,6 +120,7 @@ class AppComponent implements OnInit, OnDestroy {
         appBusy = false;
         joblistBloc.onStart(state.token);
         uploadBloc.onStart(state.token);
+        previewBloc.onStart(state.token);
         onLogin();
       } else if (state.isUnauthorized) {
         authorized = false;
@@ -150,7 +155,7 @@ class AppComponent implements OnInit, OnDestroy {
   onLogout() {
     if (authorized) {
       if (authBloc != null) {
-        authBloc.logout();
+        authBloc.deleteToken();
       }
       if (uploadListener != null) {
         uploadListener.cancel();

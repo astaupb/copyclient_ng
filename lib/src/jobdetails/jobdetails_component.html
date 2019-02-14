@@ -1,6 +1,6 @@
 <material-button (trigger)="goBack()">Zurück</material-button>
 
-<h2>Jobdetails für {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}</h2>
+<h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
 
 <div id="jobdetails">
     <div id="card-grid">
@@ -8,15 +8,15 @@
             <b class="heading">Infos:</b>
             <div class="left">
                 <label>Dateiname:</label>
-                {{ (jobBloc | bloc)?.value?.jobInfo?.filename }}<br>
+                {{ job?.jobInfo?.filename }}<br>
                 <label>Seitenzahl:</label>
-                {{ (jobBloc | bloc)?.value?.jobInfo?.pagecount?.toString() }}
+                {{ job?.jobInfo?.pagecount?.toString() }}
             </div>
             <div class="right">
                 <label>Farbe:</label>
-                {{ (jobBloc | bloc)?.value?.jobInfo?.color?.toString() }}<br>
+                {{ job?.jobOptions?.color?.toString() }}<br>
                 <label>A3:</label>
-                {{ (jobBloc | bloc)?.value?.jobInfo?.a3?.toString() }}
+                {{ job?.jobInfo?.a3?.toString() }}
             </div>
         </div>
 
@@ -24,23 +24,23 @@
             <b>Optionen:</b>
             <div class="left">
                 <label>Duplex:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.duplex?.toString() }}<br>
+                {{ job?.jobOptions?.duplex?.toString() }}<br>
                 <label>Anzahl Kopien:</label>
                 <input name="copies" type="number"><br>
                 <label>Kopien zusammenstellen:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.collate?.toString() }}
+                {{ job?.jobOptions?.collate?.toString() }}
                 <label>A3:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.a3?.toString() }}<br>
+                {{ job?.jobOptions?.a3?.toString() }}<br>
             </div>
             <div class="right">
                 <label>Seitenbereich:</label>
                 <input name="pagerange" type="text"><br>
                 <label>Seiten pro Blatt:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.nup?.toString() }}<br>
+                {{ job?.jobOptions?.nup?.toString() }}<br>
                 <label>Reihenfolge auf dem Blatt:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.nupPageOrder?.toString() }}<br>
+                {{ job?.jobOptions?.nupPageOrder?.toString() }}<br>
                 <label>Job behalten:</label>
-                {{ (jobBloc | bloc)?.value?.jobOptions?.keep?.toString() }}
+                {{ job?.jobOptions?.keep?.toString() }}
             </div>
         </div>
 
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div id="preview-container" *ngIf="(jobBloc | bloc)?.value?.hasPreview">
-        <img class="preview-image" [src]="'data:image/jpeg;base64,' + base64Encode(job?.previews?.first)">
+    <div id="preview-container" *ngIf="previews?.isNotEmpty">
+        <img class="preview-image" [src]="'data:image/jpeg;base64,' + base64Encode(previews?.first)">
     </div>
 </div>
