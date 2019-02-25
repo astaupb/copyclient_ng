@@ -72,7 +72,9 @@ class JobListComponent extends AuthGuard implements OnActivate {
   }
 
   void keepJob(int id) {
-    // TODO: keep job in bloc
+    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) =>  job.id ==  id).jobOptions;
+    newOptions.keep  = !newOptions.keep;
+    jobsBloc.onUpdateOptionsById(id, newOptions);
   }
 
   @override
