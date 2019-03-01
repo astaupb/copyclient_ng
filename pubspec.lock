@@ -42,7 +42,7 @@ packages:
       name: angular_components
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.1"
+    version: "0.12.0"
   angular_forms:
     dependency: "direct main"
     description:
@@ -104,7 +104,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4b3cf10f3a8ea95b6cac08d739d3c1df25bb13f4"
+      resolved-ref: bb2cb30ca03cede5e5b69774443a8981276097a0
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -353,15 +353,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.9+1"
-  logger:
-    dependency: "direct main"
-    description:
-      name: logger
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   logging:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logging
       url: "https://pub.dartlang.org"
