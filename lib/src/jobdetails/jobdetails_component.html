@@ -7,34 +7,34 @@
         <div class="mdc-card mdc-card--outlined job-card">
             <b class="heading">Infos zum Originaldokument:</b><br>
             <material-list-item class="options-row">
-                <div class="left">
+                <div class="options-key">
                     Dateiname:
                 </div>
-                <div class="right">
+                <div class="options-value">
                     {{ job?.jobInfo?.filename }}
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="left">
+                <div class="options-key">
                     Seitenzahl:
                 </div>
-                <div class="right">
+                <div class="options-value">
                     {{ job?.jobInfo?.pagecount }}
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="left">
+                <div class="options-key">
                     Farbseiten:
                 </div>
-                <div class="right">
+                <div class="options-value">
                     {{ job?.jobInfo?.colored }}
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="left">
+                <div class="options-key">
                     A3:
                 </div>
-                <div class="right">
+                <div class="options-value">
                     {{ (job?.jobInfo?.a3 ?? false) ? 'Ja' : 'Nein' }}
                 </div>
             </material-list-item>
@@ -42,37 +42,88 @@
 
         <div class="mdc-card mdc-card--outlined job-card">
             <b>Optionen:</b>
-            <material-list-item class="options-row">
-                <div class="options-key">Duplex: </div>
-                <div class="options-value">
-                    <material-dropdown-select [options]="duplexOptions" [(selection)]="duplexSelection"
-                        [buttonText]="duplexSelection">
-
-                    </material-dropdown-select>
+            <material-list>
+                <div group>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            Farbe:
+                        </div>
+                        <div class="options-value">
+                            <material-toggle [(ngModel)]="color"></material-toggle>
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            Duplex:
+                        </div>
+                        <div class="options-value">
+                            <material-dropdown-select [options]="duplexOptions" [(selection)]="duplexSelection"
+                                [buttonText]="duplexSelection">
+                            </material-dropdown-select>
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            A3:
+                        </div>
+                        <div class="options-value">
+                            <material-toggle [(ngModel)]="a3"></material-toggle>
+                        </div>
+                    </material-list-item>
                 </div>
-            </material-list-item>
-            <div class="left">
-                <label>Duplex:</label>
-                {{ job?.jobOptions?.duplex?.toString() }}<br>
-                <label>Anzahl Kopien:</label>
-                <input name="copies" type="number"><br>
-                <material-toggle [(ngModel)]="collate" label="Kopieren zusammenhalten?"></material-toggle>
-                <material-toggle [(ngModel)]="a3" label="A3"></material-toggle><br>
-            </div>
-            <div class="right">
-                <label>Seitenbereich:</label>
-                <input name="pagerange" type="text"><br>
-                <label>Seiten pro Blatt:</label>
-                {{ job?.jobOptions?.nup?.toString() }}<br>
-                <label>Reihenfolge auf dem Blatt:</label>
-                {{ job?.jobOptions?.nupPageOrder?.toString() }}<br>
-                <label>Job behalten:</label>
-                {{ job?.jobOptions?.keep?.toString() }}
-            </div>
+
+                <div group>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            Anzahl Kopien:
+                        </div>
+                        <div class="options-value">
+                            <input type="number" [(ngModel)]="copies">
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            Kopien zusammenhalten:
+                        </div>
+                        <div class="options-value">
+                            <material-toggle [(ngModel)]="collate"></material-toggle>
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
+                        <div class="options-key">
+                            Seitenbereich:
+                        </div>
+                        <div class="options-value">
+                            <material-input hint="Alle" [(ngModel)]="range"></material-input>
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
+                        <div class="options-key">
+                            Seiten pro Blatt:
+                        </div>
+                        <div class="options-value">
+                            <material-dropdown-select [options]="nupOptions" [(selection)]="nupSelection"
+                                [buttonText]="nupSelection">
+                            </material-dropdown-select>
+                        </div>
+                    </material-list-item>
+                    <material-list-item class="options-row" *ngIf="nup > 1">
+                        <div class="options-key">
+                            Reihenfolge auf dem Blatt:
+                        </div>
+                        <div class="options-value">
+                            <material-dropdown-select [options]="nupOrderOptions" [(selection)]="nupOrderSelection"
+                                [buttonText]="nupOrderSelection">
+                            </material-dropdown-select>
+                        </div>
+                    </material-list-item>
+                </div>
+            </material-list>
         </div>
 
         <div class="mdc-card mdc-card--outlined estimation-card">
-            <h4>Erwartete Kosten: {{ (estimatedDouble | number:'1.2-2')?.toString() }} €</h4>
+            <h4>Erwartete Kosten für das ganze Dokument:</h4>
+            <h1>{{ (estimatedDouble | number:'1.2-2')?.toString() }} €</h1>
         </div>
     </div>
 
