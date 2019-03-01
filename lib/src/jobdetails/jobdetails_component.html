@@ -22,15 +22,25 @@
 
         <div class="mdc-card mdc-card--outlined job-card">
             <b>Optionen:</b>
+            <material-list-item class="options-row">
+                <div class="options-key">Duplex: </div>
+                <div class="options-value">
+                    <material-dropdown-select
+                        [options]="duplexOptions"
+                        [(selection)]="duplexSelection"
+                        [buttonText]="duplexSelection"
+                    >
+
+                    </material-dropdown-select>
+                </div>
+            </material-list-item>
             <div class="left">
                 <label>Duplex:</label>
                 {{ job?.jobOptions?.duplex?.toString() }}<br>
                 <label>Anzahl Kopien:</label>
                 <input name="copies" type="number"><br>
-                <label>Kopien zusammenstellen:</label>
-                {{ job?.jobOptions?.collate?.toString() }}
-                <label>A3:</label>
-                {{ job?.jobOptions?.a3?.toString() }}<br>
+                <material-toggle [(ngModel)]="collate" label="Kopieren zusammenhalten?"></material-toggle>
+                <material-toggle [(ngModel)]="a3" label="A3"></material-toggle><br>
             </div>
             <div class="right">
                 <label>Seitenbereich:</label>
