@@ -26,22 +26,20 @@
 .job-card {
     padding: 1vw;
     margin: 0.5vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 3fr;
 }
 
-.job-card .heading {
-    grid-column: 1;
+.job-card .options-row {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.job-card .options-row .right {
+    grid-column: 2;
     grid-row: 1;
 }
 
-.job-card .right {
-    grid-column: 2;
-    grid-row: 2;
-}
-
-.job-card .left {
+.job-card .options-row .left {
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 1;
 }

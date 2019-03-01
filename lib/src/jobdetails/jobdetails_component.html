@@ -5,19 +5,39 @@
 <div id="jobdetails">
     <div id="card-grid">
         <div class="mdc-card mdc-card--outlined job-card">
-            <b class="heading">Infos:</b>
-            <div class="left">
-                <label>Dateiname:</label>
-                {{ job?.jobInfo?.filename }}<br>
-                <label>Seitenzahl:</label>
-                {{ job?.jobInfo?.pagecount?.toString() }}
-            </div>
-            <div class="right">
-                <label>Farbe:</label>
-                {{ job?.jobOptions?.color?.toString() }}<br>
-                <label>A3:</label>
-                {{ job?.jobInfo?.a3?.toString() }}
-            </div>
+            <b class="heading">Infos zum Originaldokument:</b><br>
+            <material-list-item class="options-row">
+                <div class="left">
+                    Dateiname:
+                </div>
+                <div class="right">
+                    {{ job?.jobInfo?.filename }}
+                </div>
+            </material-list-item>
+            <material-list-item class="options-row">
+                <div class="left">
+                    Seitenzahl:
+                </div>
+                <div class="right">
+                    {{ job?.jobInfo?.pagecount }}
+                </div>
+            </material-list-item>
+            <material-list-item class="options-row">
+                <div class="left">
+                    Farbseiten:
+                </div>
+                <div class="right">
+                    {{ job?.jobInfo?.colored }}
+                </div>
+            </material-list-item>
+            <material-list-item class="options-row">
+                <div class="left">
+                    A3:
+                </div>
+                <div class="right">
+                    {{ (job?.jobInfo?.a3 ?? false) ? 'Ja' : 'Nein' }}
+                </div>
+            </material-list-item>
         </div>
 
         <div class="mdc-card mdc-card--outlined job-card">
@@ -25,11 +45,8 @@
             <material-list-item class="options-row">
                 <div class="options-key">Duplex: </div>
                 <div class="options-value">
-                    <material-dropdown-select
-                        [options]="duplexOptions"
-                        [(selection)]="duplexSelection"
-                        [buttonText]="duplexSelection"
-                    >
+                    <material-dropdown-select [options]="duplexOptions" [(selection)]="duplexSelection"
+                        [buttonText]="duplexSelection">
 
                     </material-dropdown-select>
                 </div>
