@@ -49,7 +49,7 @@
                             Farbe:
                         </div>
                         <div class="options-value">
-                            <material-toggle (checked)="color" (checkedChange)="colorChecked()"></material-toggle>
+                            <material-toggle [checked]="color" (checkedChange)="colorChecked()"></material-toggle>
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
@@ -67,7 +67,8 @@
                             A3:
                         </div>
                         <div class="options-value">
-                            <material-toggle (checked)="a3" (checkedChange)="a3Checked()"></material-toggle>
+                            <material-toggle [checked]="a3" (checkedChange)="a3Checked()">
+                                </material-toggle>
                         </div>
                     </material-list-item>
                 </div>
