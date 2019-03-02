@@ -153,4 +153,43 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
     job.jobOptions.collate = collate;
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
+
+  void rangeChanged() {
+    job.jobOptions.range = range;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void copiesChanged() {
+    job.jobOptions.copies = copies;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void nupChanged(String selection) {
+    nupSelection = selection;
+    int index = nupOptions.indexWhere((String option) => option == selection);
+    switch (index) {
+      case 0:
+        nup = 1;
+        break;
+      case 1:
+        nup = 2;
+        break;
+      case 2:
+        nup = 4;
+        break;
+      default:
+        nup = 1;
+        break;
+    }
+    job.jobOptions.nup = nup;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void nupOrderChanged(String selection) {
+    nupOrderSelection = selection;
+    nupPageOrder =
+        nupOrderOptions.indexWhere((String option) => option == selection);
+    job.jobOptions.nup = nup;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
 }
