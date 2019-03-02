@@ -49,7 +49,7 @@
                             Farbe:
                         </div>
                         <div class="options-value">
-                            <material-toggle [(ngModel)]="color"></material-toggle>
+                            <material-toggle (checked)="color" (checkedChange)="colorChecked()"></material-toggle>
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
@@ -57,8 +57,8 @@
                             Duplex:
                         </div>
                         <div class="options-value">
-                            <material-dropdown-select [options]="duplexOptions" [(selection)]="duplexSelection"
-                                [buttonText]="duplexSelection">
+                            <material-dropdown-select [options]="duplexOptions" [buttonText]="duplexSelection"
+                                (selectionChange)="duplexChanged">
                             </material-dropdown-select>
                         </div>
                     </material-list-item>
@@ -67,7 +67,7 @@
                             A3:
                         </div>
                         <div class="options-value">
-                            <material-toggle [(ngModel)]="a3"></material-toggle>
+                            <material-toggle (checked)="a3" (checkedChange)="a3Checked()"></material-toggle>
                         </div>
                     </material-list-item>
                 </div>

@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
@@ -91,18 +91,6 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
 
   void goBack() => _location.back();
 
-  void setJobOptions(JobOptions options) {
-    this.color = options.color;
-    this.duplex = options.duplex;
-    this.copies = options.copies;
-    this.collate = options.collate;
-    this.a3 = options.a3;
-    this.range = options.range;
-    this.nup = options.nup;
-    this.nupPageOrder = options.nupPageOrder;
-    this.keep = options.keep;
-  }
-
   @override
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
@@ -115,7 +103,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
           previewBloc.getPreview(job);
         }
       });
-      
+
       previewBloc.state.listen((PreviewState state) {
         if (state.isResult) {
           previews = state.value
@@ -123,8 +111,46 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
               .previews;
         }
       });
+
       if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
         joblistBloc.onRefresh();
     }
+  }
+
+  void setJobOptions(JobOptions options) {
+    this.color = options.color;
+    this.duplex = options.duplex;
+    this.copies = options.copies;
+    this.collate = options.collate;
+    this.a3 = options.a3;
+    this.range = options.range;
+    this.nup = options.nup;
+    this.nupPageOrder = options.nupPageOrder;
+    this.keep = options.keep;
+  }
+
+  void colorChecked() {
+    color = !color;
+    job.jobOptions.color = color;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void duplexChanged(String selection) {
+    duplexSelection = selection;
+    duplex = duplexOptions.indexWhere((String option) => option == selection);
+    job.jobOptions.duplex = duplex;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void a3Checked() {
+    a3 = !a3;
+    job.jobOptions.a3 = a3;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void collateChecked() {
+    collate = !collate;
+    job.jobOptions.collate = collate;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
 }
