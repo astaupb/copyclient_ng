@@ -22,7 +22,7 @@ import '../route_paths.dart';
 @Component(
   selector: 'joblist',
   styleUrls: [
-    'joblist_component.css',
+    'joblist_component.scss.css',
     '../../styles/listpage_navigation.css',
   ],
   templateUrl: 'joblist_component.html',
@@ -54,11 +54,15 @@ class JobListComponent extends AuthGuard implements OnActivate {
   Location location;
   Router _router;
 
+  bool refreshing = true;
+
+  // variables used for direct printing in kiosk mode
+  bool directPrinter = false;
+  String leftPrinter = '';
+  String rightPrinter = '';
   int printingJob;
   String selectedPrinter = '';
   bool showSelectPrinter = false;
-
-  bool refreshing = true;
 
   JobListComponent(Backend backend, JoblistProvider joblistProvider,
       AuthProvider authProvider, this._router, this.location)
@@ -72,8 +76,9 @@ class JobListComponent extends AuthGuard implements OnActivate {
   }
 
   void keepJob(int id) {
-    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) =>  job.id ==  id).jobOptions;
-    newOptions.keep  = !newOptions.keep;
+    JobOptions newOptions =
+        jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    newOptions.keep = !newOptions.keep;
     jobsBloc.onUpdateOptionsById(id, newOptions);
   }
 
@@ -85,6 +90,15 @@ class JobListComponent extends AuthGuard implements OnActivate {
         refreshing = false;
       }
     });
+
+    leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
+    print(leftPrinter);
+
+    rightPrinter =
+        const String.fromEnvironment('rightPrinter', defaultValue: '');
+    print(rightPrinter);
+
+    if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
   }
 
   void printJobDialog(int id) {
@@ -93,8 +107,13 @@ class JobListComponent extends AuthGuard implements OnActivate {
     showSelectPrinter = true;
   }
 
-  void printJob() {
-    jobsBloc.onPrintById(selectedPrinter, printingJob);
+  void printJobLeft() {
+    jobsBloc.onPrintById(leftPrinter, printingJob);
+    showSelectPrinter = false;
+  }
+
+  void printJobRight() {
+    jobsBloc.onPrintById(rightPrinter, printingJob);
     showSelectPrinter = false;
   }
 

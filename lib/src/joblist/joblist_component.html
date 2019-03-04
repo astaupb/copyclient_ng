@@ -12,7 +12,7 @@
             <material-button class="delete-button" (trigger)="deleteJob(job.id)">
                 <material-icon icon="delete"></material-icon>
             </material-button>
-            <material-button class="print-button" (trigger)="printJobDialog(job.id)">
+            <material-button *ngIf="directPrinter" class="print-button" (trigger)="printJobDialog(job.id)">
                 <material-icon icon="printer"></material-icon>
             </material-button>
         </material-list-item>
@@ -33,15 +33,20 @@
 <modal [visible]="showSelectPrinter">
     <material-dialog id="selectPrinter">
         <h1 header>Drucker auswählen</h1>
-        <p>
-            Stellplatznummer: <material-input type="number" [(ngModel)]="selectedPrinter"></material-input>
-        </p>
+        <div class="printer-selector">
+            <material-button *ngIf="leftPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobLeft()">
+                <material-icon class="big-ass-icon" icon="keyboard_arrow_left"></material-icon>
+                Linker<br>Drucker
+            </material-button>
+            <material-button *ngIf="rightPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobRight()">
+                Rechter<br>Drucker
+                <material-icon class="big-ass-icon" icon="keyboard_arrow_right"></material-icon>
+            </material-button>
+        </div>
+
         <div footer>
             <material-button autoFocus clear-size (trigger)="showSelectPrinter = false">
                 Abbrechen
-            </material-button>
-            <material-button autoFocus clear-size (trigger)="printJob()">
-                Drucken
             </material-button>
         </div>
     </material-dialog>
