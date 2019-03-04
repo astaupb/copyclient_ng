@@ -104,7 +104,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
         }
       });
 
-      previewBloc.state.listen((PreviewState state) {
+      previewBloc.state.skip(1).listen((PreviewState state) {
         if (state.isResult) {
           previews = state.value
               .singleWhere((previewSet) => previewSet.jobId == id)
