@@ -7,10 +7,12 @@
 
 #card-grid {
     grid-column: 1;
+    margin-bottom: 16px;
 }
 
 #preview-container {
     grid-column: 2;
+    margin-top: 6px;
 }
 
 .preview-image {
