@@ -24,6 +24,7 @@ import '../route_paths.dart';
   styleUrls: [
     'joblist_component.scss.css',
     '../../styles/listpage_navigation.css',
+    '../../styles/printer_selector.scss.css'
   ],
   templateUrl: 'joblist_component.html',
   directives: [

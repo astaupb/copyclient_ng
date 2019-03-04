@@ -6,6 +6,10 @@ targets:
       angular_components|scss_builder:
         enabled: True
       build_web_compilers|entrypoint:
+        dev_options:
+          dart2js_args:
+           - -DleftPrinter=44322
+           - -DrightPrinter=44325
         release_options:
          dart2js_args: #insert ids of printers that are available for direct printing or scanning
            - -DleftPrinter=

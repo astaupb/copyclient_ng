@@ -1,0 +1,17 @@
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_icon/mixins';
+
+.printer-selector {
+    display: flex;
+}
+
+.printer-selection {
+    min-width: 256px;
+    min-height: 256px;
+    font-size: 32px;
+    padding-top: 64px;
+}
+
+.big-ass-icon {
+    @include material-icon-size($mat-grid * 8);
+}
