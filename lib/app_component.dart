@@ -149,11 +149,11 @@ class AppComponent implements OnInit, OnDestroy {
     });
 
     // check for direct printers to scan from
-    enableScanning = true;
-        /*(const String.fromEnvironment('leftPrinter', defaultValue: '')
+    enableScanning =
+        (const String.fromEnvironment('leftPrinter', defaultValue: '')
                 .isNotEmpty ||
             const String.fromEnvironment('rightPrinter', defaultValue: '')
-                .isNotEmpty);*/
+                .isNotEmpty);
   }
 
   onLogin() {

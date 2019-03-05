@@ -117,10 +117,10 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
     activationTime = DateTime.now();
 
     leftPrinter =
-        const String.fromEnvironment('leftPrinter', defaultValue: '44322');
+        const String.fromEnvironment('leftPrinter', defaultValue: '');
 
     rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '44325');
+        const String.fromEnvironment('rightPrinter', defaultValue: '');
   }
 
   @override
@@ -141,5 +141,13 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
         if (subject.isActive) subject.cancel();
       }
     }
+  }
+
+  void directDelete(int id) {
+    joblistBloc.onDeleteById(id);
+  }
+
+  void directPrint(int id) {
+    joblistBloc.onPrintById(lockedPrinter, id);
   }
 }
