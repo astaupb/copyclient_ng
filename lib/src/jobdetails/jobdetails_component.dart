@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 
@@ -55,11 +56,14 @@ import '../route_paths.dart';
   ],
   exports: [base64Encode],
 )
-class JobDetailsComponent extends AuthGuard implements OnActivate {
+class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   JoblistBloc joblistBloc;
   PreviewBloc previewBloc;
   Location _location;
   Job job;
+
+  StreamSubscription jobListener;
+  StreamSubscription previewListener;
 
   bool color = true;
   int duplex = 0;
@@ -112,7 +116,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
     if (id != null) {
-      joblistBloc.state.listen((state) {
+      jobListener = joblistBloc.state.listen((state) {
         if (state.isResult) {
           job = state.value.singleWhere((Job job) => job.id == id);
           setJobOptions(job.jobOptions);
@@ -121,7 +125,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
         }
       });
 
-      previewBloc.state.skip(1).listen((PreviewState state) {
+      previewListener = previewBloc.state.skip(1).listen((PreviewState state) {
         if (state.isResult) {
           previews = state.value
               .singleWhere((previewSet) => previewSet.jobId == id)
@@ -236,5 +240,11 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
   void deleteJob() {
     joblistBloc.onDeleteById(job.id);
     goBack();
+  }
+
+  @override
+  void onDeactivate(RouterState previous, RouterState current) {
+    jobListener.cancel();
+    previewListener.cancel();
   }
 }
