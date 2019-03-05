@@ -1,7 +1,49 @@
-<div>
+<div class="mdc-card mdc-card--outlined user-card">
+    <h2>Benutzer</h2>
+    <material-list>
+        <material-list-item group class="options-row">
+            <div class="options-key">
+                Name
+            </div>
+            <div class="options-value">
+                {{ user?.name ?? '' }}
+            </div>
+        </material-list-item>
+        <div group>
+            Copycard
+            <material-list-item class="options-row">
+                <div class="options-key">
+                    S/N
+                </div>
+                <div class="options-value">
+                    {{ user?.card ?? '' }}
+                </div>
+            </material-list-item>
+            <material-list-item class="options-row">
+                <div class="options-key">
+                    PIN
+                </div>
+                <div class="options-value">
+                    {{ user?.pin ?? '' }}
+                </div>
+            </material-list-item>
+        </div>
 
-</div>
-
-<div>
-    
+        <material-list-item group class="options-row">
+            <div class="options-key">
+                Guthaben
+            </div>
+            <div class="options-value">
+                {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}}€
+            </div>
+        </material-list-item>
+        <material-list-item group class="options-row">
+            <div class="options-key">
+                Authorisierte Copyclients
+            </div>
+            <div class="options-value">
+                {{ user?.activeTokens ?? 0 }}
+            </div>
+        </material-list-item>
+    </material-list>
 </div>

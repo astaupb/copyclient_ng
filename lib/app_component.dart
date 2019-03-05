@@ -21,6 +21,7 @@ import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/print_queue.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
+import 'package:blocs_copyclient/user.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/src/client.dart';
 
@@ -34,6 +35,7 @@ import 'src/providers/joblist_provider.dart';
 import 'src/providers/uploads_provider.dart';
 import 'src/providers/preview_provider.dart';
 import 'src/providers/print_queue_provider.dart';
+import 'src/providers/user_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -77,6 +79,7 @@ PopupSizeProvider createPopupSizeProvider() {
     ClassProvider(PreviewProvider),
     ClassProvider(UploadsProvider),
     ClassProvider(PrintQueueProvider),
+    ClassProvider(UserProvider),
     ClassProvider(Backend, useClass: BackendShiva),
     ClassProvider(Client, useClass: BrowserClient),
   ],
@@ -90,6 +93,7 @@ class AppComponent implements OnInit, OnDestroy {
   UploadBloc uploadBloc;
   PreviewBloc previewBloc;
   PrintQueueBloc printQueueBloc;
+  UserBloc userBloc;
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -105,12 +109,14 @@ class AppComponent implements OnInit, OnDestroy {
       UploadsProvider uploadsProvider,
       PreviewProvider previewProvider,
       PrintQueueProvider printQueueProvider,
+      UserProvider userProvider,
       this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
     previewBloc = previewProvider.previewBloc;
     printQueueBloc = printQueueProvider.printQueueBloc;
+    userBloc = userProvider.userBloc;
   }
 
   @override
@@ -120,6 +126,7 @@ class AppComponent implements OnInit, OnDestroy {
     uploadBloc.dispose();
     previewBloc.dispose();
     printQueueBloc.dispose();
+    userBloc.dispose();
   }
 
   @override
@@ -134,6 +141,7 @@ class AppComponent implements OnInit, OnDestroy {
         uploadBloc.onStart(state.token);
         previewBloc.onStart(state.token);
         printQueueBloc.onStart(state.token);
+        userBloc.onStart(state.token);
         onLogin();
       } else if (state.isUnauthorized) {
         authorized = false;
