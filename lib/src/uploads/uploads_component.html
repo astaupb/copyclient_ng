@@ -1,7 +1,10 @@
 <label>{{statusString}}</label>
 
 <p>
-    <input #jobUpload type="file" accept="application/pdf" (change)="onUploadFileSelected(jobUpload.files)">
+    <div  class="upload-button-wrapper">
+        <material-button raised class="upload-button">Datei auswählen</material-button>
+        <input class="upload-input" #jobUpload type="file" accept="application/pdf" (change)="onUploadFileSelected(jobUpload.files)">
+    </div>
 </p>
 
 <material-list>

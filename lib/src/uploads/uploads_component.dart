@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
+import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_list/material_list.dart';
@@ -27,6 +28,7 @@ import '../providers/uploads_provider.dart';
     MaterialListItemComponent,
     MaterialFabComponent,
     MaterialIconComponent,
+    MaterialButtonComponent,
   ],
   pipes: [BlocPipe],
 )
