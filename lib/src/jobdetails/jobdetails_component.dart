@@ -260,14 +260,14 @@ class JobDetailsComponent extends AuthGuard
         // Create a data:url which points to that data.
         pdfUrl = Url.createObjectUrlFromBlob(blob);
 
-        AnchorElement link = new AnchorElement()
+        AnchorElement link = AnchorElement()
           ..href = pdfUrl
           ..download = job.jobInfo.filename
           ..text = 'Download Now!';
 
         // Insert the link into the DOM.
         var p = querySelector('#link-area');
-        p.append(link);
+        p.insertAdjacentElement('beforeEnd', link);
       }
     });
   }

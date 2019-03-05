@@ -170,10 +170,10 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
         AnchorElement link = new AnchorElement()
           ..href = pdfUrl
           ..download = newJobs.last.jobInfo.filename
-          ..text = 'Download Now!';
+          ..text = newJobs.last.jobInfo.filename;
 
         // Insert the link into the DOM.
-        var p = querySelector('#dl-link');
+        var p = querySelector('#dl-links');
         p.append(link);
       }
     });
