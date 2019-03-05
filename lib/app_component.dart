@@ -17,6 +17,7 @@ import 'package:angular_components/material_popup/material_popup.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/print_queue.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
@@ -36,6 +37,7 @@ import 'src/providers/uploads_provider.dart';
 import 'src/providers/preview_provider.dart';
 import 'src/providers/print_queue_provider.dart';
 import 'src/providers/user_provider.dart';
+import 'src/providers/pdf_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -80,6 +82,7 @@ PopupSizeProvider createPopupSizeProvider() {
     ClassProvider(UploadsProvider),
     ClassProvider(PrintQueueProvider),
     ClassProvider(UserProvider),
+    ClassProvider(PdfProvider),
     ClassProvider(Backend, useClass: BackendShiva),
     ClassProvider(Client, useClass: BrowserClient),
   ],
@@ -94,6 +97,7 @@ class AppComponent implements OnInit, OnDestroy {
   PreviewBloc previewBloc;
   PrintQueueBloc printQueueBloc;
   UserBloc userBloc;
+  PdfBloc pdfBloc;
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -110,6 +114,7 @@ class AppComponent implements OnInit, OnDestroy {
       PreviewProvider previewProvider,
       PrintQueueProvider printQueueProvider,
       UserProvider userProvider,
+      PdfProvider pdfProvider,
       this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
@@ -117,6 +122,7 @@ class AppComponent implements OnInit, OnDestroy {
     previewBloc = previewProvider.previewBloc;
     printQueueBloc = printQueueProvider.printQueueBloc;
     userBloc = userProvider.userBloc;
+    pdfBloc = pdfProvider.pdfBloc;
   }
 
   @override
@@ -127,6 +133,7 @@ class AppComponent implements OnInit, OnDestroy {
     previewBloc.dispose();
     printQueueBloc.dispose();
     userBloc.dispose();
+    pdfBloc.dispose();
   }
 
   @override
@@ -141,6 +148,7 @@ class AppComponent implements OnInit, OnDestroy {
         uploadBloc.onStart(state.token);
         previewBloc.onStart(state.token);
         printQueueBloc.onStart(state.token);
+        pdfBloc.onStart(state.token);
         userBloc.onStart(state.token);
         onLogin();
       } else if (state.isUnauthorized) {

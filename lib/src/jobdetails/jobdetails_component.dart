@@ -16,6 +16,7 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
 
@@ -23,6 +24,7 @@ import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/preview_provider.dart';
+import '../providers/pdf_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -56,14 +58,17 @@ import '../route_paths.dart';
   ],
   exports: [base64Encode],
 )
-class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
+class JobDetailsComponent extends AuthGuard
+    implements OnActivate, OnDeactivate {
   JoblistBloc joblistBloc;
   PreviewBloc previewBloc;
+  PdfBloc pdfBloc;
   Location _location;
   Job job;
 
   StreamSubscription jobListener;
   StreamSubscription previewListener;
+  StreamSubscription pdfListener;
 
   bool color = true;
   int duplex = 0;
@@ -99,15 +104,19 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   double estimatedDouble = 0.0;
   List<List<int>> previews;
 
+  String pdfUrl = '';
+
   JobDetailsComponent(
       JoblistProvider joblistProvider,
       PreviewProvider previewProvider,
+      PdfProvider pdfProvider,
       this._location,
       AuthProvider authProvider,
       Router router)
       : super(authProvider, router) {
     joblistBloc = joblistProvider.joblistBloc;
     previewBloc = previewProvider.previewBloc;
+    pdfBloc = pdfProvider.pdfBloc;
   }
 
   void goBack() => _location.back();
@@ -242,9 +251,31 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     goBack();
   }
 
+  void downloadPdf() {
+    pdfBloc.onGetPdf(job.id);
+    pdfListener = pdfBloc.state.listen((PdfState state) {
+      if (state.isResult) {
+        // Create a new blob from the data.
+        Blob blob = Blob(state.value.last.file, 'application/pdf');
+        // Create a data:url which points to that data.
+        pdfUrl = Url.createObjectUrlFromBlob(blob);
+
+        AnchorElement link = new AnchorElement()
+          ..href = pdfUrl
+          ..download = job.jobInfo.filename
+          ..text = 'Download Now!';
+
+        // Insert the link into the DOM.
+        var p = querySelector('#link-area');
+        p.append(link);
+      }
+    });
+  }
+
   @override
   void onDeactivate(RouterState previous, RouterState current) {
     jobListener.cancel();
     previewListener.cancel();
+    if (pdfListener != null) pdfListener.cancel();
   }
 }

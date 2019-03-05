@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -8,12 +9,14 @@ import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router/router.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/print_queue.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/print_queue_provider.dart';
+import '../providers/pdf_provider.dart';
 
 @Component(
   selector: 'scan-component',
@@ -36,6 +39,8 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   PrintQueueBloc printQueueBloc;
   final JoblistProvider joblistProvider;
   JoblistBloc joblistBloc;
+  final PdfProvider pdfProvider;
+  PdfBloc pdfBloc;
 
   List<PrintQueueTask> printQueue = [];
   List<Job> newJobs = [];
@@ -52,15 +57,17 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   StreamSubscription listener;
   StreamSubscription jobListener;
   StreamSubscription lockListener;
+  StreamSubscription pdfListener;
 
   Timer timer;
   Timer jobTimer;
 
   ScanComponent(AuthProvider authProvider, Router router,
-      this.printQueueProvider, this.joblistProvider)
+      this.printQueueProvider, this.joblistProvider, this.pdfProvider)
       : super(authProvider, router) {
     printQueueBloc = printQueueProvider.printQueueBloc;
     joblistBloc = joblistProvider.joblistBloc;
+    pdfBloc =pdfProvider.pdfBloc;
   }
 
   void lockLeft() {
@@ -149,5 +156,26 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void directPrint(int id) {
     joblistBloc.onPrintById(lockedPrinter, id);
+  }
+
+  void downloadPdf(int id) {
+    pdfBloc.onGetPdf(id);
+    pdfListener = pdfBloc.state.listen((PdfState state) {
+      if (state.isResult) {
+        // Create a new blob from the data.
+        Blob blob = Blob(state.value.last.file, 'application/pdf');
+        // Create a data:url which points to that data.
+        String pdfUrl = Url.createObjectUrlFromBlob(blob);
+
+        AnchorElement link = new AnchorElement()
+          ..href = pdfUrl
+          ..download = newJobs.last.jobInfo.filename
+          ..text = 'Download Now!';
+
+        // Insert the link into the DOM.
+        var p = querySelector('#dl-link');
+        p.append(link);
+      }
+    });
   }
 }

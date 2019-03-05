@@ -21,16 +21,17 @@
             <div class="scan-job-title">
                 {{ job?.jobInfo?.filename }}
             </div>
-            <div class="scan-job-controls">
+            <div class="scan-job-controls" id="">
                 <material-button class="control-button" (trigger)="directPrint(job?.id)">
                     <material-icon icon="printer">Direktdruck</material-icon>
                 </material-button>
                 <material-button class="control-button" (trigger)="directDelete(job?.id)">
                     <material-icon icon="delete"></material-icon>
                 </material-button>
-                <!--<material-button>
-                    <material-icon icon="download"></material-icon>
-                </material-button>-->
+                <material-button (trigger)="downloadPdf(job?.id)">
+                    <material-icon icon="cloud_download"></material-icon>
+                </material-button>
+                <span id="dl-link"></span>
             </div>
         </material-list-item>
     </div>
