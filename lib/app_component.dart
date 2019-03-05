@@ -18,6 +18,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/preview.dart';
+import 'package:blocs_copyclient/print_queue.dart';
 import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
 import 'package:http/browser_client.dart';
@@ -32,6 +33,7 @@ import 'src/providers/auth_provider.dart';
 import 'src/providers/joblist_provider.dart';
 import 'src/providers/uploads_provider.dart';
 import 'src/providers/preview_provider.dart';
+import 'src/providers/print_queue_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -74,6 +76,7 @@ PopupSizeProvider createPopupSizeProvider() {
     ClassProvider(JoblistProvider),
     ClassProvider(PreviewProvider),
     ClassProvider(UploadsProvider),
+    ClassProvider(PrintQueueProvider),
     ClassProvider(Backend, useClass: BackendShiva),
     ClassProvider(Client, useClass: BrowserClient),
   ],
@@ -86,6 +89,7 @@ class AppComponent implements OnInit, OnDestroy {
   JoblistBloc joblistBloc;
   UploadBloc uploadBloc;
   PreviewBloc previewBloc;
+  PrintQueueBloc printQueueBloc;
 
   bool authorized = false;
   bool navOptionsVisible = false;
@@ -93,13 +97,20 @@ class AppComponent implements OnInit, OnDestroy {
   bool customWidth = true;
   bool appBusy = false;
   StreamSubscription<Event> uploadListener;
+  bool enableScanning = false;
 
-  AppComponent(AuthProvider authProvider, JoblistProvider joblistProvider,
-      UploadsProvider uploadsProvider, PreviewProvider previewProvider, this._router) {
+  AppComponent(
+      AuthProvider authProvider,
+      JoblistProvider joblistProvider,
+      UploadsProvider uploadsProvider,
+      PreviewProvider previewProvider,
+      PrintQueueProvider printQueueProvider,
+      this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
     previewBloc = previewProvider.previewBloc;
+    printQueueBloc = printQueueProvider.printQueueBloc;
   }
 
   @override
@@ -108,6 +119,7 @@ class AppComponent implements OnInit, OnDestroy {
     joblistBloc.dispose();
     uploadBloc.dispose();
     previewBloc.dispose();
+    printQueueBloc.dispose();
   }
 
   @override
@@ -121,6 +133,7 @@ class AppComponent implements OnInit, OnDestroy {
         joblistBloc.onStart(state.token);
         uploadBloc.onStart(state.token);
         previewBloc.onStart(state.token);
+        printQueueBloc.onStart(state.token);
         onLogin();
       } else if (state.isUnauthorized) {
         authorized = false;
@@ -130,9 +143,17 @@ class AppComponent implements OnInit, OnDestroy {
         authorized = false;
       }
     });
+
     document.on["logout"].listen((Event event) {
       onLogout();
     });
+
+    // check for direct printers to scan from
+    enableScanning =
+        (const String.fromEnvironment('leftPrinter', defaultValue: '')
+                .isNotEmpty ||
+            const String.fromEnvironment('rightPrinter', defaultValue: '')
+                .isNotEmpty);
   }
 
   onLogin() {

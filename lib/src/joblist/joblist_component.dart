@@ -93,11 +93,9 @@ class JobListComponent extends AuthGuard implements OnActivate {
     });
 
     leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
-    print(leftPrinter);
 
     rightPrinter =
         const String.fromEnvironment('rightPrinter', defaultValue: '');
-    print(rightPrinter);
 
     if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
   }

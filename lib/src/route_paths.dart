@@ -16,4 +16,5 @@ class RoutePaths {
   static final joblist = RoutePath(path: 'joblist');
   static final jobdetails = RoutePath(path: '${joblist.path}/:$idParam');
   static final uploads = RoutePath(path: 'uploads');
+  static final scans = RoutePath(path: 'scans');
 }

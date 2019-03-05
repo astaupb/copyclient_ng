@@ -17,6 +17,11 @@
                     <material-icon icon="cloud_upload"></material-icon>Hochladen
                 </material-list-item>
             </a>
+            <a *ngIf="enableScanning" [routerLink]="RoutePaths.scans.toUrl()" class="drawer-link">
+                <material-list-item class="drawer-list-item">
+                    <material-icon icon="scanner"></material-icon>Scannen und Kopieren
+                </material-list-item>
+            </a>
         </div>
     </material-list>
 </material-drawer>
@@ -28,7 +33,8 @@
         </material-button>
         <span class="material-header-title">AStA Copyclient</span>
         <div class="material-spacer"></div>
-        <material-button popupSource #source="popupSource" icon class="material-drawer-button" (trigger)="navOptionsVisible = !navOptionsVisible">
+        <material-button popupSource #source="popupSource" icon class="material-drawer-button"
+            (trigger)="navOptionsVisible = !navOptionsVisible">
             <material-icon icon="more_vert"></material-icon>
         </material-button>
         <material-popup [source]="source" [(visible)]="navOptionsVisible" [preferredPositions]="[popupPosition]">

@@ -1,0 +1,17 @@
+<div *ngIf="!printerLocked">
+    <h1 header>Drucker auswählen</h1>
+    <div class="printer-selector">
+        <material-button *ngIf="leftPrinter.isNotEmpty" class="printer-selection" (trigger)="lockLeft()">
+            <material-icon class="big-ass-icon" icon="keyboard_arrow_left"></material-icon>
+            Linker<br>Drucker
+        </material-button>
+        <material-button *ngIf="rightPrinter.isNotEmpty" class="printer-selection" (trigger)="lockRight()">
+            Rechter<br>Drucker
+            <material-icon class="big-ass-icon" icon="keyboard_arrow_right"></material-icon>
+        </material-button>
+    </div>
+</div>
+
+<div *ngIf="printerLocked">
+    Drucker-Sperre ist aktiv.<br> Du kannst nun Scannen und die Dokumente landen bei deinen Druckjobs.
+</div>
