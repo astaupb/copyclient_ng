@@ -14,4 +14,11 @@
 
 <div *ngIf="printerLocked">
     Drucker-Sperre ist aktiv.<br> Du kannst nun Scannen und die Dokumente landen bei deinen Druckjobs.
+
+    <h2>Neue Jobs:</h2>
+    <div>
+        <material-list-item *ngFor="let job of newJobs">
+            {{ job?.jobInfo?.filename }}
+        </material-list-item>
+    </div>
 </div>

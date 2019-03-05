@@ -3,12 +3,16 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_list/material_list.dart';
+import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router/router.dart';
+import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/print_queue.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/joblist_provider.dart';
 import '../providers/print_queue_provider.dart';
 
 @Component(
@@ -20,15 +24,21 @@ import '../providers/print_queue_provider.dart';
   ],
   directives: [
     NgIf,
+    NgFor,
     MaterialButtonComponent,
     MaterialIconComponent,
+    MaterialListComponent,
+    MaterialListItemComponent,
   ],
 )
-class ScanComponent extends AuthGuard implements OnActivate {
+class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final PrintQueueProvider printQueueProvider;
   PrintQueueBloc printQueueBloc;
+  final JoblistProvider joblistProvider;
+  JoblistBloc joblistBloc;
 
   List<PrintQueueTask> printQueue = [];
+  List<Job> newJobs = [];
 
   String leftPrinter = '';
   String rightPrinter = '';
@@ -37,10 +47,20 @@ class ScanComponent extends AuthGuard implements OnActivate {
   String lockedPrinter = '';
   String lockUid;
 
-  ScanComponent(
-      AuthProvider authProvider, Router router, this.printQueueProvider)
+  DateTime activationTime;
+
+  StreamSubscription listener;
+  StreamSubscription jobListener;
+  StreamSubscription lockListener;
+
+  Timer timer;
+  Timer jobTimer;
+
+  ScanComponent(AuthProvider authProvider, Router router,
+      this.printQueueProvider, this.joblistProvider)
       : super(authProvider, router) {
     printQueueBloc = printQueueProvider.printQueueBloc;
+    joblistBloc = joblistProvider.joblistBloc;
   }
 
   void lockLeft() {
@@ -48,44 +68,78 @@ class ScanComponent extends AuthGuard implements OnActivate {
     lockPrinter(lockedPrinter);
   }
 
-  void lockRight() {
-    lockedPrinter = rightPrinter;
-    lockPrinter(lockedPrinter);
-  }
-
   void lockPrinter(String id) async {
-    Timer timer;
-
     printQueueBloc.setDeviceId(int.tryParse(id));
 
-    var listener;
     listener = printQueueBloc.state.listen((PrintQueueState state) {
       if (state.isResult) {
         printQueue = state.value.processing;
         printQueueBloc.onLockDevice();
-        printQueueBloc.state.listen((PrintQueueState state) {
+
+        lockListener = printQueueBloc.state.listen((PrintQueueState state) {
           if (state.isLocked) {
             lockUid = state.lockUid;
             printerLocked = true;
             timer = Timer.periodic(
                 Duration(seconds: 15),
-                (Timer timer) =>
+                (Timer t) =>
                     printQueueBloc.onLockDevice(queueUid: state.lockUid));
+            jobTimer = Timer.periodic(
+                Duration(seconds: 3), (Timer t) => joblistBloc.onRefresh());
           } else if (!state.isLocked) {
             printerLocked = false;
-            if (timer != null && timer.isActive) timer.cancel();
+            deactivate(timer);
+            deactivate(jobTimer);
           }
         });
+
+        jobListener = joblistBloc.state.listen((JoblistState state) async {
+          if (state.isResult) {
+            newJobs = state.value
+                .where((Job job) => activationTime.isBefore(
+                    DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
+                .toList();
+          }
+        });
+
         listener.cancel();
       }
     });
   }
 
+  void lockRight() {
+    lockedPrinter = rightPrinter;
+    lockPrinter(lockedPrinter);
+  }
+
   @override
   void onActivate(RouterState previous, RouterState current) {
-    leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
+    activationTime = DateTime.now();
+
+    leftPrinter =
+        const String.fromEnvironment('leftPrinter', defaultValue: '44322');
 
     rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '');
+        const String.fromEnvironment('rightPrinter', defaultValue: '44325');
+  }
+
+  @override
+  void onDeactivate(RouterState previous, RouterState current) {
+    deactivate(listener);
+    deactivate(jobListener);
+    deactivate(lockListener);
+
+    deactivate(timer);
+    deactivate(jobTimer);
+  }
+
+  void deactivate<T>(T subject) {
+    if (subject != null) {
+      if (subject is StreamSubscription) {
+        if (!subject.isPaused) subject.cancel();
+      } else if (subject is Timer) {
+        if (subject.isActive) subject.cancel();
+      }
+    }
   }
 }
