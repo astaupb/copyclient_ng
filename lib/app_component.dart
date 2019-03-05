@@ -176,7 +176,7 @@ class AppComponent implements OnInit, OnDestroy {
   onLogout() {
     if (authorized) {
       if (authBloc != null) {
-        authBloc.deleteToken();
+        authBloc.logout();
       }
       if (uploadListener != null) {
         uploadListener.cancel();
