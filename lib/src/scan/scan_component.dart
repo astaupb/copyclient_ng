@@ -68,7 +68,7 @@ class ScanComponent extends AuthGuard implements OnActivate {
             lockUid = state.lockUid;
             printerLocked = true;
             timer = Timer.periodic(
-                Duration(seconds: 5),
+                Duration(seconds: 15),
                 (Timer timer) =>
                     printQueueBloc.onLockDevice(queueUid: state.lockUid));
           } else if (!state.isLocked) {
