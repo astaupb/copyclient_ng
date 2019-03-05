@@ -2,7 +2,7 @@
 
 build:
 	pub get && webdev build
-deploy:
+deploy: build
 	tar cf copyclient.tar build
 	scp copyclient.tar root@shiva:/srv/www/
 	rm copyclient.tar
