@@ -102,9 +102,11 @@ packages:
   blocs_copyclient:
     dependency: "direct main"
     description:
-      path: "../blocs_copyclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "368beb2758fc9854b0676bc89fae2cb200cb01de"
+      url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
+    source: git
     version: "0.1.0"
   boolean_selector:
     dependency: transitive
