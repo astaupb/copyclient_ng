@@ -3,7 +3,10 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
+import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_list/material_list.dart';
 import 'package:angular_components/material_list/material_list_item.dart';
@@ -31,6 +34,7 @@ import '../route_paths.dart';
   directives: [
     NgIf,
     MaterialButtonComponent,
+    MaterialIconComponent,
     MaterialToggleComponent,
     MaterialListItemComponent,
     MaterialListComponent,
@@ -38,6 +42,12 @@ import '../route_paths.dart';
     MaterialInputComponent,
     materialInputDirectives,
     formDirectives,
+    ModalComponent,
+    MaterialDialogComponent,
+    coreDirectives,
+  ],
+  providers: [
+    materialProviders,
   ],
   pipes: [
     BlocPipe,
@@ -66,6 +76,13 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
 
   final List<String> nupOptions = ['1', '2', '4'];
   String nupSelection = '1';
+
+  // variables used for direct printing in kiosk mode
+  bool directPrinter = false;
+  String leftPrinter = '';
+  String rightPrinter = '';
+  String selectedPrinter = '';
+  bool showSelectPrinter = false;
 
   final List<String> nupOrderOptions = [
     'Nach Rechts, dann Runter',
@@ -114,6 +131,15 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
 
       if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
         joblistBloc.onRefresh();
+
+      leftPrinter =
+          const String.fromEnvironment('leftPrinter', defaultValue: '');
+
+      rightPrinter =
+          const String.fromEnvironment('rightPrinter', defaultValue: '');
+
+      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty)
+        directPrinter = true;
     }
   }
 
@@ -191,5 +217,24 @@ class JobDetailsComponent extends AuthGuard implements OnActivate {
         nupOrderOptions.indexWhere((String option) => option == selection);
     job.jobOptions.nup = nup;
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void openPrintDialog() {
+    showSelectPrinter = true;
+  }
+
+  void printJobLeft() {
+    joblistBloc.onPrintById(leftPrinter, job.id);
+    showSelectPrinter = false;
+  }
+
+  void printJobRight() {
+    joblistBloc.onPrintById(rightPrinter, job.id);
+    showSelectPrinter = false;
+  }
+
+  void deleteJob() {
+    joblistBloc.onDeleteById(job.id);
+    goBack();
   }
 }

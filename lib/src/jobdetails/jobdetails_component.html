@@ -2,6 +2,15 @@
 
 <h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
 
+<div>
+    <material-button raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
+        <material-icon icon="printer"></material-icon>
+    </material-button>
+    <material-button raised (trigger)="deleteJob()">
+        <material-icon icon="delete"></material-icon>
+    </material-button>
+</div>
+
 <div id="jobdetails">
     <div id="card-grid">
         <div class="mdc-card mdc-card--outlined job-card">
@@ -129,6 +138,29 @@
     </div>
 
     <div id="preview-container" *ngIf="previews?.isNotEmpty">
-        <img class="preview-image" [class.grayscale]="! color" [src]="'data:image/jpeg;base64,' + base64Encode(previews?.first)">
+        <img class="preview-image" [class.grayscale]="! color"
+            [src]="'data:image/jpeg;base64,' + base64Encode(previews?.first)">
     </div>
 </div>
+
+<modal [visible]="showSelectPrinter">
+    <material-dialog id="selectPrinter">
+        <h1 header>Drucker auswählen</h1>
+        <div class="printer-selector">
+            <material-button *ngIf="leftPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobLeft()">
+                <material-icon class="big-ass-icon" icon="keyboard_arrow_left"></material-icon>
+                Linker<br>Drucker
+            </material-button>
+            <material-button *ngIf="rightPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobRight()">
+                Rechter<br>Drucker
+                <material-icon class="big-ass-icon" icon="keyboard_arrow_right"></material-icon>
+            </material-button>
+        </div>
+
+        <div footer>
+            <material-button autoFocus clear-size (trigger)="showSelectPrinter = false">
+                Abbrechen
+            </material-button>
+        </div>
+    </material-dialog>
+</modal>
