@@ -29,3 +29,7 @@
     top: 0;
     opacity: 0;
 }
+
+.centered-row {
+    text-align: center;
+}

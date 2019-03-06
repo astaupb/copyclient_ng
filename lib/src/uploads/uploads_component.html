@@ -1,6 +1,4 @@
-<label>{{statusString}}</label>
-
-<p>
+<p class="centered-row">
     <div  class="upload-button-wrapper">
         <material-button raised class="upload-button">Datei auswählen</material-button>
         <input class="upload-input" #jobUpload type="file" accept="application/pdf" (change)="onUploadFileSelected(jobUpload.files)">
@@ -8,6 +6,7 @@
 </p>
 
 <material-list>
+    <h2>Uploadschlange</h2>
     <material-list-item *ngFor="let task of (uploadBloc | bloc)?.value">
         <b>{{task.filename}}</b>
     </material-list-item>
