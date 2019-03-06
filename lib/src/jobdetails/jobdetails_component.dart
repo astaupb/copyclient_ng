@@ -19,6 +19,8 @@ import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
+import 'package:blocs_copyclient/user.dart';
+import 'package:copyclient_ng/src/providers/user_provider.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
@@ -62,6 +64,7 @@ class JobDetailsComponent extends AuthGuard
     implements OnActivate, OnDeactivate {
   JoblistBloc joblistBloc;
   PreviewBloc previewBloc;
+  UserBloc userBloc;
   PdfBloc pdfBloc;
   Location _location;
   Job job;
@@ -69,6 +72,7 @@ class JobDetailsComponent extends AuthGuard
   StreamSubscription jobListener;
   StreamSubscription previewListener;
   StreamSubscription pdfListener;
+  StreamSubscription userListener;
 
   bool color = true;
   int duplex = 0;
@@ -106,9 +110,13 @@ class JobDetailsComponent extends AuthGuard
 
   String pdfUrl = '';
 
+  User user;
+  
+
   JobDetailsComponent(
       JoblistProvider joblistProvider,
       PreviewProvider previewProvider,
+      UserProvider userProvider,
       PdfProvider pdfProvider,
       this._location,
       AuthProvider authProvider,
@@ -117,6 +125,7 @@ class JobDetailsComponent extends AuthGuard
     joblistBloc = joblistProvider.joblistBloc;
     previewBloc = previewProvider.previewBloc;
     pdfBloc = pdfProvider.pdfBloc;
+    userBloc =userProvider.userBloc;
   }
 
   void goBack() => _location.back();
@@ -139,6 +148,12 @@ class JobDetailsComponent extends AuthGuard
           previews = state.value
               .singleWhere((previewSet) => previewSet.jobId == id)
               .previews;
+        }
+      });
+
+      userListener = userBloc.state.listen((UserState state) {
+        if (state.isResult) {
+          user = state.value;
         }
       });
 
@@ -271,5 +286,6 @@ class JobDetailsComponent extends AuthGuard
     jobListener.cancel();
     previewListener.cancel();
     if (pdfListener != null) pdfListener.cancel();
+    userListener.cancel();
   }
 }

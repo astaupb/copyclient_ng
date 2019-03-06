@@ -56,6 +56,7 @@
         <div class="mdc-card mdc-card--outlined estimation-card">
             <b>Erwartete Kosten für das ganze Dokument:</b>
             <b class="jobdetails-credit">{{ (estimatedDouble | number:'1.2-2')?.toString() }} €</b>
+            Verbleibendes Guthaben nach Druck: {{ (((user?.credit ?? 0) / 100 - estimatedDouble)  | number:'1.2-2').toString() }} €
         </div>
 
         <div class="mdc-card mdc-card--outlined job-card">
