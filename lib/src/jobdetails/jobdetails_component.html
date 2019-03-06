@@ -53,6 +53,11 @@
             </material-list-item>
         </div>
 
+        <div class="mdc-card mdc-card--outlined estimation-card">
+            <b>Erwartete Kosten für das ganze Dokument:</b>
+            <b class="jobdetails-credit">{{ (estimatedDouble | number:'1.2-2')?.toString() }} €</b>
+        </div>
+
         <div class="mdc-card mdc-card--outlined job-card">
             <b>Optionen:</b>
             <material-list>
@@ -133,11 +138,6 @@
                     </material-list-item>
                 </div>
             </material-list>
-        </div>
-
-        <div class="mdc-card mdc-card--outlined estimation-card">
-            <h4>Erwartete Kosten für das ganze Dokument:</h4>
-            <h1>{{ (estimatedDouble | number:'1.2-2')?.toString() }} €</h1>
         </div>
     </div>
 

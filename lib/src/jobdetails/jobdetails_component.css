@@ -53,3 +53,8 @@
     grid-column: 1;
     grid-row: 1;
 }
+
+.jobdetails-credit {
+    padding: 1vw;
+    font-size: 2em;
+}
