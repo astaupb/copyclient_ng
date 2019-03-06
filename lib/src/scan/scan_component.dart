@@ -170,6 +170,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
           ..download = newJobs.last.jobInfo.filename;
 
         link.click();
+        pdfListener.cancel();
       }
     });
   }
