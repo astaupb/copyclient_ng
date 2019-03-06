@@ -191,17 +191,22 @@ class AppComponent implements OnInit, OnDestroy {
 
   onLogout() {
     if (authorized) {
+      window.localStorage.remove('token');
       if (authBloc != null) {
         authBloc.logout();
+        var logoutListener;
+        logoutListener = authBloc.state.listen((AuthState state) async {
+          if (state.isUnauthorized) {
+            _router.navigate(RoutePaths.login.path);
+            document.dispatchEvent(new CustomEvent("loggedOut"));
+            logoutListener.cancel();
+          }
+        });
       }
       if (uploadListener != null) {
         uploadListener.cancel();
       }
-      window.sessionStorage.remove('token');
-      window.localStorage.remove('token');
     }
-    document.dispatchEvent(new CustomEvent("loggedOut"));
-    _router.navigate(RoutePaths.login.path);
   }
 
   onOpenDialog() {
