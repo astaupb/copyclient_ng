@@ -1,9 +1,9 @@
 <div class="login-container">
     <form #loginForm="ngForm" class="mdc-card login-card">
-        <h2>Login:</h2>
-        <material-input autoFocus id="username" class="login-input" label="Username" [maxRows]="1" [checkValid]="validateUsername"
+        <h2>AStA Copyclient Login</h2>
+        <material-input autoFocus id="username" class="login-input" label="Copycard S/N" [maxRows]="1" [checkValid]="validateUsername"
             required type="text" #username="ngForm" ngControl="username" [(ngModel)]="cred.username"></material-input>
-        <material-input id="password" type="password" class="login-input" label="Passwort" #password="ngForm" ngControl="password"
+        <material-input id="password" type="password" class="login-input" label="Copycard PIN" #password="ngForm" ngControl="password"
             [maxRows]="1" [checkValid]="validatePassword" required name="password" [(ngModel)]="cred.password"
             (keyup.enter)="submitForm()"></material-input>
         <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"></material-checkbox>
