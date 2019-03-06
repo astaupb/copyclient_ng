@@ -110,6 +110,8 @@ class AppComponent implements OnInit, OnDestroy {
   User user;
   StreamSubscription userListener;
 
+  Timer refreshTimer;
+
   AppComponent(
       AuthProvider authProvider,
       JoblistProvider joblistProvider,
@@ -138,6 +140,7 @@ class AppComponent implements OnInit, OnDestroy {
     userBloc.dispose();
     pdfBloc.dispose();
     if (userListener != null) userListener.cancel();
+    if (refreshTimer != null) refreshTimer.cancel();
   }
 
   @override
@@ -197,6 +200,11 @@ class AppComponent implements OnInit, OnDestroy {
 
     // Tell our custom JS to start watching for fakeprinting
     document.dispatchEvent(new CustomEvent("loggedIn"));
+
+    refreshTimer = Timer.periodic(Duration(minutes: 1), (Timer t) {
+      userBloc.onRefresh();
+      joblistBloc.onRefresh();
+    });
   }
 
   onLogout() {
