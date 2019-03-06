@@ -108,6 +108,7 @@ class AppComponent implements OnInit, OnDestroy {
   bool enableScanning = false;
 
   User user;
+  StreamSubscription userListener;
 
   AppComponent(
       AuthProvider authProvider,
@@ -136,6 +137,7 @@ class AppComponent implements OnInit, OnDestroy {
     printQueueBloc.dispose();
     userBloc.dispose();
     pdfBloc.dispose();
+    if (userListener != null) userListener.cancel();
   }
 
   @override
@@ -173,7 +175,6 @@ class AppComponent implements OnInit, OnDestroy {
             const String.fromEnvironment('rightPrinter', defaultValue: '')
                 .isNotEmpty);
 
-    StreamSubscription userListener;
     userListener = userBloc.state.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
