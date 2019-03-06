@@ -107,6 +107,8 @@ class AppComponent implements OnInit, OnDestroy {
   StreamSubscription<Event> uploadListener;
   bool enableScanning = false;
 
+  User user;
+
   AppComponent(
       AuthProvider authProvider,
       JoblistProvider joblistProvider,
@@ -170,6 +172,13 @@ class AppComponent implements OnInit, OnDestroy {
                 .isNotEmpty ||
             const String.fromEnvironment('rightPrinter', defaultValue: '')
                 .isNotEmpty);
+
+    StreamSubscription userListener;
+    userListener = userBloc.state.listen((UserState state) {
+      if (state.isResult) {
+        user = state.value;
+      }
+    });
   }
 
   onLogin() {

@@ -26,3 +26,21 @@ material-content {
 .drawer-list-item {
     border-right: 1px solid rgba(0,0,0,0.12);
 }
+
+.drawer-userspace-image {
+    background-image: url('/img/screen.jpeg');
+    background-size: 256px;
+    margin: 0px !important;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    min-height: 128px;
+}
+
+.drawer-userspace-text {
+    color: whitesmoke;
+    font-size: 150%;
+    position: absolute;
+    top: 40px;
+    padding: 16px;
+    padding-top: 48px;
+}
