@@ -255,19 +255,13 @@ class JobDetailsComponent extends AuthGuard
     pdfBloc.onGetPdf(job.id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
       if (state.isResult) {
-        // Create a new blob from the data.
-        Blob blob = Blob(state.value.last.file, 'application/pdf');
-        // Create a data:url which points to that data.
-        pdfUrl = Url.createObjectUrlFromBlob(blob);
+        var b64 = const Base64Codec();
 
         AnchorElement link = AnchorElement()
-          ..href = pdfUrl
-          ..download = job.jobInfo.filename
-          ..text = 'Download Now!';
+          ..href = "data:application/pdf;base64," + b64.encode(state.value.last.file)
+          ..download = job.jobInfo.filename;
 
-        // Insert the link into the DOM.
-        var p = querySelector('#link-area');
-        p.insertAdjacentElement('beforeEnd', link);
+        link.click();
       }
     });
   }

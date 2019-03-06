@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -162,19 +163,13 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
     pdfBloc.onGetPdf(id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
       if (state.isResult) {
-        // Create a new blob from the data.
-        Blob blob = Blob(state.value.last.file, 'application/pdf');
-        // Create a data:url which points to that data.
-        String pdfUrl = Url.createObjectUrlFromBlob(blob);
+        var b64 = const Base64Codec();
 
-        AnchorElement link = new AnchorElement()
-          ..href = pdfUrl
-          ..download = newJobs.last.jobInfo.filename
-          ..text = newJobs.last.jobInfo.filename;
+        AnchorElement link = AnchorElement()
+          ..href = "data:application/pdf;base64," + b64.encode(state.value.last.file)
+          ..download = newJobs.last.jobInfo.filename;
 
-        // Insert the link into the DOM.
-        var p = querySelector('#dl-links');
-        p.append(link);
+        link.click();
       }
     });
   }
