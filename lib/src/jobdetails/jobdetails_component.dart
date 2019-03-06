@@ -254,7 +254,7 @@ class JobDetailsComponent extends AuthGuard
   void downloadPdf() {
     pdfBloc.onGetPdf(job.id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
-      if (state.isResult) {
+      if (state.isResult && state.value.last.id == job.id) {
         var b64 = const Base64Codec();
 
         AnchorElement link = AnchorElement()
@@ -262,6 +262,7 @@ class JobDetailsComponent extends AuthGuard
           ..download = job.jobInfo.filename;
 
         link.click();
+        pdfListener.cancel();
       }
     });
   }

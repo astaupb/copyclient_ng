@@ -162,7 +162,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void downloadPdf(int id) {
     pdfBloc.onGetPdf(id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
-      if (state.isResult) {
+      if (state.isResult && state.value.last.id == id) {
         var b64 = const Base64Codec();
 
         AnchorElement link = AnchorElement()
