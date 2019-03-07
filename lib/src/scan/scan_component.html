@@ -13,7 +13,8 @@
 </div>
 
 <div *ngIf="printerLocked">
-    Die Drucker-Reservierung für den Drucker {{ (lockedPrinter == leftPrinter) ? 'links' : 'rechts'}} von dir ist nun aktiv.<br>
+    Die Drucker-Reservierung für den Drucker {{ (lockedPrinter == leftPrinter) ? 'links' : 'rechts'}} von dir ist nun
+    aktiv.<br>
     Du kannst jetzt Scannen und die Dokumente landen bei deinen Druckjobs.
     <p>
         <b>Wichtig: Für die richtige Zuordnung musst du während dem Scannen auf dieser Seite bleiben</b>
@@ -28,11 +29,12 @@
                 {{ DateTime.now().toString().split('.')[0] }}
             </span>
             <div class="scan-job-controls">
-               <material-spinner></material-spinner>
+                <material-spinner></material-spinner>
             </div>
         </material-list-item>
-        <a *ngFor="let job of newJobs" [routerLink]="jobDetailsUrl(job.id)">
-            <material-list-item class="scan-jobs-item">
+
+        <material-list-item *ngFor="let job of newJobs" class="scan-jobs-item">
+            <a [routerLink]="jobDetailsUrl(job.id)">
                 <div class="scan-job-title">
                     {{ job?.jobInfo?.filename }}
                 </div><br>
@@ -40,18 +42,18 @@
                     {{ DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                         1000).toString().split('.')[0] }}
                 </span>
-                <div class="scan-job-controls" id="">
-                    <material-button class="control-button" (trigger)="directPrint(job?.id)">
-                        <material-icon icon="printer">Direktdruck</material-icon>
-                    </material-button>
-                    <material-button class="control-button" (trigger)="directDelete(job?.id)">
-                        <material-icon icon="delete"></material-icon>
-                    </material-button>
-                    <material-button (trigger)="downloadPdf(job?.id)">
-                        <material-icon icon="cloud_download"></material-icon>
-                    </material-button>
-                </div>
-            </material-list-item>
-        </a>
+            </a>
+            <div class="scan-job-controls" id="">
+                <material-button class="control-button" (trigger)="directPrint(job?.id)">
+                    <material-icon icon="printer">Direktdruck</material-icon>
+                </material-button>
+                <material-button class="control-button" (trigger)="directDelete(job?.id)">
+                    <material-icon icon="delete"></material-icon>
+                </material-button>
+                <material-button (trigger)="downloadPdf(job?.id)">
+                    <material-icon icon="cloud_download"></material-icon>
+                </material-button>
+            </div>
+        </material-list-item>
     </div>
 </div>
