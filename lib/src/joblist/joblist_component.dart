@@ -103,7 +103,13 @@ class JobListComponent extends AuthGuard implements OnActivate {
   void printJobDialog(int id) {
     print('printing job with id $id');
     printingJob = id;
-    showSelectPrinter = true;
+    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
+      printJobLeft();
+    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
+      printJobRight();
+    } else {
+      showSelectPrinter = true;
+    }
   }
 
   void printJobLeft() {

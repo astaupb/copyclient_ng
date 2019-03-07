@@ -247,7 +247,17 @@ class JobDetailsComponent extends AuthGuard
   }
 
   void openPrintDialog() {
-    showSelectPrinter = true;
+    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
+      printJobLeft();
+    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
+      printJobRight();
+    } else {
+      showSelectPrinter = true;
+    }
+
+    if (!job.jobOptions.keep) {
+      _location.back();
+    }
   }
 
   void printJobLeft() {
