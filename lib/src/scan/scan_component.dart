@@ -45,7 +45,8 @@ import '../route_paths.dart';
     DateTime,
   ],
 )
-class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
+class ScanComponent extends AuthGuard
+    implements OnActivate, OnDeactivate, OnDestroy {
   final PrintQueueProvider printQueueProvider;
   PrintQueueBloc printQueueBloc;
   final JoblistProvider joblistProvider;
@@ -160,6 +161,12 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     rightPrinter =
         const String.fromEnvironment('rightPrinter', defaultValue: '');
+
+    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
+      lockLeft();
+    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
+      lockRight();
+    }
   }
 
   @override
@@ -210,5 +217,16 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
         pdfListener.cancel();
       }
     });
+  }
+
+  @override
+  void ngOnDestroy() {
+    deactivate(listener);
+    deactivate(jobListener);
+    deactivate(lockListener);
+
+    deactivate(timer);
+    deactivate(jobTimer);
+    deactivate(uploadsTimer);
   }
 }

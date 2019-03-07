@@ -13,8 +13,11 @@
 </div>
 
 <div *ngIf="printerLocked">
-    Drucker-Reservierung ist aktiv.<br> Du kannst nun Scannen und die Dokumente landen bei deinen Druckjobs.
-
+    Die Drucker-Reservierung für den Drucker {{ (lockedPrinter == leftPrinter) ? 'links' : 'rechts'}} von dir ist nun aktiv.<br>
+    Du kannst jetzt Scannen und die Dokumente landen bei deinen Druckjobs.
+    <p>
+        <b>Wichtig: Für die richtige Zuordnung musst du während dem Scannen auf dieser Seite bleiben</b>
+    </p>
     <h2>Neue Jobs:</h2>
     <div>
         <material-list-item class="scan-jobs-item" *ngFor="let task of uploadTasks">
