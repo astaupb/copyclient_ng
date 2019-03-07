@@ -221,9 +221,8 @@ class AppComponent implements OnInit, OnDestroy {
           }
         });
       }
-      if (uploadListener != null) {
-        uploadListener.cancel();
-      }
+      if (uploadListener != null) uploadListener.cancel();
+      if (refreshTimer != null) refreshTimer.cancel();
     }
   }
 
