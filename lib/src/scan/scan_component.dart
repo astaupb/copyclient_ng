@@ -121,6 +121,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
             printerLocked = false;
             deactivate(timer);
             deactivate(jobTimer);
+            deactivate(uploadsTimer);
           }
         });
 
@@ -129,7 +130,9 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
             newJobs = state.value
                 .where((Job job) => activationTime.isBefore(
                     DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
-                .toList().reversed;
+                .toList()
+                .reversed
+                .toList();
           }
         });
 
@@ -167,6 +170,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     deactivate(timer);
     deactivate(jobTimer);
+    deactivate(uploadsTimer);
   }
 
   void deactivate<T>(T subject) {
