@@ -1,13 +1,25 @@
 .scan-jobs-item {
-    display: flow-root;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
 }
 
 .scan-job-title {
-    float: left;
     font-size: larger;
-    font-weight: 500;
+    font-weight: 800;
+    padding-top: 8px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.timestamp {
+    font-size: small;
+    font-weight: 200;
+    color: rgba(0,0,0,0.87);
+    text-decoration: none;
 }
 
 .scan-job-controls {
-    float: right;
+    padding-bottom: 18px;
 }

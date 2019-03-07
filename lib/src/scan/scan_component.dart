@@ -36,7 +36,10 @@ import '../route_paths.dart';
     MaterialListItemComponent,
     routerDirectives,
   ],
-  exports: [jobDetailsUrl],
+  exports: [
+    jobDetailsUrl,
+    DateTime,
+  ],
 )
 class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final PrintQueueProvider printQueueProvider;
