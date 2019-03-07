@@ -104,7 +104,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "368beb2758fc9854b0676bc89fae2cb200cb01de"
+      resolved-ref: ae7efb10223f08e4c23dcb791c2dfe1ad46debb5
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"

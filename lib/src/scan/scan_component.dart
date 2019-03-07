@@ -68,7 +68,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
       : super(authProvider, router) {
     printQueueBloc = printQueueProvider.printQueueBloc;
     joblistBloc = joblistProvider.joblistBloc;
-    pdfBloc =pdfProvider.pdfBloc;
+    pdfBloc = pdfProvider.pdfBloc;
   }
 
   void lockLeft() {
@@ -124,8 +124,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onActivate(RouterState previous, RouterState current) {
     activationTime = DateTime.now();
 
-    leftPrinter =
-        const String.fromEnvironment('leftPrinter', defaultValue: '');
+    leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
     rightPrinter =
         const String.fromEnvironment('rightPrinter', defaultValue: '');
@@ -163,13 +162,18 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
     pdfBloc.onGetPdf(id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
       if (state.isResult && state.value.last.id == id) {
-        var b64 = const Base64Codec();
+        Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
+
+        String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
 
         AnchorElement link = AnchorElement()
-          ..href = "data:application/pdf;base64," + b64.encode(state.value.last.file)
+          ..href = blobUrl
           ..download = newJobs.last.jobInfo.filename;
 
-        link.click();
+        // dispatch click event so firefox works as well
+        var event = MouseEvent("click", view: window, cancelable: false);
+        link.dispatchEvent(event);
+
         pdfListener.cancel();
       }
     });

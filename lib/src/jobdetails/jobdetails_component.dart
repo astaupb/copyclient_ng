@@ -111,7 +111,6 @@ class JobDetailsComponent extends AuthGuard
   String pdfUrl = '';
 
   User user;
-  
 
   JobDetailsComponent(
       JoblistProvider joblistProvider,
@@ -125,7 +124,7 @@ class JobDetailsComponent extends AuthGuard
     joblistBloc = joblistProvider.joblistBloc;
     previewBloc = previewProvider.previewBloc;
     pdfBloc = pdfProvider.pdfBloc;
-    userBloc =userProvider.userBloc;
+    userBloc = userProvider.userBloc;
   }
 
   void goBack() => _location.back();
@@ -270,13 +269,18 @@ class JobDetailsComponent extends AuthGuard
     pdfBloc.onGetPdf(job.id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
       if (state.isResult && state.value.last.id == job.id) {
-        var b64 = const Base64Codec();
+        Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
+
+        String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
 
         AnchorElement link = AnchorElement()
-          ..href = "data:application/pdf;base64," + b64.encode(state.value.last.file)
+          ..href = blobUrl
           ..download = job.jobInfo.filename;
 
-        link.click();
+        // dispatch click event so firefox works as well
+        var event = MouseEvent("click", view: window, cancelable: false);
+        link.dispatchEvent(event);
+
         pdfListener.cancel();
       }
     });
