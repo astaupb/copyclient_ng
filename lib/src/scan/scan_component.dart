@@ -7,11 +7,14 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_list/material_list.dart';
 import 'package:angular_components/material_list/material_list_item.dart';
+import 'package:angular_components/material_spinner/material_spinner.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router/router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/print_queue.dart';
+import 'package:blocs_copyclient/upload.dart';
+import 'package:copyclient_ng/src/providers/uploads_provider.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
@@ -35,6 +38,7 @@ import '../route_paths.dart';
     MaterialListComponent,
     MaterialListItemComponent,
     routerDirectives,
+    MaterialSpinnerComponent,
   ],
   exports: [
     jobDetailsUrl,
@@ -48,9 +52,12 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   JoblistBloc joblistBloc;
   final PdfProvider pdfProvider;
   PdfBloc pdfBloc;
+  final UploadsProvider uploadsProvider;
+  UploadBloc uploadBloc;
 
   List<PrintQueueTask> printQueue = [];
   List<Job> newJobs = [];
+  List<DispatcherTask> uploadTasks = [];
 
   String leftPrinter = '';
   String rightPrinter = '';
@@ -65,16 +72,24 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   StreamSubscription jobListener;
   StreamSubscription lockListener;
   StreamSubscription pdfListener;
+  StreamSubscription uploadListener;
 
   Timer timer;
   Timer jobTimer;
+  Timer uploadsTimer;
 
-  ScanComponent(AuthProvider authProvider, Router router,
-      this.printQueueProvider, this.joblistProvider, this.pdfProvider)
-      : super(authProvider, router) {
+  ScanComponent(
+    AuthProvider authProvider,
+    Router router,
+    this.printQueueProvider,
+    this.joblistProvider,
+    this.pdfProvider,
+    this.uploadsProvider,
+  ) : super(authProvider, router) {
     printQueueBloc = printQueueProvider.printQueueBloc;
     joblistBloc = joblistProvider.joblistBloc;
     pdfBloc = pdfProvider.pdfBloc;
+    uploadBloc = uploadsProvider.uploadBloc;
   }
 
   void lockLeft() {
@@ -99,7 +114,9 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
                 (Timer t) =>
                     printQueueBloc.onLockDevice(queueUid: state.lockUid));
             jobTimer = Timer.periodic(
-                Duration(seconds: 3), (Timer t) => joblistBloc.onRefresh());
+                Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
+            uploadsTimer = Timer.periodic(
+                Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
           } else if (!state.isLocked) {
             printerLocked = false;
             deactivate(timer);
@@ -112,7 +129,13 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
             newJobs = state.value
                 .where((Job job) => activationTime.isBefore(
                     DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
-                .toList();
+                .toList().reversed;
+          }
+        });
+
+        uploadListener = uploadBloc.state.listen((UploadState state) {
+          if (state.isResult) {
+            uploadTasks = state.value;
           }
         });
 

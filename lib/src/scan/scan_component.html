@@ -17,8 +17,19 @@
 
     <h2>Neue Jobs:</h2>
     <div>
+        <material-list-item class="scan-jobs-item" *ngFor="let task of uploadTasks">
+            <div class="scan-job-title">
+                {{ task?.filename ?? '' }}
+            </div><br>
+            <span class="timestamp">
+                {{ DateTime.now().toString().split('.')[0] }}
+            </span>
+            <div class="scan-job-controls">
+               <material-spinner></material-spinner>
+            </div>
+        </material-list-item>
         <a *ngFor="let job of newJobs" [routerLink]="jobDetailsUrl(job.id)">
-            <material-list-item  class="scan-jobs-item">
+            <material-list-item class="scan-jobs-item">
                 <div class="scan-job-title">
                     {{ job?.jobInfo?.filename }}
                 </div><br>
