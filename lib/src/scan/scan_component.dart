@@ -18,6 +18,7 @@ import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/print_queue_provider.dart';
 import '../providers/pdf_provider.dart';
+import '../route_paths.dart';
 
 @Component(
   selector: 'scan-component',
@@ -33,7 +34,9 @@ import '../providers/pdf_provider.dart';
     MaterialIconComponent,
     MaterialListComponent,
     MaterialListItemComponent,
+    routerDirectives,
   ],
+  exports: [jobDetailsUrl],
 )
 class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final PrintQueueProvider printQueueProvider;
