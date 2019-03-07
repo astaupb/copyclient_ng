@@ -84,7 +84,7 @@ class JobDetailsComponent extends AuthGuard
   int nupPageOrder = 1;
   bool keep = false;
 
-  final List<String> duplexOptions = ['Simplex', 'Kurze Kante', 'Lange Kante'];
+  final List<String> duplexOptions = ['Simplex', 'Lange Kante', 'Kurze Kante'];
   String duplexSelection = 'Simplex';
 
   final List<String> nupOptions = ['1', '2', '4'];
