@@ -28,7 +28,7 @@ packages:
       name: angular_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.4"
   angular_compiler:
     dependency: transitive
     description:
@@ -98,7 +98,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.3"
+    version: "0.9.5"
   blocs_copyclient:
     dependency: "direct main"
     description:
@@ -191,7 +191,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   charcode:
     dependency: transitive
     description:
@@ -317,7 +317,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.7"
+    version: "0.15.8"
   io:
     dependency: transitive
     description:
@@ -471,7 +471,7 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   rxdart:
     dependency: transitive
     description:
@@ -485,7 +485,7 @@ packages:
       name: sass
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.17.2"
+    version: "1.17.3"
   sass_builder:
     dependency: "direct dev"
     description:
@@ -576,7 +576,7 @@ packages:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.15"
+    version: "0.0.16+1"
   string_scanner:
     dependency: transitive
     description:
