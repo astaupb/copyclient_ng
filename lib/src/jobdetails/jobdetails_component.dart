@@ -138,6 +138,12 @@ class JobDetailsComponent extends AuthGuard
           job = state.value.singleWhere((Job job) => job.id == id);
           setJobOptions(job.jobOptions);
           estimatedDouble = (job.priceEstimation as double) / 100.0;
+
+          // set dropdown menus on right choice
+          duplexSelection = duplexOptions[duplex];
+          nupSelection = nupOptions[_sanitizeNup(nup)];
+          nupOrderSelection = nupOrderOptions[nupPageOrder];
+
           previewBloc.getPreview(job);
         }
       });
@@ -191,8 +197,10 @@ class JobDetailsComponent extends AuthGuard
   void duplexChanged(String selection) {
     duplexSelection = selection;
     duplex = duplexOptions.indexWhere((String option) => option == selection);
-    job.jobOptions.duplex = duplex;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    if (job != null) {
+      job.jobOptions.duplex = duplex;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
   }
 
   void a3Checked() {
@@ -234,16 +242,20 @@ class JobDetailsComponent extends AuthGuard
         nup = 1;
         break;
     }
-    job.jobOptions.nup = nup;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    if (job != null) {
+      job.jobOptions.nup = nup;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
   }
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
     nupPageOrder =
         nupOrderOptions.indexWhere((String option) => option == selection);
-    job.jobOptions.nup = nup;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    if (job != null) {
+      job.jobOptions.nup = nup;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
   }
 
   void openPrintDialog() {
@@ -302,5 +314,16 @@ class JobDetailsComponent extends AuthGuard
     previewListener.cancel();
     if (pdfListener != null) pdfListener.cancel();
     userListener.cancel();
+  }
+
+  int _sanitizeNup(int n) {
+    switch (n) {
+      case 2:
+        return 1;
+      case 4:
+        return 2;
+      default:
+        return 0;
+    }
   }
 }

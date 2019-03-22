@@ -77,8 +77,8 @@
                             Duplex:
                         </div>
                         <div class="options-value">
-                            <material-dropdown-select [options]="duplexOptions" [buttonText]="duplexSelection"
-                                (selectionChange)="duplexChanged">
+                            <material-dropdown-select [selection]="duplexSelection" [options]="duplexOptions"
+                                [buttonText]="duplexSelection" (selectionChange)="duplexChanged">
                             </material-dropdown-select>
                         </div>
                     </material-list-item>
@@ -123,8 +123,8 @@
                             Seiten pro Blatt:
                         </div>
                         <div class="options-value">
-                            <material-dropdown-select [options]="nupOptions" [buttonText]="nupSelection"
-                                (selectionChange)="nupChanged">
+                            <material-dropdown-select [selection]="nupSelection" [options]="nupOptions"
+                                [buttonText]="nupSelection" (selectionChange)="nupChanged">
                             </material-dropdown-select>
                         </div>
                     </material-list-item>
@@ -133,8 +133,8 @@
                             Reihenfolge auf dem Blatt:
                         </div>
                         <div class="options-value">
-                            <material-dropdown-select [options]="nupOrderOptions" [buttonText]="nupOrderSelection"
-                                (selectionChange)="nupOrderChanged">
+                            <material-dropdown-select [selection]="nupOrderSelection" [options]="nupOrderOptions"
+                                [buttonText]="nupOrderSelection" (selectionChange)="nupOrderChanged">
                             </material-dropdown-select>
                         </div>
                     </material-list-item>
