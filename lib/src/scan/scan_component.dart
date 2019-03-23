@@ -178,6 +178,8 @@ class ScanComponent extends AuthGuard
     deactivate(timer);
     deactivate(jobTimer);
     deactivate(uploadsTimer);
+
+    printQueueBloc.onDelete(lockUid);
   }
 
   void deactivate<T>(T subject) {
@@ -228,5 +230,7 @@ class ScanComponent extends AuthGuard
     deactivate(timer);
     deactivate(jobTimer);
     deactivate(uploadsTimer);
+
+    printQueueBloc.onDelete(lockUid);
   }
 }

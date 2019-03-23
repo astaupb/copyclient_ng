@@ -84,7 +84,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.8"
+    version: "2.1.0"
   bazel_worker:
     dependency: transitive
     description:
@@ -104,7 +104,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ae7efb10223f08e4c23dcb791c2dfe1ad46debb5
+      resolved-ref: "67abea8c839c3cd140f04ce1586290112414310c"
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
