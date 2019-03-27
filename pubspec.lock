@@ -28,7 +28,7 @@ packages:
       name: angular_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.4"
+    version: "0.6.0"
   angular_compiler:
     dependency: transitive
     description:
@@ -98,13 +98,13 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.5"
+    version: "0.11.0"
   blocs_copyclient:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "67abea8c839c3cd140f04ce1586290112414310c"
+      resolved-ref: "4bf2a92839501aea10dc2b0562a811e9c9251a88"
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -478,7 +478,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.20.0"
+    version: "0.21.0"
   sass:
     dependency: transitive
     description:
@@ -569,14 +569,14 @@ packages:
       name: stream_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.8"
+    version: "1.7.0"
   stream_transform:
     dependency: transitive
     description:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.16+1"
+    version: "0.0.17"
   string_scanner:
     dependency: transitive
     description:
@@ -660,7 +660,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.9"
+    version: "1.0.11"
   yaml:
     dependency: transitive
     description:
@@ -669,4 +669,4 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.1.1-dev.0.0 <2.3.0"
+  dart: ">=2.2.0 <2.3.0"
