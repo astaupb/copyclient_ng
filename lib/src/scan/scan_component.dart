@@ -110,12 +110,13 @@ class ScanComponent extends AuthGuard
           if (state.isLocked) {
             lockUid = state.lockUid;
             printerLocked = true;
-            timer = Timer.periodic(
-                Duration(seconds: 15),
-                (Timer t) =>
-                    printQueueBloc.onLockDevice(queueUid: state.lockUid));
+            if (timer != null) timer.cancel();
+            timer = Timer.periodic(Duration(seconds: 50),
+                (Timer t) => printQueueBloc.onLockDevice());
+            if (jobTimer != null) jobTimer.cancel();
             jobTimer = Timer.periodic(
                 Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
+            if (uploadsTimer != null) uploadsTimer.cancel();
             uploadsTimer = Timer.periodic(
                 Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
           } else if (!state.isLocked) {
