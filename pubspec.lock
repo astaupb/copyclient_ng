@@ -104,7 +104,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4bf2a92839501aea10dc2b0562a811e9c9251a88"
+      resolved-ref: a25d4054b03aa522a43595f66d3011018543edc1
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -527,7 +527,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2+4"
+    version: "0.2.2+5"
   source_gen:
     dependency: transitive
     description:
@@ -660,7 +660,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.11"
+    version: "1.0.12"
   yaml:
     dependency: transitive
     description:

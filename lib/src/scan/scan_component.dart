@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -180,7 +179,7 @@ class ScanComponent extends AuthGuard
     deactivate(jobTimer);
     deactivate(uploadsTimer);
 
-    printQueueBloc.onDelete(lockUid);
+    printQueueBloc.onDelete();
   }
 
   void deactivate<T>(T subject) {
@@ -232,6 +231,6 @@ class ScanComponent extends AuthGuard
     deactivate(jobTimer);
     deactivate(uploadsTimer);
 
-    printQueueBloc.onDelete(lockUid);
+    printQueueBloc.onDelete();
   }
 }
