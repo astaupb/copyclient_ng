@@ -1,11 +1,12 @@
 <div class="login-container">
     <form #loginForm="ngForm" class="mdc-card login-card">
         <h2>AStA Copyclient Login</h2>
-        <material-input autoFocus id="username" class="login-input" label="Copycard S/N" [maxRows]="1" [checkValid]="validateUsername"
-            required type="text" #username="ngForm" ngControl="username" [(ngModel)]="cred.username"></material-input>
-        <material-input id="password" type="password" class="login-input" label="Copycard PIN" #password="ngForm" ngControl="password"
-            [maxRows]="1" [checkValid]="validatePassword" required name="password" [(ngModel)]="cred.password"
-            (keyup.enter)="submitForm()"></material-input>
+        <material-input autoFocus id="username" class="login-input" label="Nutzername/SN" [maxRows]="1"
+            [checkValid]="validateUsername" required type="text" #username="ngForm" ngControl="username"
+            [(ngModel)]="cred.username"></material-input>
+        <material-input id="password" type="password" class="login-input" label="Passwort/PIN" #password="ngForm"
+            ngControl="password" [maxRows]="1" [checkValid]="validatePassword" required name="password"
+            [(ngModel)]="cred.password" (keyup.enter)="submitForm()"></material-input>
         <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"></material-checkbox>
         <material-button (trigger)="submitForm()" type="submit" class="login-button" raised>Einloggen</material-button>
         <material-button class="reset-button" (trigger)="clearForm()">
@@ -15,5 +16,9 @@
 </div>
 
 <div *ngIf="showException" class="loginException">
-    {{(exception.statusCode == 401) ? 'Username oder Passwort falsch' : exception.toString()}}
+    {{(exception.statusCode == 0) ? 'Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung' : 
+        ((exception.statusCode == 400) ? 'Nicht erlaubte Zeichen im Nutzernamen oder Passwort' : 
+        ((exception.statusCode == 401) ? 'Username oder Passwort falsch' : 
+        ((exception.statusCode >= 500) ? 'Serverfehler - Bitte versuche es in einem Moment noch mal' 
+        : exception.toString())))}}
 </div>
