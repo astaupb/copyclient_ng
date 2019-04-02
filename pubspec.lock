@@ -98,13 +98,13 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0"
+    version: "0.11.1"
   blocs_copyclient:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a25d4054b03aa522a43595f66d3011018543edc1
+      resolved-ref: e377dc010808490756cf9e7608791367f48b5d86
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -142,7 +142,7 @@ packages:
       name: build_modules
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.9"
+    version: "1.0.10"
   build_resolvers:
     dependency: transitive
     description:
@@ -177,14 +177,14 @@ packages:
       name: build_web_compilers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.4+3"
+    version: "1.2.0"
   built_collection:
     dependency: transitive
     description:
       name: built_collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   built_value:
     dependency: transitive
     description:
@@ -338,14 +338,14 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   json_rpc_2:
     dependency: transitive
     description:
       name: json_rpc_2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.10"
   kernel:
     dependency: transitive
     description:
@@ -506,7 +506,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.4"
+    version: "0.7.5"
   shelf_packages_handler:
     dependency: transitive
     description:
@@ -646,7 +646,7 @@ packages:
       name: vm_service_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.6+1"
   watcher:
     dependency: transitive
     description:
