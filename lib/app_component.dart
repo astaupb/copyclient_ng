@@ -84,13 +84,13 @@ class AppComponent implements OnInit, OnDestroy {
   UserBloc userBloc;
   PdfBloc pdfBloc;
 
-  // the [User] as shown in the drawer header
+  /// The [User] as shown in the drawer header
   User user;
 
-  // true if [AuthBloc] yields authorized state; visibility of navigation and headerbar depends on this
+  /// The authorization state; true if [AuthBloc] yields authorized state
   bool authorized = false;
 
-  // whether scanning link should be active in the drawer; defaults to false
+  /// Whether scanning link should be active in the drawer; defaults to false
   bool enableScanning = false;
 
   StreamSubscription<Event> uploadListener;
