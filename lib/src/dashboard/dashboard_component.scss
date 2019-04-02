@@ -1,7 +1,8 @@
+@import 'package:angular_components/css/material/material';
+
 .user-card {
     padding: 1vw;
     margin: 0.5vw;
-    max-width: 512px;
 }
 
 .user-card .options-row {
@@ -18,4 +19,14 @@
 .user-card .options-row .options-key {
     grid-column: 1;
     grid-row: 1;
+}
+
+.user-card .card-heading {
+    font-weight: bold;
+    font-size: 1.4em;
+    text-indent: 16px;
+}
+
+.card-narrow {
+    width: $mat-grid * 44;
 }

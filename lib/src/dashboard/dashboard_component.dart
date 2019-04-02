@@ -13,7 +13,7 @@ import '../providers/user_provider.dart';
   selector: 'dashboard',
   templateUrl: 'dashboard_component.html',
   styleUrls: [
-    'dashboard_component.css',
+    'dashboard_component.scss.css',
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
   ],
   directives: [

@@ -1,5 +1,5 @@
-<div class="mdc-card mdc-card--outlined user-card">
-    <h2>Benutzer</h2>
+<div class="mdc-card card-narrow user-card">
+    <span class="card-heading">Benutzer</span>
     <material-list>
         <material-list-item group class="options-row">
             <div class="options-key">
@@ -10,10 +10,9 @@
             </div>
         </material-list-item>
         <div group>
-            Copycard
             <material-list-item class="options-row">
                 <div class="options-key">
-                    S/N
+                    Copycard SN
                 </div>
                 <div class="options-value">
                     {{ user?.card ?? 'Keine' }}
@@ -21,7 +20,7 @@
             </material-list-item>
             <material-list-item class="options-row">
                 <div class="options-key">
-                    PIN
+                    Copycard PIN
                 </div>
                 <div class="options-value">
                     {{ user?.pin ?? 'Keine' }}
