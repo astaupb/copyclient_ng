@@ -28,30 +28,23 @@
                 </material-list-item>
             </a>
         </div>
+        <div group>
+            <material-list-item class="drawer-list-item" (trigger)="onLogout()">
+                <material-icon icon="exit_to_app"></material-icon>Logout
+            </material-list-item>
+        </div>
     </material-list>
 </material-drawer>
 
 <header class="material-header dense-header pink-header" *ngIf="authorized">
     <div class="material-header-row">
-        <material-button icon class="material-drawer-button" (trigger)="null">
+        <material-button icon class="material-drawer-button" (trigger)="onToggleDrawer()">
             <material-icon icon="menu"></material-icon>
         </material-button>
         <span class="material-header-title">AStA Copyclient</span>
-        <div class="material-spacer"></div>
-        <material-button popupSource #source="popupSource" icon class="material-drawer-button"
-            (trigger)="navOptionsVisible = !navOptionsVisible">
-            <material-icon icon="more_vert"></material-icon>
-        </material-button>
-        <material-popup [source]="source" [(visible)]="navOptionsVisible" [preferredPositions]="[popupPosition]">
-            <material-list>
-                <material-list-item (click)="onLogout()">Logout</material-list-item>
-            </material-list>
-        </material-popup>
     </div>
 </header>
 
 <material-content>
     <router-outlet [routes]="Routes.all"></router-outlet>
 </material-content>
-
-<fullscreen-spinner *ngIf="appBusy"></fullscreen-spinner>
