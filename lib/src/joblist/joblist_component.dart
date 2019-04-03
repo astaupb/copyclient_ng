@@ -52,7 +52,7 @@ import '../route_paths.dart';
     jobDetailsUrl,
   ],
 )
-class JobListComponent extends AuthGuard implements OnActivate {
+class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   JoblistBloc jobsBloc;
   UploadBloc uploadBloc;
 
@@ -72,6 +72,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
   String selectedPrinter = '';
   bool showSelectPrinter = false;
 
+  // Listeners
+  StreamSubscription<UploadState> uploadListener;
+  StreamSubscription<JoblistState> jobListener;
+
   JobListComponent(Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider,
       UploadsProvider uploadsProvider, this._router, this.location)
       : super(authProvider, _router) {
@@ -82,7 +86,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
   @override
   void onActivate(_, __) {
     onRefreshJobs();
-    jobsBloc.state.listen((JoblistState state) {
+    jobListener = jobsBloc.state.listen((JoblistState state) {
       if (state.isResult) {
         refreshing = false;
         lastJobs = state.value;
@@ -95,7 +99,7 @@ class JobListComponent extends AuthGuard implements OnActivate {
 
     if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
 
-    uploadBloc.state.listen((UploadState state) async {
+    uploadListener = uploadBloc.state.listen((UploadState state) async {
       if (state.isResult) {
         if (state.value.isNotEmpty) {
           if (!state.value.first.isUploading) {
@@ -109,6 +113,11 @@ class JobListComponent extends AuthGuard implements OnActivate {
         }
       }
     });
+  }
+
+  @override
+  void onDeactivate(RouterState previous, RouterState current) {
+    _cancelListeners();
   }
 
   void onDeleteJob(int id) {
@@ -162,5 +171,10 @@ class JobListComponent extends AuthGuard implements OnActivate {
   void printJobRight() {
     jobsBloc.onPrintById(rightPrinter, printingJob);
     showSelectPrinter = false;
+  }
+
+  void _cancelListeners() {
+    uploadListener.cancel();
+    jobListener.cancel();
   }
 }
