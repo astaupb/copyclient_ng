@@ -92,7 +92,7 @@ class LoginComponent implements OnInit {
 
   void submitForm() {
     print('submit form with $cred');
-    authBloc.login(cred.username, cred.password);
+    authBloc.login(cred.username.trim(), cred.password.trim());
   }
 
   /// TODO: implement password validation
