@@ -1,6 +1,12 @@
+<header class="material-header dense-header pink-header" *ngIf="authorized">
+    <div class="material-header-row">
+        <span class="header-title">AStA Copyclient</span>
+        <!--<span class="header-title header-pagetitle">{{router.current.routes.single.additionalData.toString()}}</span>-->
+    </div>
+</header>
+
 <material-drawer persistent #drawer="drawer" [class.custom-width]="true" *ngIf="authorized">
     <material-list *deferredContent>
-        <div group class="mat-drawer-spacer dense-drawer-spacer"></div>
         <div class="drawer-userspace-image"></div>
         <div class="drawer-userspace-text">
             <span><b>{{ user?.name ?? '' }}</b></span><br>
@@ -35,15 +41,6 @@
         </div>
     </material-list>
 </material-drawer>
-
-<header class="material-header dense-header pink-header" *ngIf="authorized">
-    <div class="material-header-row">
-        <material-button icon class="material-drawer-button" (trigger)="onToggleDrawer()">
-            <material-icon icon="menu"></material-icon>
-        </material-button>
-        <span class="material-header-title">AStA Copyclient</span>
-    </div>
-</header>
 
 <material-content>
     <router-outlet [routes]="Routes.all"></router-outlet>

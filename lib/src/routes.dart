@@ -27,30 +27,36 @@ class Routes {
   static final dashboard = RouteDefinition(
     routePath: RoutePaths.dashboard,
     component: dashboard_template.DashboardComponentNgFactory,
+    additionalData: 'Dashboard',
   );
 
   static final login = RouteDefinition(
     routePath: RoutePaths.login,
     component: login_template.LoginComponentNgFactory,
+    additionalData: 'Login',
   );
 
   static final jobdetails = RouteDefinition(
     routePath: RoutePaths.jobdetails,
     component: jobdetails_template.JobDetailsComponentNgFactory,
+    additionalData: 'Jobdetails',
   );
 
   static final joblist = RouteDefinition(
     routePath: RoutePaths.joblist,
     component: joblist_template.JobListComponentNgFactory,
+    additionalData: 'Jobliste',
   );
 
   static final uploads = RouteDefinition(
     routePath: RoutePaths.uploads,
     component: uploads_template.UploadsComponentNgFactory,
+    additionalData: 'Hochladen',
   );
 
   static final scans = RouteDefinition(
     routePath: RoutePaths.scans,
     component: scans_template.ScanComponentNgFactory,
+    additionalData: 'Scanmodus',
   );
 }

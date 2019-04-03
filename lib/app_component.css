@@ -16,7 +16,6 @@ material-content {
 
 .drawer-link {
     text-decoration-line: none;
-
 }
 
 .dense-drawer-spacer {
@@ -42,5 +41,23 @@ material-content {
     position: absolute;
     top: 40px;
     padding: 16px;
-    padding-top: 48px;
+}
+
+.header-title {
+    bottom: 0;
+    box-sizing: border-box;
+    display: block;
+    height: 20px;
+    left: 80px;
+    line-height: 1;
+    margin-bottom: auto;
+    margin-top: auto;
+    top: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.header-pagetitle {
+    position: absolute;
+    left: 256px;
 }

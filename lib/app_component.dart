@@ -208,9 +208,4 @@ class AppComponent implements OnInit, OnDestroy {
       if (refreshTimer != null) refreshTimer.cancel();
     }
   }
-
-  /// change state of drawer to whatever is the opposite of the state it had before
-  void onToggleDrawer() {
-
-  }
 }
