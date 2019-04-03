@@ -27,7 +27,7 @@ material-content {
 }
 
 .drawer-userspace-image {
-    background-image: url('img/screen.jpeg');
+    background-image: url('https://astaprint.uni-paderborn.de/img/screen.jpeg');
     background-size: 256px;
     margin: 0px !important;
     filter: blur(2px);
