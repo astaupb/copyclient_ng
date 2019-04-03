@@ -4,6 +4,13 @@
     margin-top: 1vw !important;
 }
 
+.register-button {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 8px;
+}
+
 .login-card {
     width: 33%;
     min-width: 300px;

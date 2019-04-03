@@ -43,6 +43,7 @@ class Credentials {
     NgIf,
     coreDirectives,
     formDirectives,
+    routerDirectives,
     MaterialButtonComponent,
     MaterialInputComponent,
     MaterialCheckboxComponent,
@@ -52,7 +53,9 @@ class Credentials {
     NgFormModel,
     materialInputDirectives,
   ],
+  providers: [],
   pipes: [BlocPipe],
+  exports: [RoutePaths]
 )
 class LoginComponent implements OnInit {
   static AuthBloc authBloc;
