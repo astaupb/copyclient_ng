@@ -1,7 +1,27 @@
+<div id="upload-container">
+    <div class="upload-button-wrapper">
+        <material-button raised class="upload-button">
+            <material-icon class="upload-icon" icon="note_add"></material-icon> PDF hochladen
+        </material-button>
+        <input class="upload-input" #jobUpload type="file" multiple accept="application/pdf"
+            (change)="onUploadFileSelected(jobUpload.files)">
+    </div>
+</div>
+
 <material-list>
-    <a *ngFor="let job of ((jobsBloc | bloc)?.value?.reversed)">
+    <material-list-item class="job-item" *ngFor="let task of (uploadBloc | bloc)?.value">
+        <material-spinner class="upload-task-spinner"></material-spinner>
+        <div class="jobitem-info">
+            <b><span class="filename">{{task?.filename}}</span></b><br>
+            <span class="timestamp">{{task?.isUploading ? 'Am Hochladen...' : 'Am Verarbeiten...'}}</span>
+        </div>
+    </material-list-item>
+</material-list>
+
+<material-list id="joblist">
+    <a *ngFor="let job of lastJobs.reversed">
         <material-list-item class="job-item">
-            <material-button (trigger)="keepJob(job.id)">
+            <material-button (trigger)="onKeepJob(job.id)">
                 <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
             </material-button>
             <div class="jobitem-info" [routerLink]="jobDetailsUrl(job.id)">
@@ -9,10 +29,10 @@
                 <span class="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
             </div>
-            <material-button class="delete-button" (trigger)="deleteJob(job.id)">
+            <material-button class="delete-button" (trigger)="onDeleteJob(job.id)">
                 <material-icon icon="delete"></material-icon>
             </material-button>
-            <material-button *ngIf="directPrinter" class="print-button" (trigger)="printJobDialog(job.id)">
+            <material-button *ngIf="directPrinter" class="print-button" (trigger)="onOpenPrintDialog(job.id)">
                 <material-icon icon="printer"></material-icon>
             </material-button>
         </material-list-item>
@@ -20,12 +40,10 @@
 </material-list>
 
 <div class="bottom-bar">
-    <section id="version">
-        Joblist length: {{(jobsBloc | bloc)?.value?.length}}
-    </section>
+
 </div>
 
-<material-fab raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="refreshJobs()">
+<material-fab raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="onRefreshJobs()">
     <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
     <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
 </material-fab>

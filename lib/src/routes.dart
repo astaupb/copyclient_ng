@@ -6,7 +6,6 @@ import 'joblist/joblist_component.template.dart' as joblist_template;
 import 'login/login_component.template.dart' as login_template;
 import 'route_paths.dart';
 import 'scan/scan_component.template.dart' as scans_template;
-import 'uploads/uploads_component.template.dart' as uploads_template;
 
 export 'route_paths.dart';
 
@@ -16,7 +15,6 @@ class Routes {
     jobdetails,
     joblist,
     login,
-    uploads,
     scans,
     RouteDefinition.redirect(
       path: '',
@@ -46,12 +44,6 @@ class Routes {
     routePath: RoutePaths.joblist,
     component: joblist_template.JobListComponentNgFactory,
     additionalData: 'Jobliste',
-  );
-
-  static final uploads = RouteDefinition(
-    routePath: RoutePaths.uploads,
-    component: uploads_template.UploadsComponentNgFactory,
-    additionalData: 'Hochladen',
   );
 
   static final scans = RouteDefinition(

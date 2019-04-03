@@ -23,11 +23,6 @@
                     <material-icon icon="view_list"></material-icon>Jobliste
                 </material-list-item>
             </a>
-            <a [routerLink]="RoutePaths.uploads.toUrl()" class="drawer-link">
-                <material-list-item class="drawer-list-item">
-                    <material-icon icon="cloud_upload"></material-icon>Hochladen
-                </material-list-item>
-            </a>
             <a *ngIf="enableScanning" [routerLink]="RoutePaths.scans.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
                     <material-icon icon="scanner"></material-icon>Scannen und Kopieren

@@ -1,6 +1,10 @@
 material-list {
     width: 100%;
     max-width: 900px;
+    padding: 8px 0px;
+}
+
+#joblist {
     margin-bottom: 48px;
 }
 
@@ -33,4 +37,41 @@ material-list-item {
 
 a {
     text-decoration-line: none;
+}
+
+.upload-button-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload-button {
+    border: 2px solid #090909;
+    color: #090909;
+    background-color: white;
+    /* padding: 8px 20px; */
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.upload-input {
+    font-size: 2em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.upload-icon {
+    padding: 2px;
+}
+
+#upload-container {
+    text-align: center;
+}
+
+.upload-task-spinner {
+    margin-left: 8px;
+    border-color: teal;
 }

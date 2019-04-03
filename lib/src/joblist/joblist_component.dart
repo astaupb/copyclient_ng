@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:html';
 
@@ -17,6 +18,7 @@ import 'package:blocs_copyclient/upload.dart';
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
+import '../providers/uploads_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -39,6 +41,7 @@ import '../route_paths.dart';
     MaterialInputComponent,
     materialInputDirectives,
     ModalComponent,
+    MaterialSpinnerComponent,
   ],
   providers: [
     materialProviders,
@@ -52,12 +55,16 @@ import '../route_paths.dart';
 class JobListComponent extends AuthGuard implements OnActivate {
   JoblistBloc jobsBloc;
   UploadBloc uploadBloc;
+
   Location location;
   Router _router;
 
   bool refreshing = true;
 
-  // variables used for direct printing in kiosk mode
+  /// last complete joblist known to this component
+  List<Job> lastJobs = [];
+
+  /// variables used for direct printing in kiosk mode
   bool directPrinter = false;
   String leftPrinter = '';
   String rightPrinter = '';
@@ -65,42 +72,56 @@ class JobListComponent extends AuthGuard implements OnActivate {
   String selectedPrinter = '';
   bool showSelectPrinter = false;
 
-  JobListComponent(Backend backend, JoblistProvider joblistProvider,
-      AuthProvider authProvider, this._router, this.location)
+  JobListComponent(Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider,
+      UploadsProvider uploadsProvider, this._router, this.location)
       : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
-  }
-
-  void deleteJob(int id) {
-    jobsBloc.onDeleteById(id);
-    jobsBloc.onRefresh();
-  }
-
-  void keepJob(int id) {
-    JobOptions newOptions =
-        jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
-    newOptions.keep = !newOptions.keep;
-    jobsBloc.onUpdateOptionsById(id, newOptions);
+    uploadBloc = uploadsProvider.uploadBloc;
   }
 
   @override
   void onActivate(_, __) {
-    refreshJobs();
+    onRefreshJobs();
     jobsBloc.state.listen((JoblistState state) {
       if (state.isResult) {
         refreshing = false;
+        lastJobs = state.value;
       }
     });
 
     leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-    rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '');
+    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
     if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
+
+    uploadBloc.state.listen((UploadState state) async {
+      if (state.isResult) {
+        if (state.value.isNotEmpty) {
+          if (!state.value.first.isUploading) {
+            await Future.delayed(const Duration(seconds: 1));
+            uploadBloc.onRefresh();
+          }
+        } else {
+          refreshing = true;
+          await Future.delayed(const Duration(milliseconds: 1000));
+          jobsBloc.onRefresh();
+        }
+      }
+    });
   }
 
-  void printJobDialog(int id) {
+  void onDeleteJob(int id) {
+    jobsBloc.onDeleteById(id);
+  }
+
+  void onKeepJob(int id) {
+    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    newOptions.keep = !newOptions.keep;
+    jobsBloc.onUpdateOptionsById(id, newOptions);
+  }
+
+  void onOpenPrintDialog(int id) {
     print('printing job with id $id');
     printingJob = id;
     if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
@@ -112,6 +133,27 @@ class JobListComponent extends AuthGuard implements OnActivate {
     }
   }
 
+  void onRefreshJobs() {
+    refreshing = true;
+    jobsBloc.onRefresh();
+  }
+
+  void onUploadFileSelected(List<File> files) {
+    print(files.toString());
+
+    files.forEach((File file) async {
+      FileReader reader = FileReader();
+      reader.readAsArrayBuffer(file);
+      await reader.onLoadEnd.listen(
+        (ProgressEvent progress) {
+          if (progress.loaded == progress.total) {
+            uploadBloc.onUpload(reader.result as List<int>, filename: file.name);
+          }
+        },
+      ).asFuture();
+    });
+  }
+
   void printJobLeft() {
     jobsBloc.onPrintById(leftPrinter, printingJob);
     showSelectPrinter = false;
@@ -120,16 +162,5 @@ class JobListComponent extends AuthGuard implements OnActivate {
   void printJobRight() {
     jobsBloc.onPrintById(rightPrinter, printingJob);
     showSelectPrinter = false;
-  }
-
-  void refreshJobs() {
-    print('refresh those jobs dude');
-    refreshing = true;
-    jobsBloc.onRefresh();
-  }
-
-  void showJobDetails(int id) {
-    print('showing job details for $id');
-    _router.navigateByUrl(jobDetailsUrl(id));
   }
 }
