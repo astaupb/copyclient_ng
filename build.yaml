@@ -11,6 +11,6 @@ targets:
            - -DleftPrinter=44322
            - -DrightPrinter=44325
         release_options:
-         dart2js_args: #insert ids of printers that are available for direct printing or scanning
+         dart2js_args: #insert ids of printers that are available for direct printing or scanning, ALSO KEEP THESE AS THE LAST TWO LINES
            - -DleftPrinter=
            - -DrightPrinter=
