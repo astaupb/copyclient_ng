@@ -7,10 +7,10 @@ targets:
         enabled: True
       build_web_compilers|entrypoint:
         dev_options:
-          dart2js_args:
+          dart2js_args: # insert ids of printers that are available for direct printing or scanning
            - -DleftPrinter=44322
            - -DrightPrinter=44325
         release_options:
-         dart2js_args: #insert ids of printers that are available for direct printing or scanning, ALSO KEEP THESE AS THE LAST TWO LINES
+         dart2js_args: # KEEP THESE AS THE LAST TWO LINES
            - -DleftPrinter=
            - -DrightPrinter=

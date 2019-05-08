@@ -1,6 +1,6 @@
 name: copyclient_ng
 description: AStA Copyclient Web App using AngularDart
-version: 0.2.6
+version: 0.3.0
 homepage: https://asta.upb.de/
 author: Leon Tappe <ltappe@asta.upb.de>
 
@@ -20,7 +20,7 @@ dependencies:
 
 dev_dependencies:
   angular_test: ^2.2.0
-  build_runner: ^1.2.3
+  build_runner: ^1.4.0
   build_test: ^0.10.6
   build_web_compilers: ^1.2.0
   test: ^1.5.3
