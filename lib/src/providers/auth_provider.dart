@@ -16,8 +16,7 @@ class AuthProvider {
   factory AuthProvider(Backend backend) => _singleton;
 
   AuthProvider._internal(this.authBloc) {
-    String storageToken =
-        window.localStorage['token'] ?? '';
+    String storageToken = window.localStorage['token'] ?? '';
     if (storageToken.isNotEmpty) authBloc.tokenLogin(storageToken);
   }
 }

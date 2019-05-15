@@ -55,7 +55,7 @@ class Credentials {
   ],
   providers: [],
   pipes: [BlocPipe],
-  exports: [RoutePaths]
+  exports: [RoutePaths],
 )
 class LoginComponent implements OnInit {
   static AuthBloc authBloc;
