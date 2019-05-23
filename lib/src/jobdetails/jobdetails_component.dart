@@ -60,8 +60,7 @@ import '../route_paths.dart';
   ],
   exports: [base64Encode],
 )
-class JobDetailsComponent extends AuthGuard
-    implements OnActivate, OnDeactivate {
+class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   JoblistBloc joblistBloc;
   PreviewBloc previewBloc;
   UserBloc userBloc;
@@ -150,9 +149,7 @@ class JobDetailsComponent extends AuthGuard
 
       previewListener = previewBloc.state.skip(1).listen((PreviewState state) {
         if (state.isResult) {
-          previews = state.value
-              .singleWhere((previewSet) => previewSet.jobId == id)
-              .previews;
+          previews = state.value.singleWhere((previewSet) => previewSet.jobId == id).previews;
         }
       });
 
@@ -162,17 +159,13 @@ class JobDetailsComponent extends AuthGuard
         }
       });
 
-      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
-        joblistBloc.onRefresh();
+      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty) joblistBloc.onRefresh();
 
-      leftPrinter =
-          const String.fromEnvironment('leftPrinter', defaultValue: '');
+      leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-      rightPrinter =
-          const String.fromEnvironment('rightPrinter', defaultValue: '');
+      rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
-      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty)
-        directPrinter = true;
+      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
     }
   }
 
@@ -250,8 +243,7 @@ class JobDetailsComponent extends AuthGuard
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    nupPageOrder =
-        nupOrderOptions.indexWhere((String option) => option == selection);
+    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
     if (job != null) {
       job.jobOptions.nup = nup;
       joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);

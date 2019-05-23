@@ -80,14 +80,12 @@ class RegisterComponent implements OnActivate, OnDeactivate {
         ApiException error = state.error as ApiException;
 
         if (error.statusCode == 470) {
-          notificationText =
-              'Dieser Name ist leider schon vergeben, bitte probiere einen anderen.';
+          notificationText = 'Dieser Name ist leider schon vergeben, bitte probiere einen anderen.';
         } else if (error.statusCode == 471) {
           notificationText =
               'Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben.';
         } else if (error.statusCode >= 500) {
-          notificationText =
-              'Serverfehler - Bitte probiere es in einem Moment erneut.';
+          notificationText = 'Serverfehler - Bitte probiere es in einem Moment erneut.';
         } else if (error.statusCode == 0) {
           notificationText =
               'Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.';
@@ -116,8 +114,7 @@ class RegisterComponent implements OnActivate, OnDeactivate {
       notificationText = 'Registrierung wurde abgeschickt...';
     }
     showNotification = true;
-    Future.delayed(const Duration(seconds: 3))
-        .then((_) => showNotification = false);
+    Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
   }
 }
 

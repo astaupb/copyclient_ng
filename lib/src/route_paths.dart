@@ -7,8 +7,7 @@ int getId(Map<String, String> parameters) {
   return (id == null) ? null : int.tryParse(id);
 }
 
-String jobDetailsUrl(int id) =>
-    RoutePaths.jobdetails.toUrl(parameters: {idParam: '$id'});
+String jobDetailsUrl(int id) => RoutePaths.jobdetails.toUrl(parameters: {idParam: '$id'});
 
 class RoutePaths {
   static final dashboard = RoutePath(path: 'dashboard');

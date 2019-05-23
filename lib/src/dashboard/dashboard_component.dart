@@ -27,8 +27,7 @@ class DashboardComponent extends AuthGuard implements OnActivate {
 
   User user;
 
-  DashboardComponent(
-      AuthProvider authProvider, Router router, UserProvider userProvider)
+  DashboardComponent(AuthProvider authProvider, Router router, UserProvider userProvider)
       : super(authProvider, router) {
     authBloc = authProvider.authBloc;
     userBloc = userProvider.userBloc;

@@ -44,8 +44,7 @@ import '../route_paths.dart';
     DateTime,
   ],
 )
-class ScanComponent extends AuthGuard
-    implements OnActivate, OnDeactivate, OnDestroy {
+class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate, OnDestroy {
   final PrintQueueProvider printQueueProvider;
   PrintQueueBloc printQueueBloc;
   final JoblistProvider joblistProvider;
@@ -110,14 +109,13 @@ class ScanComponent extends AuthGuard
             lockUid = state.lockUid;
             printerLocked = true;
             if (timer != null) timer.cancel();
-            timer = Timer.periodic(Duration(seconds: 50),
-                (Timer t) => printQueueBloc.onLockDevice());
+            timer =
+                Timer.periodic(Duration(seconds: 50), (Timer t) => printQueueBloc.onLockDevice());
             if (jobTimer != null) jobTimer.cancel();
-            jobTimer = Timer.periodic(
-                Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
+            jobTimer = Timer.periodic(Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
             if (uploadsTimer != null) uploadsTimer.cancel();
-            uploadsTimer = Timer.periodic(
-                Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
+            uploadsTimer =
+                Timer.periodic(Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
           } else if (!state.isLocked) {
             printerLocked = false;
             deactivate(timer);
@@ -129,8 +127,8 @@ class ScanComponent extends AuthGuard
         jobListener = joblistBloc.state.listen((JoblistState state) async {
           if (state.isResult) {
             newJobs = state.value
-                .where((Job job) => activationTime.isBefore(
-                    DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
+                .where((Job job) => activationTime
+                    .isBefore(DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
                 .toList()
                 .reversed
                 .toList();
@@ -159,8 +157,7 @@ class ScanComponent extends AuthGuard
 
     leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-    rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '');
+    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
     if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
       lockLeft();

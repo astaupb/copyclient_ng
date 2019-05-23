@@ -76,13 +76,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   StreamSubscription<UploadState> uploadListener;
   StreamSubscription<JoblistState> jobListener;
 
-  JobListComponent(
-      Backend backend,
-      JoblistProvider joblistProvider,
-      AuthProvider authProvider,
-      UploadsProvider uploadsProvider,
-      this._router,
-      this.location)
+  JobListComponent(Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider,
+      UploadsProvider uploadsProvider, this._router, this.location)
       : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
@@ -100,8 +95,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-    rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '');
+    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
     if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
 
@@ -131,8 +125,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions =
-        jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     jobsBloc.onUpdateOptionsById(id, newOptions);
   }
@@ -163,8 +156,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       await reader.onLoadEnd.listen(
         (ProgressEvent progress) {
           if (progress.loaded == progress.total) {
-            uploadBloc.onUpload(reader.result as List<int>,
-                filename: file.name);
+            uploadBloc.onUpload(reader.result as List<int>, filename: file.name);
           }
         },
       ).asFuture();

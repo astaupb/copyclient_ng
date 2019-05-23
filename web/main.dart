@@ -1,8 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:copyclient_ng/app_component.template.dart' as ng;
 import 'package:logging/logging.dart';
 
+import '../lib/app_component.template.dart' as ng;
 import 'main.template.dart' as self;
 
 void main() {

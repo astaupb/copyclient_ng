@@ -4,12 +4,14 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
-import 'package:angular_components/app_layout/material_persistent_drawer.dart';
-import 'package:angular_components/content/deferred_content.dart';
-import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_list/material_list.dart';
-import 'package:angular_components/material_list/material_list_item.dart';
+import 'package:angular_components/angular_components.dart'
+    show
+        DeferredContentDirective,
+        MaterialButtonComponent,
+        MaterialIconComponent,
+        MaterialListComponent,
+        MaterialListItemComponent,
+        MaterialPersistentDrawerDirective;
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/joblist.dart';
@@ -156,11 +158,8 @@ class AppComponent implements OnInit, OnDestroy {
     });
 
     // check for direct printers to scan from
-    enableScanning =
-        (const String.fromEnvironment('leftPrinter', defaultValue: '')
-                .isNotEmpty ||
-            const String.fromEnvironment('rightPrinter', defaultValue: '')
-                .isNotEmpty);
+    enableScanning = (const String.fromEnvironment('leftPrinter', defaultValue: '').isNotEmpty ||
+        const String.fromEnvironment('rightPrinter', defaultValue: '').isNotEmpty);
   }
 
   void onLogin() {
@@ -177,7 +176,7 @@ class AppComponent implements OnInit, OnDestroy {
     });
 
     // Tell our custom JS to start watching for fakeprinting
-    document.dispatchEvent(new CustomEvent("loggedIn"));
+    document.dispatchEvent(CustomEvent("loggedIn"));
 
     // refresh user and joblist twice every minute to keep it synchronized
     refreshTimer = Timer.periodic(Duration(seconds: 30), (Timer t) {
@@ -202,7 +201,7 @@ class AppComponent implements OnInit, OnDestroy {
         logoutListener = authBloc.state.listen((AuthState state) async {
           if (state.isUnauthorized) {
             _router.navigate(RoutePaths.login.path);
-            document.dispatchEvent(new CustomEvent("loggedOut"));
+            document.dispatchEvent(CustomEvent("loggedOut"));
             logoutListener.cancel();
           }
         });
