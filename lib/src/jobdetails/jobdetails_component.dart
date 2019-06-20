@@ -49,8 +49,12 @@ import '../route_paths.dart';
     ModalComponent,
     MaterialDialogComponent,
     coreDirectives,
+    MaterialTooltipDirective,
+    MaterialInkTooltipComponent,
+    MaterialTooltipTargetDirective,
   ],
   providers: [
+    materialTooltipBindings,
     materialProviders,
   ],
   pipes: [
@@ -128,21 +132,6 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     pdfBloc = pdfProvider.pdfBloc;
     userBloc = userProvider.userBloc;
   }
-
-  /*JobDetailsComponent(
-      JoblistProvider joblistProvider,
-      PreviewProvider previewProvider,
-      UserProvider userProvider,
-      PdfProvider pdfProvider,
-      this._location,
-      AuthProvider authProvider,
-      this.router)
-      : super(authProvider, router) {
-    joblistBloc = joblistProvider.joblistBloc;
-    previewBloc = previewProvider.previewBloc;
-    pdfBloc = pdfProvider.pdfBloc;
-    userBloc = userProvider.userBloc;
-  }*/
 
   void goBack() => _router.navigateByUrl('/joblist');
 

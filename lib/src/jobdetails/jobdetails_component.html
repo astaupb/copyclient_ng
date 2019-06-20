@@ -3,14 +3,23 @@
 <h2>Jobdetails für {{ job?.jobInfo?.filename }}</h2>
 
 <div>
-    <material-button raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
+    <material-button tooltipTarget #refPrint="tooltipTarget" raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
         <material-icon icon="printer"></material-icon>
+        <material-tooltip-text [for]="refPrint">
+            <header>Job {{ (leftPrinter.isNotEmpty) ? 'links' : 'rechts' }} drucken</header>
+        </material-tooltip-text>
     </material-button>
-    <material-button raised (trigger)="deleteJob()">
+    <material-button tooltipTarget #refDelete="tooltipTarget" raised (trigger)="deleteJob()">
         <material-icon icon="delete"></material-icon>
+        <material-tooltip-text [for]="refDelete">
+            <header>Job löschen</header>
+        </material-tooltip-text>
     </material-button>
-    <material-button raised (trigger)="downloadPdf()">
+    <material-button tooltipTarget #refDownload="tooltipTarget" raised (trigger)="downloadPdf()">
         <material-icon icon="cloud_download"></material-icon>
+        <material-tooltip-text [for]="refDownload">
+            <header>Zugehörige PDF herunterladen</header>
+        </material-tooltip-text>
     </material-button>
     <div id="link-area"></div>
 </div>
