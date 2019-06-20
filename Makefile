@@ -6,10 +6,10 @@ format:
 build:
 	pub get && webdev build
 deploy: build
-	tar cf copyclient.tar build
-	scp copyclient.tar root@shiva:/srv/www/
-	rm copyclient.tar
-	ssh root@shiva "cd /srv/www && tar xf copyclient.tar && rm -rf copyclient && mv build copyclient && rm copyclient.tar" 
+	tar czf copyclient.tar.gz build
+	scp copyclient.tar.gz root@shiva:/srv/www/
+	rm copyclient.tar.gz
+	ssh root@shiva "cd /srv/www && tar xzf copyclient.tar.gz && rm -rf copyclient && mv build copyclient && rm copyclient.tar.gz" 
 
 clean:
 	rm -rf build
