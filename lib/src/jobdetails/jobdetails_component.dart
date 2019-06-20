@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -55,7 +54,6 @@ import '../route_paths.dart';
     materialProviders,
   ],
   pipes: [
-    BlocPipe,
     DecimalPipe,
   ],
   exports: [base64Encode],

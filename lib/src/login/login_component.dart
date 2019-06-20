@@ -1,7 +1,6 @@
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
@@ -54,7 +53,7 @@ class Credentials {
     materialInputDirectives,
   ],
   providers: [],
-  pipes: [BlocPipe],
+  pipes: [],
   exports: [RoutePaths],
 )
 class LoginComponent implements OnInit {

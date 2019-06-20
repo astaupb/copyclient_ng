@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
@@ -39,7 +38,7 @@ import '../route_paths.dart';
   providers: [
     materialProviders,
   ],
-  pipes: [commonPipes, BlocPipe],
+  pipes: [commonPipes],
   exports: [
     DateTime,
     jobDetailsUrl,
@@ -56,6 +55,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   /// last complete joblist known to this component
   List<Job> lastJobs = [];
+
+  List<DispatcherTask> uploads = [];
 
   /// variables used for direct printing in kiosk mode
   bool directPrinter = false;
@@ -95,6 +96,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     uploadListener = uploadBloc.state.listen((UploadState state) async {
       if (state.isResult) {
         if (state.value.isNotEmpty) {
+          uploads = state.value;
           if (!state.value.first.isUploading) {
             await Future.delayed(const Duration(seconds: 1));
             uploadBloc.onRefresh();

@@ -9,7 +9,7 @@
 </div>
 
 <material-list>
-    <material-list-item class="job-item" *ngFor="let task of (uploadBloc | bloc)?.value">
+    <material-list-item class="job-item" *ngFor="let task of uploads">
         <material-spinner class="upload-task-spinner"></material-spinner>
         <div class="jobitem-info">
             <b><span class="filename">{{task?.filename}}</span></b><br>
