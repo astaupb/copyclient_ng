@@ -59,11 +59,17 @@ import '../route_paths.dart';
   exports: [base64Encode],
 )
 class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
+  final Router _router;
+
+  final JoblistProvider joblistProvider;
+  final PreviewProvider previewProvider;
+  final UserProvider userProvider;
+  final PdfProvider pdfProvider;
+
   JoblistBloc joblistBloc;
   PreviewBloc previewBloc;
   UserBloc userBloc;
   PdfBloc pdfBloc;
-  Location _location;
   Job job;
 
   StreamSubscription jobListener;
@@ -110,21 +116,35 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   User user;
 
   JobDetailsComponent(
-      JoblistProvider joblistProvider,
-      PreviewProvider previewProvider,
-      UserProvider userProvider,
-      PdfProvider pdfProvider,
-      this._location,
-      AuthProvider authProvider,
-      Router router)
-      : super(authProvider, router) {
+    AuthProvider authProvider,
+    this._router,
+    this.joblistProvider,
+    this.previewProvider,
+    this.userProvider,
+    this.pdfProvider,
+  ) : super(authProvider, _router) {
     joblistBloc = joblistProvider.joblistBloc;
     previewBloc = previewProvider.previewBloc;
     pdfBloc = pdfProvider.pdfBloc;
     userBloc = userProvider.userBloc;
   }
 
-  void goBack() => _location.back();
+  /*JobDetailsComponent(
+      JoblistProvider joblistProvider,
+      PreviewProvider previewProvider,
+      UserProvider userProvider,
+      PdfProvider pdfProvider,
+      this._location,
+      AuthProvider authProvider,
+      this.router)
+      : super(authProvider, router) {
+    joblistBloc = joblistProvider.joblistBloc;
+    previewBloc = previewProvider.previewBloc;
+    pdfBloc = pdfProvider.pdfBloc;
+    userBloc = userProvider.userBloc;
+  }*/
+
+  void goBack() => _router.navigateByUrl('/joblist');
 
   @override
   void onActivate(_, RouterState current) async {
@@ -258,7 +278,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     }
 
     if (!job.jobOptions.keep) {
-      _location.back();
+      _router.navigateByUrl('/joblist');
     }
   }
 

@@ -45,11 +45,10 @@ import '../route_paths.dart';
   ],
 )
 class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
+  final Router _router;
+
   JoblistBloc jobsBloc;
   UploadBloc uploadBloc;
-
-  Location location;
-  Router router;
 
   bool refreshing = true;
 
@@ -70,9 +69,12 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   StreamSubscription<UploadState> uploadListener;
   StreamSubscription<JoblistState> jobListener;
 
-  JobListComponent(JoblistProvider joblistProvider, AuthProvider authProvider,
-      UploadsProvider uploadsProvider, this.router, this.location)
-      : super(authProvider, router) {
+  JobListComponent(
+    JoblistProvider joblistProvider,
+    UploadsProvider uploadsProvider,
+    AuthProvider authProvider,
+    this._router,
+  ) : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
   }

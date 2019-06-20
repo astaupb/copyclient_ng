@@ -7,8 +7,8 @@ import 'route_paths.dart';
 
 @Injectable()
 class AuthGuard implements CanActivate {
+  final Router _router;
   AuthBloc _authBloc;
-  Router _router;
 
   AuthGuard(AuthProvider authProvider, this._router) {
     _authBloc = authProvider.authBloc;
