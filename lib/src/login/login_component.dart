@@ -50,9 +50,15 @@ class Credentials {
     NgForm,
     NgFormControl,
     NgFormModel,
+    MaterialTooltipDirective,
+    MaterialInkTooltipComponent,
+    MaterialTooltipTargetDirective,
     materialInputDirectives,
   ],
-  providers: [],
+  providers: [
+    popupBindings,
+    materialTooltipBindings,
+  ],
   pipes: [],
   exports: [RoutePaths],
 )

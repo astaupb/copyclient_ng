@@ -9,8 +9,11 @@
             [(ngModel)]="cred.password" (keyup.enter)="submitForm()"></material-input>
         <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"></material-checkbox>
         <material-button (trigger)="submitForm()" type="submit" class="login-button" raised>Einloggen</material-button>
-        <material-button class="reset-button" (trigger)="clearForm()">
+        <material-button tooltipTarget #refReset="tooltipTarget" class="reset-button" (trigger)="clearForm()">
             <material-icon icon="refresh"></material-icon>
+            <material-tooltip-text [for]="refReset">
+                <header>Login-Formular zurücksetzen</header>
+            </material-tooltip-text>
         </material-button>
     </form>
 </div>
