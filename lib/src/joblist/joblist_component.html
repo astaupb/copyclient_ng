@@ -8,12 +8,18 @@
     </div>
 </div>
 
+<material-button *ngIf="directPrinter" (trigger)="onPrintAll">
+    <material-icon class="button-icon" icon="printer"></material-icon>
+    Alle drucken
+</material-button>
+
 <material-list>
     <material-list-item class="job-item" *ngFor="let task of uploads">
         <material-spinner class="upload-task-spinner"></material-spinner>
         <div class="jobitem-info">
             <b><span class="filename">{{task?.filename}}</span></b><br>
-            <span class="timestamp">{{task?.isUploading ? 'Am Hochladen...' : 'Am Verarbeiten... (Du kannst die Seite jetzt schließen)'}}</span>
+            <span
+                class="timestamp">{{task?.isUploading ? 'Am Hochladen...' : 'Am Verarbeiten... (Du kannst die Seite jetzt schließen)'}}</span>
         </div>
     </material-list-item>
 </material-list>

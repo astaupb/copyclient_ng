@@ -160,6 +160,15 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     });
   }
 
+  void onPrintAll() async {
+    for (Job job in lastJobs) {
+      print('printing job ${job.id}');
+      jobsBloc.onPrintById((leftPrinter.isEmpty) ? rightPrinter : leftPrinter, job.id);
+      await Future.delayed(const Duration(milliseconds: 500));
+      jobsBloc.onRefresh();
+    }
+  }
+
   void printJobLeft() {
     jobsBloc.onPrintById(leftPrinter, printingJob);
     showSelectPrinter = false;
