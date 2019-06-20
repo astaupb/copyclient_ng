@@ -11,7 +11,7 @@ class AuthProvider {
     AuthBloc(backend: BackendShiva()),
   );
   AuthBloc authBloc;
-  factory AuthProvider(BackendShiva backend) => _singleton;
+  factory AuthProvider() => _singleton;
 
   AuthProvider._internal(this.authBloc) {
     String storageToken = window.localStorage['token'] ?? '';
