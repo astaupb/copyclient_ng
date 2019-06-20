@@ -27,7 +27,7 @@ import '../route_paths.dart';
   templateUrl: 'scan_component.html',
   styleUrls: [
     'scan_component.scss.css',
-    '../../styles/printer_selector.scss.css',
+    'package:copyclient_ng/styles/printer_selector.scss.css',
   ],
   directives: [
     NgIf,

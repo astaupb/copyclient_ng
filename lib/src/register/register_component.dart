@@ -29,7 +29,7 @@ import '../providers/auth_provider.dart';
   ],
   styleUrls: [
     'register_component.scss.css',
-    '../../styles/bottom_notification.scss.css',
+    'package:copyclient_ng/styles/bottom_notification.scss.css',
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
   ],
   templateUrl: 'register_component.html',

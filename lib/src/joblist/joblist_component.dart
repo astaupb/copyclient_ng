@@ -18,8 +18,8 @@ import '../route_paths.dart';
   selector: 'joblist',
   styleUrls: [
     'joblist_component.scss.css',
-    '../../styles/listpage_navigation.css',
-    '../../styles/printer_selector.scss.css'
+    'package:copyclient_ng/styles/listpage_navigation.css',
+    'package:copyclient_ng/styles/printer_selector.scss.css'
   ],
   templateUrl: 'joblist_component.html',
   directives: [
