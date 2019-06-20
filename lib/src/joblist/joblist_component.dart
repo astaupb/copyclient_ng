@@ -1,18 +1,11 @@
 import 'dart:async';
-import 'dart:core';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_bloc/angular_bloc.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_list/material_list.dart';
-import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
-import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
 
 import '../auth_guard.dart';
@@ -57,7 +50,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   UploadBloc uploadBloc;
 
   Location location;
-  Router _router;
+  Router router;
 
   bool refreshing = true;
 
@@ -76,9 +69,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   StreamSubscription<UploadState> uploadListener;
   StreamSubscription<JoblistState> jobListener;
 
-  JobListComponent(Backend backend, JoblistProvider joblistProvider, AuthProvider authProvider,
-      UploadsProvider uploadsProvider, this._router, this.location)
-      : super(authProvider, _router) {
+  JobListComponent(JoblistProvider joblistProvider, AuthProvider authProvider,
+      UploadsProvider uploadsProvider, this.router, this.location)
+      : super(authProvider, router) {
     jobsBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
   }

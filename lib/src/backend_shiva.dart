@@ -1,15 +1,16 @@
 import 'package:blocs_copyclient/src/models/backend.dart';
+import 'package:http/browser_client.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 class BackendShiva implements Backend {
   final String host = 'astaprint.uni-paderborn.de';
   final String basePath = '/api/v1';
-  final Client _innerClient;
+  final Client _innerClient = BrowserClient();
 
   Logger _log = Logger('BackendShiva');
 
-  BackendShiva(this._innerClient) {
+  BackendShiva() {
     _log.fine('Creating Backend with ${_innerClient.toString()} as innerClient');
   }
 

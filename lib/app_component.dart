@@ -3,26 +3,16 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_bloc/angular_bloc.dart';
-import 'package:angular_components/angular_components.dart'
-    show
-        DeferredContentDirective,
-        MaterialButtonComponent,
-        MaterialIconComponent,
-        MaterialListComponent,
-        MaterialListItemComponent,
-        MaterialPersistentDrawerDirective;
+import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/print_queue.dart';
-import 'package:blocs_copyclient/src/models/backend.dart';
 import 'package:blocs_copyclient/upload.dart';
 import 'package:blocs_copyclient/user.dart';
 import 'package:http/browser_client.dart';
-import 'package:http/src/client.dart';
 
 import 'src/auth_guard.dart';
 import 'src/backend_shiva.dart';
@@ -59,7 +49,6 @@ import 'src/routes.dart';
     MaterialListComponent,
     MaterialListItemComponent,
   ],
-  pipes: [BlocPipe],
   providers: [
     AuthGuard,
     routerProvidersHash,
@@ -70,8 +59,7 @@ import 'src/routes.dart';
     ClassProvider(PrintQueueProvider),
     ClassProvider(UserProvider),
     ClassProvider(PdfProvider),
-    ClassProvider(Backend, useClass: BackendShiva),
-    ClassProvider(Client, useClass: BrowserClient),
+    ClassProvider(BackendShiva),
   ],
   exports: [RoutePaths, Routes],
 )
