@@ -210,7 +210,7 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate, OnDes
           ..download = newJobs.last.jobInfo.filename;
 
         // dispatch click event so firefox works as well
-        var event = MouseEvent("click", view: window, cancelable: false);
+        final MouseEvent event = MouseEvent("click", view: window, cancelable: false);
         link.dispatchEvent(event);
 
         pdfListener.cancel();

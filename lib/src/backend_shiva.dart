@@ -42,12 +42,10 @@ class BackendShiva implements Backend {
     return _innerClient.send(modRequest);
   }
 
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = Map();
-    map['host'] = host;
-    map['basePath'] = basePath;
-    return map;
-  }
+  Map<String, String> toMap() => {
+        'host': host,
+        'basePath': basePath,
+      };
 
   @override
   String toStringDeep() => toMap().toString();
