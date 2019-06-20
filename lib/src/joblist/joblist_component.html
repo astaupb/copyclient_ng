@@ -19,7 +19,7 @@
         <div class="jobitem-info">
             <b><span class="filename">{{task?.filename}}</span></b><br>
             <span
-                class="timestamp">{{task?.isUploading ? 'Am Hochladen...' : 'Am Verarbeiten... (Du kannst die Seite jetzt schließen)'}}</span>
+                class="timestamp">{{task?.isUploading ? 'Am Hochladen...' : 'Hochladen abgeschlossen - Am Verarbeiten... (Du kannst die Seite jetzt schließen)'}}</span>
         </div>
     </material-list-item>
 </material-list>
@@ -27,19 +27,30 @@
 <material-list id="joblist">
     <a *ngFor="let job of lastJobs.reversed">
         <material-list-item class="job-item">
-            <material-button (trigger)="onKeepJob(job.id)">
+            <material-button tooltipTarget #refKeep="tooltipTarget" (trigger)="onKeepJob(job.id)">
                 <material-icon [icon]="(job.jobOptions.keep) ? 'favorite' : 'favorite_outline'"></material-icon>
+                <material-tooltip-text [for]="refKeep">
+                    <header>Job nach dem Drucken behalten</header>
+                </material-tooltip-text>
             </material-button>
             <div class="jobitem-info" [routerLink]="jobDetailsUrl(job.id)">
                 <b><span class="filename">{{job.jobInfo?.filename}}</span></b><br>
                 <span class="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
             </div>
-            <material-button class="delete-button" (trigger)="onDeleteJob(job.id)">
+            <material-button tooltipTarget #refDelete="tooltipTarget" class="delete-button"
+                (trigger)="onDeleteJob(job.id)">
                 <material-icon icon="delete"></material-icon>
+                <material-tooltip-text [for]="refDelete">
+                    <header>Job löschen</header>
+                </material-tooltip-text>
             </material-button>
-            <material-button *ngIf="directPrinter" class="print-button" (trigger)="onOpenPrintDialog(job.id)">
+            <material-button *ngIf="directPrinter" class="print-button" (trigger)="onOpenPrintDialog(job.id)"
+                tooltipTarget #refPrint="tooltipTarget">
                 <material-icon icon="printer"></material-icon>
+                <material-tooltip-text [for]="refPrint">
+                    <header>Job {{ (leftPrinter.isNotEmpty) ? 'links' : 'rechts' }} drucken</header>
+                </material-tooltip-text>
             </material-button>
         </material-list-item>
     </a>
@@ -49,9 +60,12 @@
 
 </div>
 
-<material-fab raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="onRefreshJobs()">
+<material-fab tooltipTarget #refRefresh="tooltipTarget" raised id="refreshButton" class="button" [(disabled)]="refreshing" (trigger)="onRefreshJobs()">
     <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
     <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
+    <material-tooltip-text [for]="refRefresh">
+        <header>Liste aktualisieren</header>
+    </material-tooltip-text>
 </material-fab>
 
 <modal [visible]="showSelectPrinter">
