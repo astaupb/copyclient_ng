@@ -28,6 +28,11 @@
                     <material-icon icon="scanner"></material-icon>Scannen und Kopieren
                 </material-list-item>
             </a>
+            <a [routerLink]="RoutePaths.paypal.toUrl()" class="drawer-link">
+                <material-list-item class="drawer-list-item">
+                    <material-icon icon="credit_card"></material-icon>PayPal Aufladung
+                </material-list-item>
+            </a>
         </div>
         <div group>
             <material-list-item class="drawer-list-item" (trigger)="onLogout()">

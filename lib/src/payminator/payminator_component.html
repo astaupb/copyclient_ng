@@ -1,0 +1,42 @@
+<div id="payminator-container">
+    <div class="centered-container">
+        <div id="copycard" class="mdc-card">
+            <div class="demo-card__primary">
+                <h2>
+                    {{ user?.name ?? '' }}
+                    <material-icon-tooltip type="help"
+                        @i18n="Tell the user to log out if he finds this being logged into another user's account">
+                        Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.
+                    </material-icon-tooltip>
+                </h2>
+                <h3 class="light-text" *ngIf="(user?.card ?? null) != null">
+                    <ng-container @i18n="imitation of a sentence with [username] [this text] [card number]">mit
+                        Kartennummer</ng-container> {{ user.card }}
+                </h3>
+            </div>
+            <div>
+                <ng-container @i18n="Label for current user credit">Aktuelles Guthaben:</ng-container> <br>
+                <span class="big-text">
+                    {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}} €
+                </span>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div id="value-form">
+        <h2 @i18n="Title of the credit buying selection">Aufladung</h2>
+
+        <material-dropdown-select [options]="valueOptions" [selection]="selectedValue"
+            [buttonText]="selectedValueFormatted()" [itemRenderer]="renderValueOption"
+            (selectionChange)="onDropdownValueChanged">
+        </material-dropdown-select><br>
+        <material-input *ngIf="isCustomValue" id="value-input" [(ngModel)]="value" trailingGlyph="€" rightAlign required
+            [disabled]="!isNameValid" type="number" floatingLabel label="Betrag" @i18n:label="Literally the value"
+            (inputKeyPress)="onValueChanged" requiredErrorMsg="Bitte einen Wert eingeben">
+        </material-input>
+        <material-button [disabled]="isSubmitDisabled" id="submit-button" class="input-box" raised
+            (trigger)="onSubmitPayment()" @i18n="Button text for opening paypal with set value">
+            Paypal öffnen
+        </material-button>
+    </div>
+</div>

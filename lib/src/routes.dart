@@ -4,9 +4,10 @@ import 'dashboard/dashboard_component.template.dart' as dashboard_template;
 import 'jobdetails/jobdetails_component.template.dart' as jobdetails_template;
 import 'joblist/joblist_component.template.dart' as joblist_template;
 import 'login/login_component.template.dart' as login_template;
+import 'payminator/payminator_component.template.dart' as payminator_template;
+import 'register/register_component.template.dart' as register_template;
 import 'route_paths.dart';
 import 'scan/scan_component.template.dart' as scans_template;
-import 'register/register_component.template.dart' as register_template;
 
 export 'route_paths.dart';
 
@@ -18,6 +19,7 @@ class Routes {
     login,
     scans,
     register,
+    paypal,
     RouteDefinition.redirect(
       path: '',
       redirectTo: joblist.path,
@@ -58,5 +60,11 @@ class Routes {
     routePath: RoutePaths.register,
     component: register_template.RegisterComponentNgFactory,
     additionalData: 'Registrieren',
+  );
+
+  static final paypal = RouteDefinition(
+    routePath: RoutePaths.paypal,
+    component: payminator_template.PayminatorComponentNgFactory,
+    additionalData: 'Aufladen per PayPal',
   );
 }

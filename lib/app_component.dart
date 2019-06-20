@@ -12,6 +12,8 @@ import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/print_queue.dart';
 import 'package:blocs_copyclient/upload.dart';
 import 'package:blocs_copyclient/user.dart';
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart' as http;
 
 import 'src/auth_guard.dart';
 import 'src/joblist/joblist_component.dart';
@@ -57,6 +59,7 @@ import 'src/routes.dart';
     ClassProvider(PrintQueueProvider),
     ClassProvider(UserProvider),
     ClassProvider(PdfProvider),
+    ClassProvider(http.Client, useClass: BrowserClient),
   ],
   exports: [RoutePaths, Routes],
 )

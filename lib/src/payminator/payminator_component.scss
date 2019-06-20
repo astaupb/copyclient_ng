@@ -1,0 +1,61 @@
+@import 'package:angular_components/material_button/mixins';
+
+@include button-background-color('#submit-button', rgb(24, 74, 69));
+@include button-color('#submit-button', rgb(245, 253, 237));
+
+@include button-background-color('#logout', rgb(167, 93, 103));
+@include button-color('#logout', rgb(245, 253, 237));
+
+#payminator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-box {
+    min-width: 32vw;
+    max-width: 40vw;
+}
+
+#logout {
+    position: absolute;
+    top: 72px;
+    right: 8px;
+}
+
+.centered-container {
+    text-align: center;
+}
+
+.big-text {
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+#submit-button {
+    margin: 16px;
+}
+
+#value-input {
+    font-size: 1.4em;
+}
+
+#value-form {
+    text-align: center;
+}
+
+.light-text {
+    color: #0000009c;
+}
+
+#copycard {
+    margin: 4vw;
+    padding: 2vw;
+    padding-top: 0vw;
+}
+
+@media only screen and (max-width: 500px) {
+    #copycard {
+        margin-top: 72px;
+    }
+}
