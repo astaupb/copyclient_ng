@@ -101,8 +101,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     uploadListener = uploadBloc.state.listen((UploadState state) async {
       if (state.isResult) {
+        uploads = state.value;
         if (state.value.isNotEmpty) {
-          uploads = state.value;
           if (!state.value.first.isUploading) {
             await Future.delayed(const Duration(seconds: 1));
             uploadBloc.onRefresh();
