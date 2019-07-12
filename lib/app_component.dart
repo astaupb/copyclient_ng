@@ -5,13 +5,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:blocs_copyclient/auth.dart';
-import 'package:blocs_copyclient/joblist.dart';
-import 'package:blocs_copyclient/pdf_download.dart';
-import 'package:blocs_copyclient/preview.dart';
-import 'package:blocs_copyclient/print_queue.dart';
-import 'package:blocs_copyclient/upload.dart';
-import 'package:blocs_copyclient/user.dart';
+import 'package:blocs_copyclient/blocs.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,6 +14,7 @@ import 'src/joblist/joblist_component.dart';
 import 'src/login/login_component.dart';
 import 'src/providers/auth_provider.dart';
 import 'src/providers/joblist_provider.dart';
+import 'src/providers/journal_provider.dart';
 import 'src/providers/uploads_provider.dart';
 import 'src/providers/preview_provider.dart';
 import 'src/providers/print_queue_provider.dart';
@@ -59,6 +54,7 @@ import 'src/routes.dart';
     ClassProvider(PrintQueueProvider),
     ClassProvider(UserProvider),
     ClassProvider(PdfProvider),
+    ClassProvider(JournalProvider),
     ClassProvider(http.Client, useClass: BrowserClient),
   ],
   exports: [RoutePaths, Routes],
@@ -73,6 +69,7 @@ class AppComponent implements OnInit, OnDestroy {
   PrintQueueBloc printQueueBloc;
   UserBloc userBloc;
   PdfBloc pdfBloc;
+  JournalBloc journalBloc;
 
   /// The [User] as shown in the drawer header
   User user;
