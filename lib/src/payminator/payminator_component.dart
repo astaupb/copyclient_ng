@@ -106,7 +106,7 @@ class PayminatorComponent extends AuthGuard implements OnActivate {
   void onSubmitPayment() async {
     //print('value: $value\nselected value: $selectedValue ');
     final String url = await paymentService.getPaymentUrl(user.userId, value);
-    window.open(url, 'test');
+    window.open(url, 'PayPal Zahlung für ${user.name}');
   }
 
   void onValueChanged(String value) {
