@@ -39,4 +39,19 @@
             PayPal öffnen
         </material-button>
     </div>
+    <div id="journal-container">
+        <h2 @i18n="title of the transactions list segment">Letzte Transaktionen</h2>
+        <material-list id="journal-list">
+            <material-list-item id="journal-header">
+                <span class="journal-item-title">Beschreibung</span>
+                <span class="journal-item-subtitle">Zeit</span>
+                <span class="journal-item-value">Wert</span>
+            </material-list-item>
+            <material-list-item *ngFor="let item of transactions" class="journal-item">
+                <span class="journal-item-segment journal-item-title">{{ item.description }}</span>
+                <span class="journal-item-segment journal-item-subtitle">{{ item.timestamp }}</span>
+                <span class="journal-item-segment journal-item-value">{{ (item.value / 100.0).toStringAsFixed(2) }} €</span>
+            </material-list-item>
+        </material-list>
+    </div>
 </div>

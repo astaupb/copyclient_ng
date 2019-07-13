@@ -59,3 +59,26 @@
         margin-top: 72px;
     }
 }
+
+#journal-header {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.journal-item-title {
+    flex-grow: 2;
+}
+
+.journal-item-subtitle {
+    flex-grow: 1;
+}
+
+.journal-item-value {
+    flex-grow: 1;
+}
+
+.journal-item-segment {
+    padding: 0.3vw;
+    padding-left: 0.75vw;
+    padding-right: 0.75vw;
+}

@@ -7,10 +7,12 @@ import 'package:angular_components/material_tooltip/module.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
+import 'package:blocs_copyclient/journal.dart';
 import 'package:blocs_copyclient/user.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/journal_provider.dart';
 import '../providers/user_provider.dart';
 import 'payment_service.dart';
 
@@ -29,7 +31,10 @@ import 'payment_service.dart';
     MaterialIconTooltipComponent,
     MaterialButtonComponent,
     MaterialDropdownSelectComponent,
+    MaterialListComponent,
+    MaterialListItemComponent,
     NgIf,
+    NgFor,
   ],
   providers: [
     ClassProvider(PaymentService),
@@ -37,10 +42,11 @@ import 'payment_service.dart';
     materialTooltipBindings,
   ],
 )
-class PayminatorComponent extends AuthGuard implements OnActivate {
+class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final PaymentService paymentService;
   UserBloc userBloc;
   AuthBloc authBloc;
+  JournalBloc journalBloc;
 
   User user;
 
@@ -50,31 +56,44 @@ class PayminatorComponent extends AuthGuard implements OnActivate {
   bool isNameValid = false;
   bool isSubmitDisabled = true;
 
+  StreamSubscription userListener;
+  StreamSubscription journalListener;
   StreamSubscription focusListener;
 
   List<int> valueOptions = [5, 10, 15, 25, 50, -1];
   int selectedValue = 5;
   bool isCustomValue = false;
 
+  List<Transaction> transactions;
+
   PayminatorComponent(
     AuthProvider authProvider,
     UserProvider userProvider,
+    JournalProvider journalProvider,
     Router router,
     this.paymentService,
   ) : super(authProvider, router) {
     authBloc = authProvider.authBloc;
     userBloc = userProvider.userBloc;
+    journalBloc = journalProvider.journalBloc;
   }
 
   @override
   void onActivate(RouterState previous, RouterState current) {
     /// listen for user information and make value field accessible if all is okay
-    userBloc.state.listen((UserState state) {
+    userListener = userBloc.state.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
         if (user.name != null && user.name.isNotEmpty && user.userId != null) {
           isNameValid = true;
         }
+      }
+    });
+
+    /// listen for new transactions from [JournalBloc] also
+    journalListener = journalBloc.state.listen((JournalState state) {
+      if (state.isResult) {
+        transactions = state.value.transactions;
       }
     });
 
@@ -84,6 +103,16 @@ class PayminatorComponent extends AuthGuard implements OnActivate {
         userBloc.onRefresh();
       },
     );
+
+    journalBloc.onRefresh();
+    userBloc.onRefresh();
+  }
+
+  @override
+  void onDeactivate(RouterState current, RouterState next) {
+    focusListener.cancel();
+    userListener.cancel();
+    journalListener.cancel();
   }
 
   void onDropdownValueChanged(int value) {

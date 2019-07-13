@@ -93,6 +93,7 @@ class AppComponent implements OnInit, OnDestroy {
       PrintQueueProvider printQueueProvider,
       UserProvider userProvider,
       PdfProvider pdfProvider,
+      JournalProvider journalProvider,
       this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
@@ -101,6 +102,7 @@ class AppComponent implements OnInit, OnDestroy {
     printQueueBloc = printQueueProvider.printQueueBloc;
     userBloc = userProvider.userBloc;
     pdfBloc = pdfProvider.pdfBloc;
+    journalBloc = journalProvider.journalBloc;
   }
 
   @override
@@ -128,6 +130,7 @@ class AppComponent implements OnInit, OnDestroy {
           printQueueBloc.onStart(state.token);
           pdfBloc.onStart(state.token);
           userBloc.onStart(state.token);
+          journalBloc.onStart(state.token);
           onLogin();
         } else if (state.isUnauthorized) {
           authorized = false;
