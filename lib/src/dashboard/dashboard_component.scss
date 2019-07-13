@@ -30,3 +30,8 @@
 .card-narrow {
     width: $mat-grid * 44;
 }
+
+#dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+}

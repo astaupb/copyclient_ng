@@ -1,48 +1,61 @@
-<div class="mdc-card card-narrow user-card">
-    <span class="card-heading">Benutzer</span>
-    <material-list>
-        <material-list-item group class="options-row">
-            <div class="options-key">
-                Name
-            </div>
-            <div class="options-value">
-                {{ user?.name ?? '' }}
-            </div>
-        </material-list-item>
-        <div group>
-            <material-list-item class="options-row">
-                <div class="options-key">
-                    Copycard SN
-                </div>
-                <div class="options-value">
-                    {{ user?.card ?? 'Keine' }}
-                </div>
-            </material-list-item>
-            <material-list-item class="options-row">
-                <div class="options-key">
-                    Copycard PIN
-                </div>
-                <div class="options-value">
-                    {{ user?.pin ?? 'Keine' }}
-                </div>
-            </material-list-item>
-        </div>
+<div id="dashboard-container">
 
-        <material-list-item group class="options-row">
-            <div class="options-key">
-                Guthaben
+    <div class="mdc-card card-narrow user-card">
+        <span class="card-heading">Benutzer</span>
+        <material-list>
+            <material-list-item group class="options-row">
+                <div class="options-key">
+                    Name
+                </div>
+                <div class="options-value">
+                    {{ user?.name ?? '' }}
+                </div>
+            </material-list-item>
+            <div group>
+                <material-list-item class="options-row">
+                    <div class="options-key">
+                        Copycard SN
+                    </div>
+                    <div class="options-value">
+                        {{ user?.card ?? 'Keine' }}
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key">
+                        Copycard PIN
+                    </div>
+                    <div class="options-value">
+                        {{ user?.pin ?? 'Keine' }}
+                    </div>
+                </material-list-item>
             </div>
-            <div class="options-value">
-                {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}}€
-            </div>
-        </material-list-item>
-        <material-list-item group class="options-row">
-            <div class="options-key">
-                Authorisierte Copyclients
-            </div>
-            <div class="options-value">
-                {{ user?.activeTokens ?? 0 }}
-            </div>
-        </material-list-item>
-    </material-list>
+
+            <material-list-item group class="options-row">
+                <div class="options-key">
+                    Guthaben
+                </div>
+                <div class="options-value">
+                    {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}}€
+                </div>
+            </material-list-item>
+            <material-list-item group class="options-row">
+                <div class="options-key">
+                    Authorisierte Copyclients
+                </div>
+                <div class="options-value">
+                    {{ user?.activeTokens ?? 0 }}
+                </div>
+            </material-list-item>
+        </material-list>
+    </div>
+
+    <div class="mdc-card card-narrow user-card">
+        <span class="card-heading">Letzte Transaktionen</span>
+        <material-list>
+            <material-list-item group class="options-row" *ngFor="let item of transactions">
+                <div class="options-key">{{ item.description }}</div>
+                <div class="options-value">{{ (item.value / 100.0).toStringAsFixed(2) }} €</div>
+            </material-list-item>
+        </material-list>
+    </div>
 </div>
