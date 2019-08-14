@@ -21,13 +21,24 @@ import '../route_paths.dart';
   styleUrls: [
     'dashboard_component.scss.css',
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
+    'package:copyclient_ng/styles/listpage_navigation.css',
   ],
   directives: [
     routerDirectives,
     MaterialListItemComponent,
     MaterialListComponent,
     MaterialButtonComponent,
+    MaterialFabComponent,
+    MaterialIconComponent,
+    MaterialTooltipDirective,
+    MaterialInkTooltipComponent,
+    MaterialTooltipTargetDirective,
     NgFor,
+    NgIf,
+  ],
+  providers: [
+    materialTooltipBindings,
+    materialProviders,
   ],
   exports: [RoutePaths],
 )
@@ -41,6 +52,8 @@ class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   StreamSubscription userListener;
   StreamSubscription journalListener;
+
+  bool refreshing = false;
 
   DashboardComponent(
     AuthProvider authProvider,
@@ -74,5 +87,10 @@ class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onDeactivate(RouterState current, RouterState next) {
     userListener.cancel();
     journalListener.cancel();
+  }
+
+  void onRefreshDashboard() {
+    userBloc.onRefresh();
+    journalBloc.onRefresh();
   }
 }

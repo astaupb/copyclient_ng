@@ -21,6 +21,7 @@ import 'payment_service.dart';
   styleUrls: [
     'payminator_component.scss.css',
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
+    'package:copyclient_ng/styles/listpage_navigation.css',
   ],
   templateUrl: 'payminator_component.html',
   directives: [
@@ -31,8 +32,12 @@ import 'payment_service.dart';
     MaterialIconTooltipComponent,
     MaterialButtonComponent,
     MaterialDropdownSelectComponent,
+    MaterialFabComponent,
+    MaterialIconComponent,
     MaterialListComponent,
     MaterialListItemComponent,
+    MaterialInkTooltipComponent,
+    MaterialTooltipTargetDirective,
     NgIf,
     NgFor,
   ],
@@ -40,6 +45,7 @@ import 'payment_service.dart';
     ClassProvider(PaymentService),
     popupBindings,
     materialTooltipBindings,
+    materialProviders,
   ],
 )
 class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate {
@@ -66,6 +72,8 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
 
   List<Transaction> transactions;
 
+  bool refreshing = false;
+
   PayminatorComponent(
     AuthProvider authProvider,
     UserProvider userProvider,
@@ -87,6 +95,11 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
         if (user.name != null && user.name.isNotEmpty && user.userId != null) {
           isNameValid = true;
         }
+        refreshing = false;
+      } if (state.isBusy) {
+        refreshing = true;
+      } else{
+        refreshing = false;
       }
     });
 
@@ -149,6 +162,10 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
     } else {
       isSubmitDisabled = true;
     }
+  }
+
+  void onRefreshTransactions() {
+    journalBloc.onRefresh();
   }
 
   String renderValueOption(dynamic value) {
