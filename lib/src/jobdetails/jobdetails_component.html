@@ -159,10 +159,7 @@
         </div>
     </div>
 
-    <div id="preview-container" *ngIf="previews?.isNotEmpty">
-        <img class="preview-image" [class.grayscale]="! color"
-            [src]="'data:image/jpeg;base64,' + base64Encode(previews?.first)">
-    </div>
+    <preview-grid *ngIf="job != null" [job]="job"></preview-grid>
 </div>
 
 <modal [visible]="showSelectPrinter">

@@ -1,0 +1,22 @@
+<div id="nup-1" class="nup-view" *ngIf="shouldShowNup1">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[0])">
+</div>
+
+<div [class.nup-2-portrait]="isPortrait" [class.nup-2-landscape]="!isPortrait" class="nup-view" *ngIf="shouldShowNup2">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[0])">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[1])">
+</div>
+
+<div id="nup-4" class="nup-view" *ngIf="shouldShowNup4">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[0])">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[1])">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[2])">
+    <img class="preview-image" [class.grayscale]="!job.jobOptions.color"
+        [src]="'data:image/jpeg;base64,' + base64Encode(previews[3])">
+</div>

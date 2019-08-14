@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -16,7 +15,6 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
-import 'package:blocs_copyclient/preview.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
 import 'package:blocs_copyclient/user.dart';
 import 'package:copyclient_ng/src/providers/user_provider.dart';
@@ -25,8 +23,8 @@ import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/pdf_provider.dart';
-import '../providers/preview_provider.dart';
 import '../route_paths.dart';
+import '../preview_grid/preview_grid_component.dart';
 
 @Component(
   selector: 'jobdetails',
@@ -36,6 +34,7 @@ import '../route_paths.dart';
     'jobdetails_component.css'
   ],
   directives: [
+    PreviewGridComponent,
     NgIf,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -60,24 +59,21 @@ import '../route_paths.dart';
   pipes: [
     DecimalPipe,
   ],
-  exports: [base64Encode],
 )
-class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
+class JobDetailsComponent extends AuthGuard
+    implements OnActivate, OnDeactivate {
   final Router _router;
 
   final JoblistProvider joblistProvider;
-  final PreviewProvider previewProvider;
-  final UserProvider userProvider;
   final PdfProvider pdfProvider;
+  final UserProvider userProvider;
 
   JoblistBloc joblistBloc;
-  PreviewBloc previewBloc;
   UserBloc userBloc;
   PdfBloc pdfBloc;
   Job job;
 
   StreamSubscription jobListener;
-  StreamSubscription previewListener;
   StreamSubscription pdfListener;
   StreamSubscription userListener;
 
@@ -123,12 +119,10 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     AuthProvider authProvider,
     this._router,
     this.joblistProvider,
-    this.previewProvider,
     this.userProvider,
     this.pdfProvider,
   ) : super(authProvider, _router) {
     joblistBloc = joblistProvider.joblistBloc;
-    previewBloc = previewProvider.previewBloc;
     pdfBloc = pdfProvider.pdfBloc;
     userBloc = userProvider.userBloc;
   }
@@ -218,7 +212,8 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
+    nupPageOrder =
+        nupOrderOptions.indexWhere((String option) => option == selection);
     if (job != null) {
       job.jobOptions.nup = nup;
       joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
@@ -239,14 +234,6 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
           duplexSelection = duplexOptions[duplex];
           nupSelection = nupOptions[_sanitizeNup(nup)];
           nupOrderSelection = nupOrderOptions[nupPageOrder];
-
-          previewBloc.getPreview(job);
-        }
-      });
-
-      previewListener = previewBloc.state.skip(1).listen((PreviewState state) {
-        if (state.isResult) {
-          previews = state.value.singleWhere((previewSet) => previewSet.jobId == id).previews;
         }
       });
 
@@ -256,26 +243,30 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
         }
       });
 
-      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty) joblistBloc.onRefresh();
+      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
+        joblistBloc.onRefresh();
 
-      leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
+      leftPrinter =
+          const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-      rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
+      rightPrinter =
+          const String.fromEnvironment('rightPrinter', defaultValue: '');
 
-      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
+      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty)
+        directPrinter = true;
     }
   }
 
   @override
   void onDeactivate(RouterState previous, RouterState current) {
     jobListener.cancel();
-    previewListener.cancel();
     if (pdfListener != null) pdfListener.cancel();
     userListener.cancel();
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions = joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    JobOptions newOptions =
+        joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     joblistBloc.onUpdateOptionsById(id, newOptions);
   }
