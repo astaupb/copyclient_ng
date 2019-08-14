@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:angular/angular.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_list/material_list.dart';
 import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/journal.dart';
 import 'package:blocs_copyclient/user.dart';
-import 'package:copyclient_ng/src/providers/journal_provider.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/journal_provider.dart';
 import '../providers/user_provider.dart';
+import '../route_paths.dart';
 
 @Component(
   selector: 'dashboard',
@@ -21,10 +23,13 @@ import '../providers/user_provider.dart';
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
   ],
   directives: [
+    routerDirectives,
     MaterialListItemComponent,
     MaterialListComponent,
+    MaterialButtonComponent,
     NgFor,
   ],
+  exports: [RoutePaths],
 )
 class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
   AuthBloc authBloc;

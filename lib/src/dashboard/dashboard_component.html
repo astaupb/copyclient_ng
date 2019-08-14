@@ -53,9 +53,17 @@
         <span class="card-heading">Letzte Transaktionen</span>
         <material-list>
             <material-list-item group class="options-row" *ngFor="let item of transactions">
-                <div class="options-key">{{ item.description }}</div>
+                <div class="options-key">
+                    {{ item.timestamp.replaceAll('-', '.').substring(0, item.timestamp.lastIndexOf(':')) }}
+                </div>
+                <div class="options-annotation">
+                    {{ item.description }}
+                </div>
                 <div class="options-value">{{ (item.value / 100.0).toStringAsFixed(2) }} €</div>
             </material-list-item>
         </material-list>
+        <a [routerLink]="RoutePaths.paypal.toUrl()">
+            <material-button id="show-transactions">Alle Transaktionen zeigen</material-button>
+        </a>
     </div>
 </div>
