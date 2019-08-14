@@ -58,3 +58,7 @@
     padding: 1vw;
     font-size: 2em;
 }
+
+#keep-button {
+    float: right;
+}

@@ -10,7 +10,7 @@ material-content {
     padding-right: 2vw;
 }
 
-.pink-header{
+.pink-header {
     background-color: #d81b60 !important;
 }
 
@@ -23,7 +23,7 @@ material-content {
 }
 
 .drawer-list-item {
-    border-right: 1px solid rgba(0,0,0,0.12);
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .drawer-userspace-image {
@@ -33,6 +33,12 @@ material-content {
     filter: blur(2px);
     -webkit-filter: blur(2px);
     min-height: 128px;
+}
+
+#support-disclaimer {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
 }
 
 .drawer-userspace-text {
