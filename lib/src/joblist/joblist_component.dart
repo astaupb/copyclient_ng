@@ -49,8 +49,6 @@ import '../route_paths.dart';
   ],
 )
 class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
-  final Router _router;
-
   JoblistBloc jobsBloc;
   UploadBloc uploadBloc;
 
@@ -77,7 +75,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     JoblistProvider joblistProvider,
     UploadsProvider uploadsProvider,
     AuthProvider authProvider,
-    this._router,
+    Router _router,
   ) : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;

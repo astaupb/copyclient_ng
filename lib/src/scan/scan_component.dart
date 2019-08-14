@@ -18,8 +18,8 @@ import 'package:copyclient_ng/src/providers/uploads_provider.dart';
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
-import '../providers/print_queue_provider.dart';
 import '../providers/pdf_provider.dart';
+import '../providers/print_queue_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -67,16 +67,18 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate, OnDes
 
   DateTime activationTime;
 
-  StreamSubscription listener;
-  StreamSubscription jobListener;
-  StreamSubscription lockListener;
+  StreamSubscription printQueueListener;
+  StreamSubscription _jobListener;
+
+  StreamSubscription _lockListener;
+
   StreamSubscription pdfListener;
-  StreamSubscription uploadListener;
+  StreamSubscription _uploadListener;
 
   Timer timer;
+
   Timer jobTimer;
   Timer uploadsTimer;
-
   ScanComponent(
     AuthProvider authProvider,
     Router router,
@@ -91,92 +93,20 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate, OnDes
     uploadBloc = uploadsProvider.uploadBloc;
   }
 
-  void lockLeft() {
-    lockedPrinter = leftPrinter;
-    lockPrinter(lockedPrinter);
+  StreamSubscription get jobListener => _jobListener;
+
+  set jobListener(StreamSubscription jobListener) {
+    _jobListener = jobListener;
   }
 
-  void lockPrinter(String id) async {
-    printQueueBloc.setDeviceId(int.tryParse(id));
-
-    listener = printQueueBloc.state.listen((PrintQueueState state) {
-      if (state.isResult) {
-        printQueue = state.value.processing;
-        printQueueBloc.onLockDevice();
-
-        lockListener = printQueueBloc.state.listen((PrintQueueState state) {
-          if (state.isLocked) {
-            lockUid = state.lockUid;
-            printerLocked = true;
-            if (timer != null) timer.cancel();
-            timer =
-                Timer.periodic(Duration(seconds: 50), (Timer t) => printQueueBloc.onLockDevice());
-            if (jobTimer != null) jobTimer.cancel();
-            jobTimer = Timer.periodic(Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
-            if (uploadsTimer != null) uploadsTimer.cancel();
-            uploadsTimer =
-                Timer.periodic(Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
-          } else if (!state.isLocked) {
-            printerLocked = false;
-            deactivate(timer);
-            deactivate(jobTimer);
-            deactivate(uploadsTimer);
-          }
-        });
-
-        jobListener = joblistBloc.state.listen((JoblistState state) async {
-          if (state.isResult) {
-            newJobs = state.value
-                .where((Job job) => activationTime
-                    .isBefore(DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
-                .toList()
-                .reversed
-                .toList();
-          }
-        });
-
-        uploadListener = uploadBloc.state.listen((UploadState state) {
-          if (state.isResult) {
-            uploadTasks = state.value;
-          }
-        });
-
-        listener.cancel();
-      }
-    });
+  StreamSubscription get lockListener => _lockListener;
+  set lockListener(StreamSubscription lockListener) {
+    _lockListener = lockListener;
   }
+  StreamSubscription get uploadListener => _uploadListener;
 
-  void lockRight() {
-    lockedPrinter = rightPrinter;
-    lockPrinter(lockedPrinter);
-  }
-
-  @override
-  void onActivate(RouterState previous, RouterState current) {
-    activationTime = DateTime.now();
-
-    leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
-
-    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
-
-    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
-      lockLeft();
-    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
-      lockRight();
-    }
-  }
-
-  @override
-  void onDeactivate(RouterState previous, RouterState current) {
-    deactivate(listener);
-    deactivate(jobListener);
-    deactivate(lockListener);
-
-    deactivate(timer);
-    deactivate(jobTimer);
-    deactivate(uploadsTimer);
-
-    printQueueBloc.onDelete();
+  set uploadListener(StreamSubscription uploadListener) {
+    _uploadListener = uploadListener;
   }
 
   void deactivate<T>(T subject) {
@@ -218,11 +148,100 @@ class ScanComponent extends AuthGuard implements OnActivate, OnDeactivate, OnDes
     });
   }
 
+  void lockLeft() {
+    lockedPrinter = leftPrinter;
+    lockPrinter(lockedPrinter);
+  }
+
+  void lockPrinter(String id) async {
+    printQueueBloc.setDeviceId(int.tryParse(id));
+
+    printQueueListener = printQueueBloc.state.listen((PrintQueueState state) {
+      if (state.isResult) {
+        printQueue = state.value.processing;
+        printQueueBloc.onLockDevice();
+
+        lockListener = printQueueBloc.state.listen((PrintQueueState state) {
+          if (state.isLocked) {
+            lockUid = state.lockUid;
+            printerLocked = true;
+            if (timer != null) timer.cancel();
+            timer =
+                Timer.periodic(Duration(seconds: 50), (Timer t) => printQueueBloc.onLockDevice());
+            if (jobTimer != null) jobTimer.cancel();
+            jobTimer = Timer.periodic(Duration(seconds: 2), (Timer t) => joblistBloc.onRefresh());
+            if (uploadsTimer != null) uploadsTimer.cancel();
+            uploadsTimer =
+                Timer.periodic(Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
+          } else if (!state.isLocked) {
+            printerLocked = false;
+            deactivate(timer);
+            deactivate(jobTimer);
+            deactivate(uploadsTimer);
+          }
+        });
+
+        jobListener = joblistBloc.state.listen((JoblistState state) async {
+          if (state.isResult) {
+            newJobs = state.value
+                .where((Job job) => activationTime
+                    .isBefore(DateTime.fromMillisecondsSinceEpoch(job.timestamp * 1000)))
+                .toList()
+                .reversed
+                .toList();
+          }
+        });
+
+        uploadListener = uploadBloc.state.listen((UploadState state) {
+          if (state.isResult) {
+            uploadTasks = state.value;
+          }
+        });
+
+        printQueueListener.cancel();
+      }
+    });
+  }
+
+  void lockRight() {
+    lockedPrinter = rightPrinter;
+    lockPrinter(lockedPrinter);
+  }
+
   @override
   void ngOnDestroy() {
-    deactivate(listener);
+    deactivate(printQueueListener);
     deactivate(jobListener);
     deactivate(lockListener);
+
+    deactivate(timer);
+    deactivate(jobTimer);
+    deactivate(uploadsTimer);
+
+    printQueueBloc.onDelete();
+  }
+
+  @override
+  void onActivate(RouterState previous, RouterState current) {
+    activationTime = DateTime.now();
+
+    leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
+
+    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
+
+    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
+      lockLeft();
+    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
+      lockRight();
+    }
+  }
+
+  @override
+  void onDeactivate(RouterState previous, RouterState current) {
+    deactivate(printQueueListener);
+    deactivate(jobListener);
+    deactivate(lockListener);
+    deactivate(uploadListener);
 
     deactivate(timer);
     deactivate(jobTimer);
