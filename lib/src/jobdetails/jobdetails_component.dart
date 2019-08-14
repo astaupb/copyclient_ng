@@ -24,8 +24,8 @@ import 'package:copyclient_ng/src/providers/user_provider.dart';
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
-import '../providers/preview_provider.dart';
 import '../providers/pdf_provider.dart';
+import '../providers/preview_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -133,7 +133,97 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     userBloc = userProvider.userBloc;
   }
 
+  void a3Checked() {
+    a3 = !a3;
+    job.jobOptions.a3 = a3;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void collateChecked() {
+    collate = !collate;
+    job.jobOptions.collate = collate;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void colorChecked() {
+    color = !color;
+    job.jobOptions.color = color;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void copiesChanged() {
+    job.jobOptions.copies = copies;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void deleteJob() {
+    joblistBloc.onDeleteById(job.id);
+    goBack();
+  }
+
+  void downloadPdf() {
+    pdfBloc.onGetPdf(job.id);
+    pdfListener = pdfBloc.state.listen((PdfState state) {
+      if (state.isResult && state.value.last.id == job.id) {
+        Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
+
+        String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
+
+        AnchorElement link = AnchorElement()
+          ..href = blobUrl
+          ..download = job.jobInfo.filename;
+
+        // dispatch click event so firefox works as well
+        var event = MouseEvent("click", view: window, cancelable: false);
+        link.dispatchEvent(event);
+
+        pdfListener.cancel();
+      }
+    });
+  }
+
+  void duplexChanged(String selection) {
+    duplexSelection = selection;
+    duplex = duplexOptions.indexWhere((String option) => option == selection);
+    if (job != null) {
+      job.jobOptions.duplex = duplex;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
+  }
+
   void goBack() => _router.navigateByUrl('/joblist');
+
+  void nupChanged(String selection) {
+    nupSelection = selection;
+    int index = nupOptions.indexWhere((String option) => option == selection);
+    switch (index) {
+      case 0:
+        nup = 1;
+        break;
+      case 1:
+        nup = 2;
+        break;
+      case 2:
+        nup = 4;
+        break;
+      default:
+        nup = 1;
+        break;
+    }
+    if (job != null) {
+      job.jobOptions.nup = nup;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
+  }
+
+  void nupOrderChanged(String selection) {
+    nupOrderSelection = selection;
+    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
+    if (job != null) {
+      job.jobOptions.nup = nup;
+      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+    }
+  }
 
   @override
   void onActivate(_, RouterState current) async {
@@ -176,85 +266,18 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     }
   }
 
-  void setJobOptions(JobOptions options) {
-    this.color = options.color;
-    this.duplex = options.duplex;
-    this.copies = options.copies;
-    this.collate = options.collate;
-    this.a3 = options.a3;
-    this.range = options.range;
-    this.nup = options.nup;
-    this.nupPageOrder = options.nupPageOrder;
-    this.keep = options.keep;
+  @override
+  void onDeactivate(RouterState previous, RouterState current) {
+    jobListener.cancel();
+    previewListener.cancel();
+    if (pdfListener != null) pdfListener.cancel();
+    userListener.cancel();
   }
 
-  void colorChecked() {
-    color = !color;
-    job.jobOptions.color = color;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-  }
-
-  void duplexChanged(String selection) {
-    duplexSelection = selection;
-    duplex = duplexOptions.indexWhere((String option) => option == selection);
-    if (job != null) {
-      job.jobOptions.duplex = duplex;
-      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-    }
-  }
-
-  void a3Checked() {
-    a3 = !a3;
-    job.jobOptions.a3 = a3;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-  }
-
-  void collateChecked() {
-    collate = !collate;
-    job.jobOptions.collate = collate;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-  }
-
-  void rangeChanged() {
-    job.jobOptions.range = range;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-  }
-
-  void copiesChanged() {
-    job.jobOptions.copies = copies;
-    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-  }
-
-  void nupChanged(String selection) {
-    nupSelection = selection;
-    int index = nupOptions.indexWhere((String option) => option == selection);
-    switch (index) {
-      case 0:
-        nup = 1;
-        break;
-      case 1:
-        nup = 2;
-        break;
-      case 2:
-        nup = 4;
-        break;
-      default:
-        nup = 1;
-        break;
-    }
-    if (job != null) {
-      job.jobOptions.nup = nup;
-      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-    }
-  }
-
-  void nupOrderChanged(String selection) {
-    nupOrderSelection = selection;
-    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
-    if (job != null) {
-      job.jobOptions.nup = nup;
-      joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
-    }
+  void onKeepJob(int id) {
+    JobOptions newOptions = joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    newOptions.keep = !newOptions.keep;
+    joblistBloc.onUpdateOptionsById(id, newOptions);
   }
 
   void openPrintDialog() {
@@ -281,38 +304,21 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     showSelectPrinter = false;
   }
 
-  void deleteJob() {
-    joblistBloc.onDeleteById(job.id);
-    goBack();
+  void rangeChanged() {
+    job.jobOptions.range = range;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
 
-  void downloadPdf() {
-    pdfBloc.onGetPdf(job.id);
-    pdfListener = pdfBloc.state.listen((PdfState state) {
-      if (state.isResult && state.value.last.id == job.id) {
-        Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
-
-        String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
-
-        AnchorElement link = AnchorElement()
-          ..href = blobUrl
-          ..download = job.jobInfo.filename;
-
-        // dispatch click event so firefox works as well
-        var event = MouseEvent("click", view: window, cancelable: false);
-        link.dispatchEvent(event);
-
-        pdfListener.cancel();
-      }
-    });
-  }
-
-  @override
-  void onDeactivate(RouterState previous, RouterState current) {
-    jobListener.cancel();
-    previewListener.cancel();
-    if (pdfListener != null) pdfListener.cancel();
-    userListener.cancel();
+  void setJobOptions(JobOptions options) {
+    this.color = options.color;
+    this.duplex = options.duplex;
+    this.copies = options.copies;
+    this.collate = options.collate;
+    this.a3 = options.a3;
+    this.range = options.range;
+    this.nup = options.nup;
+    this.nupPageOrder = options.nupPageOrder;
+    this.keep = options.keep;
   }
 
   int _sanitizeNup(int n) {

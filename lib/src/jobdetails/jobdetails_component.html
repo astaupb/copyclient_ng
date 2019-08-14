@@ -21,6 +21,13 @@
             <header>Zugehörige PDF herunterladen</header>
         </material-tooltip-text>
     </material-button>
+    <material-button raised tooltipTarget #refKeep="tooltipTarget" (trigger)="onKeepJob(job?.id)">
+        <material-icon [icon]="(job?.jobOptions?.keep ?? false) ? 'favorite' : 'favorite_outline'">
+        </material-icon>
+        <material-tooltip-text [for]="refKeep">
+            <header>Job nach dem Drucken behalten</header>
+        </material-tooltip-text>
+    </material-button>
     <div id="link-area"></div>
 </div>
 
