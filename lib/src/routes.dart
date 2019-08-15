@@ -19,7 +19,7 @@ class Routes {
     login,
     scans,
     register,
-    paypal,
+    credit,
     RouteDefinition.redirect(
       path: '',
       redirectTo: joblist.path,
@@ -62,9 +62,9 @@ class Routes {
     additionalData: 'Registrieren',
   );
 
-  static final paypal = RouteDefinition(
-    routePath: RoutePaths.paypal,
+  static final credit = RouteDefinition(
+    routePath: RoutePaths.credit,
     component: payminator_template.PayminatorComponentNgFactory,
-    additionalData: 'Aufladen per PayPal',
+    additionalData: 'Guthaben',
   );
 }
