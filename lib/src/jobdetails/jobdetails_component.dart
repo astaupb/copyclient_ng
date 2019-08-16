@@ -89,7 +89,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   final List<String> duplexOptions = ['Simplex', 'Lange Kante', 'Kurze Kante'];
   String duplexSelection = 'Simplex';
 
-  final List<String> nupOptions = ['1', '2', '4'];
+  List<String> nupOptions = ['1', '2', '4'];
   String nupSelection = '1';
 
   // variables used for direct printing in kiosk mode
@@ -227,6 +227,10 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
           job = state.value.singleWhere((Job job) => job.id == id);
           setJobOptions(job.jobOptions);
           estimatedDouble = (job.priceEstimation as double) / 100.0;
+
+          if (job.jobInfo.pagecount <= 2) {
+            nupOptions = ['1', '2'];
+          }
 
           // set dropdown menus on right choice
           duplexSelection = duplexOptions[duplex];
