@@ -5,6 +5,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/blocs.dart';
+import 'package:blocs_copyclient/exceptions.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
@@ -22,7 +23,8 @@ import '../route_paths.dart';
   styleUrls: [
     'joblist_component.scss.css',
     'package:copyclient_ng/styles/listpage_navigation.css',
-    'package:copyclient_ng/styles/printer_selector.scss.css'
+    'package:copyclient_ng/styles/printer_selector.scss.css',
+    'package:copyclient_ng/styles/bottom_notification.scss.css',
   ],
   templateUrl: 'joblist_component.html',
   directives: [
@@ -96,6 +98,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   DateTime copyStartTime;
   List<int> copiedIds = [];
 
+  bool showError = false;
+  String errorText = '';
+
   JobListComponent(
     JoblistProvider joblistProvider,
     UploadsProvider uploadsProvider,
@@ -157,6 +162,16 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
           await Future.delayed(const Duration(milliseconds: 1000));
           jobsBloc.onRefresh();
         }
+      } else if (state.isException) {
+        uploads = [];
+        if ((state.error as ApiException).statusCode == 400)
+          errorText =
+              'Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.';
+        else
+          errorText = 'Unbekannter Fehler beim Hochladen einer Datei';
+        showError = true;
+        Future.delayed(const Duration(seconds: 5))
+            .then((_) => showError = false);
       }
     });
   }

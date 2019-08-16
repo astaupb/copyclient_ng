@@ -119,6 +119,10 @@
     </material-tooltip-text>
 </material-fab>
 
+<div class="bottom-notification" *ngIf="showError">
+    {{ errorText }}
+</div>
+
 <modal [visible]="showSelectPrinter">
     <material-dialog id="selectPrinter">
         <h1 header>Drucker auswählen</h1>
