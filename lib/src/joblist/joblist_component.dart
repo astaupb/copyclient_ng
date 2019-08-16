@@ -210,7 +210,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     pdfListener = pdfBloc.state.skip(1).listen((PdfState state) {
       if (state.isResult) {
         final Blob pdfBlob = Blob(
-            [state.value.where((PdfFile file) => id == file.id).first],
+            [state.value.where((PdfFile file) => id == file.id).first.file],
             'application/pdf');
 
         final String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
