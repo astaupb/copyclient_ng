@@ -20,11 +20,11 @@ import 'package:blocs_copyclient/user.dart';
 import 'package:copyclient_ng/src/providers/user_provider.dart';
 
 import '../auth_guard.dart';
+import '../preview_grid/preview_grid_component.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/pdf_provider.dart';
 import '../route_paths.dart';
-import '../preview_grid/preview_grid_component.dart';
 
 @Component(
   selector: 'jobdetails',
@@ -42,6 +42,7 @@ import '../preview_grid/preview_grid_component.dart';
     MaterialListItemComponent,
     MaterialListComponent,
     MaterialDropdownSelectComponent,
+    MaterialFabComponent,
     MaterialInputComponent,
     materialInputDirectives,
     formDirectives,
@@ -113,6 +114,8 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   String pdfUrl = '';
 
   User user;
+
+  bool refreshing = false;
 
   JobDetailsComponent(
     AuthProvider authProvider,
@@ -224,6 +227,8 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     if (id != null) {
       jobListener = joblistBloc.state.listen((state) {
         if (state.isResult) {
+          refreshing = false;
+
           job = state.value.singleWhere((Job job) => job.id == id);
           setJobOptions(job.jobOptions);
           estimatedDouble = (job.priceEstimation as double) / 100.0;
@@ -266,6 +271,11 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     JobOptions newOptions = joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     joblistBloc.onUpdateOptionsById(id, newOptions);
+  }
+
+  void onRefreshJob() {
+    refreshing = true;
+    joblistBloc.onRefresh();
   }
 
   void openPrintDialog() {
