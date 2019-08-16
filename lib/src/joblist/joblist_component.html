@@ -57,6 +57,7 @@
 </material-button>
 
 <material-list>
+    <h2 *ngIf="uploads.isNotEmpty">Am Hochladen/Verarbeiten:</h2>
     <material-list-item class="job-item" *ngFor="let task of uploads">
         <material-spinner class="upload-task-spinner"></material-spinner>
         <div class="jobitem-info">
@@ -68,6 +69,7 @@
 </material-list>
 
 <material-list id="joblist">
+    <h2>Meine Jobs:</h2>
     <a *ngFor="let job of lastJobs.reversed">
         <material-list-item class="job-item">
             <material-button tooltipTarget #refKeep="tooltipTarget" (trigger)="onKeepJob(job.id)">
