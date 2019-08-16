@@ -30,12 +30,9 @@ class PreviewGridComponent implements OnInit, OnDestroy {
   List<List<int>> previews = [];
 
   /// easy  getters for knowing which NuP to show
-  bool get shouldShowNup1 =>
-      (job.jobOptions.nup == 1) && (previews.length >= 1);
-  bool get shouldShowNup2 =>
-      (job.jobOptions.nup == 2) && (previews.length >= 2);
-  bool get shouldShowNup4 =>
-      (job.jobOptions.nup == 4) && (previews.length >= 4);
+  bool get shouldShowNup1 => (job.jobOptions.nup == 1) && (previews.length >= 1);
+  bool get shouldShowNup2 => (job.jobOptions.nup == 2) && (previews.length >= 2);
+  bool get shouldShowNup4 => (job.jobOptions.nup == 4) && (previews.length >= 4);
 
   bool get isPortrait {
     final Map dimensions = getImageDimensions(previews.first);
@@ -56,9 +53,8 @@ class PreviewGridComponent implements OnInit, OnDestroy {
     previewListener = previewBloc.state.skip(1).listen((PreviewState state) {
       if (state.isResult) {
         refreshing = false;
-        previews = state.value
-            .singleWhere((PreviewSet preview) => preview.jobId == job.id)
-            .previews;
+        previews =
+            state.value.singleWhere((PreviewSet preview) => preview.jobId == job.id).previews;
       } else if (state.isBusy) {
         refreshing = true;
       } else if (state.isException) {
@@ -98,8 +94,7 @@ class PreviewGridComponent implements OnInit, OnDestroy {
       }
       _dim['height'] = int.parse(height, radix: 16);
     } else {
-      print(
-          'preview_grid_component: header ($header) of preview does not match png header');
+      print('preview_grid_component: header ($header) of preview does not match png header');
     }
     return _dim;
   }

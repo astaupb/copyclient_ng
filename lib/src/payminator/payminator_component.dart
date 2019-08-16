@@ -96,9 +96,10 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
           isNameValid = true;
         }
         refreshing = false;
-      } if (state.isBusy) {
+      }
+      if (state.isBusy) {
         refreshing = true;
-      } else{
+      } else {
         refreshing = false;
       }
     });

@@ -77,9 +77,6 @@ class AppComponent implements OnInit, OnDestroy {
   /// The authorization state; true if [AuthBloc] yields authorized state
   bool authorized = false;
 
-  /// Whether scanning link should be active in the drawer; defaults to false
-  bool enableScanning = false;
-
   StreamSubscription<Event> uploadListener;
   StreamSubscription userListener;
 
@@ -144,10 +141,6 @@ class AppComponent implements OnInit, OnDestroy {
     document.on["logout"].listen((Event event) {
       onLogout();
     });
-
-    // check for direct printers to scan from
-    enableScanning = (const String.fromEnvironment('leftPrinter', defaultValue: '').isNotEmpty ||
-        const String.fromEnvironment('rightPrinter', defaultValue: '').isNotEmpty);
   }
 
   void onLogin() {

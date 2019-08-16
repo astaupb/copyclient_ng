@@ -7,7 +7,6 @@ import 'login/login_component.template.dart' as login_template;
 import 'payminator/payminator_component.template.dart' as payminator_template;
 import 'register/register_component.template.dart' as register_template;
 import 'route_paths.dart';
-import 'scan/scan_component.template.dart' as scans_template;
 
 export 'route_paths.dart';
 
@@ -17,7 +16,6 @@ class Routes {
     jobdetails,
     joblist,
     login,
-    scans,
     register,
     credit,
     RouteDefinition.redirect(
@@ -48,12 +46,6 @@ class Routes {
     routePath: RoutePaths.joblist,
     component: joblist_template.JobListComponentNgFactory,
     additionalData: 'Jobliste',
-  );
-
-  static final scans = RouteDefinition(
-    routePath: RoutePaths.scans,
-    component: scans_template.ScanComponentNgFactory,
-    additionalData: 'Scanmodus',
   );
 
   static final register = RouteDefinition(

@@ -60,8 +60,7 @@ import '../preview_grid/preview_grid_component.dart';
     DecimalPipe,
   ],
 )
-class JobDetailsComponent extends AuthGuard
-    implements OnActivate, OnDeactivate {
+class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final Router _router;
 
   final JoblistProvider joblistProvider;
@@ -212,8 +211,7 @@ class JobDetailsComponent extends AuthGuard
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    nupPageOrder =
-        nupOrderOptions.indexWhere((String option) => option == selection);
+    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
     if (job != null) {
       job.jobOptions.nup = nup;
       joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
@@ -243,17 +241,13 @@ class JobDetailsComponent extends AuthGuard
         }
       });
 
-      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
-        joblistBloc.onRefresh();
+      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty) joblistBloc.onRefresh();
 
-      leftPrinter =
-          const String.fromEnvironment('leftPrinter', defaultValue: '');
+      leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-      rightPrinter =
-          const String.fromEnvironment('rightPrinter', defaultValue: '');
+      rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
-      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty)
-        directPrinter = true;
+      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
     }
   }
 
@@ -265,8 +259,7 @@ class JobDetailsComponent extends AuthGuard
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions =
-        joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    JobOptions newOptions = joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     joblistBloc.onUpdateOptionsById(id, newOptions);
   }

@@ -23,11 +23,6 @@
                     <material-icon icon="view_list"></material-icon>Jobliste
                 </material-list-item>
             </a>
-            <a *ngIf="enableScanning" [routerLink]="RoutePaths.scans.toUrl()" class="drawer-link">
-                <material-list-item class="drawer-list-item">
-                    <material-icon icon="scanner"></material-icon>Scannen und Kopieren
-                </material-list-item>
-            </a>
             <a [routerLink]="RoutePaths.credit.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
                     <material-icon icon="credit_card"></material-icon>Guthaben
@@ -41,7 +36,8 @@
         </div>
     </material-list>
     <div id="support-disclaimer">
-        <material-icon icon="help" size="small"></material-icon> Email für Support und Anregungen: <a href="mailto:app@asta.upb.de">app@asta.upb.de</a>
+        <material-icon icon="help" size="small"></material-icon> Email für Support und Anregungen: <a
+            href="mailto:app@asta.upb.de">app@asta.upb.de</a>
     </div>
 </material-drawer>
 
