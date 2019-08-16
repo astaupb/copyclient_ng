@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c37a8685a68b4bf258c7fa7f4d9f36a1fff80cd7
+      resolved-ref: d4cb71807cb58907ccc6137ebe548cf206991c43
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -135,7 +135,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.5"
+    version: "1.6.6"
   build_runner_core:
     dependency: transitive
     description:
