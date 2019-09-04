@@ -2,11 +2,14 @@
     <div class="button-wrapper">
         <material-button raised class="controls-button">
             <material-icon class="controls-button-icon" icon="note_add"></material-icon>
-            <span class="controls-button-text">PDF hochladen</span>
+            <span class="controls-button-text">Datei hochladen</span>
         </material-button>
-        <input class="upload-input" #jobUpload type="file" multiple accept="application/pdf"
-            (change)="onUploadFileSelected(jobUpload.files)">
+        <input class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)">
     </div>
+    <material-icon-tooltip type="help">
+        Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine
+        Textdateien
+    </material-icon-tooltip>
     <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
         <material-button raised class="controls-button" (trigger)="onStartScanning">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>

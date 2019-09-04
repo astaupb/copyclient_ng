@@ -7,6 +7,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/blocs.dart';
 import 'package:blocs_copyclient/exceptions.dart';
 import 'package:blocs_copyclient/joblist.dart';
+import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
 import 'package:copyclient_ng/src/providers/pdf_provider.dart';
@@ -43,6 +44,8 @@ import '../route_paths.dart';
     materialInputDirectives,
     ModalComponent,
     MaterialSpinnerComponent,
+    MaterialTooltipDirective,
+    MaterialIconTooltipComponent,
   ],
   providers: [
     materialTooltipBindings,
@@ -59,6 +62,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   UploadBloc uploadBloc;
   PdfBloc pdfBloc;
   PrintQueueBloc printQueueBloc;
+  PdfCreationBloc pdfCreation;
 
   bool refreshing = true;
 
@@ -115,8 +119,20 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     printQueueBloc = printQueueProvider.printQueueBloc;
   }
 
+  void deactivate<T>(T subject) {
+    if (subject != null) {
+      if (subject is StreamSubscription) {
+        if (!subject.isPaused) subject.cancel();
+      } else if (subject is Timer) {
+        if (subject.isActive) subject.cancel();
+      }
+    }
+  }
+
   @override
   void onActivate(_, __) {
+    pdfCreation = PdfCreationBloc();
+
     //onRefreshJobs();
     jobListener = jobsBloc.state.listen((JoblistState state) {
       if (state.isResult) {
@@ -237,14 +253,32 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     jobsBloc.onUpdateOptionsById(id, newOptions);
   }
 
-  void deactivate<T>(T subject) {
-    if (subject != null) {
-      if (subject is StreamSubscription) {
-        if (!subject.isPaused) subject.cancel();
-      } else if (subject is Timer) {
-        if (subject.isActive) subject.cancel();
-      }
+  void onOpenPrintDialog(int id) {
+    print('printing job with id $id');
+    printingJob = id;
+    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
+      printJobLeft();
+    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
+      printJobRight();
+    } else {
+      showSelectPrinter = true;
     }
+  }
+
+  void onPrintAll() async {
+    showPrintAll = false;
+    for (Job job in lastJobs) {
+      print('printing job ${job.id}');
+      jobsBloc.onPrintById(
+          (leftPrinter.isEmpty) ? rightPrinter : leftPrinter, job.id);
+      await Future.delayed(const Duration(milliseconds: 500));
+      jobsBloc.onRefresh();
+    }
+  }
+
+  void onRefreshJobs() {
+    refreshing = true;
+    jobsBloc.onRefresh();
   }
 
   void onStartCopying() {
@@ -296,48 +330,63 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     deactivate(lockListener);
   }
 
-  void onOpenPrintDialog(int id) {
-    print('printing job with id $id');
-    printingJob = id;
-    if (leftPrinter.isNotEmpty && rightPrinter.isEmpty) {
-      printJobLeft();
-    } else if (rightPrinter.isNotEmpty && leftPrinter.isEmpty) {
-      printJobRight();
-    } else {
-      showSelectPrinter = true;
-    }
-  }
-
-  void onPrintAll() async {
-    showPrintAll = false;
-    for (Job job in lastJobs) {
-      print('printing job ${job.id}');
-      jobsBloc.onPrintById(
-          (leftPrinter.isEmpty) ? rightPrinter : leftPrinter, job.id);
-      await Future.delayed(const Duration(milliseconds: 500));
-      jobsBloc.onRefresh();
-    }
-  }
-
-  void onRefreshJobs() {
-    refreshing = true;
-    jobsBloc.onRefresh();
-  }
-
   void onUploadFileSelected(List<File> files) {
-    print(files.toString());
-
     files.forEach((File file) async {
-      FileReader reader = FileReader();
-      reader.readAsArrayBuffer(file);
-      await reader.onLoadEnd.listen(
-        (ProgressEvent progress) {
-          if (progress.loaded == progress.total) {
-            uploadBloc.onUpload(reader.result as List<int>,
-                filename: file.name);
-          }
-        },
-      ).asFuture();
+      if (_isSupportedDocument(file.name)) {
+        FileReader reader = FileReader();
+        reader.readAsArrayBuffer(file);
+        await reader.onLoadEnd.listen(
+          (ProgressEvent progress) {
+            if (progress.loaded == progress.total) {
+              uploadBloc.onUpload(reader.result as List<int>,
+                  filename: file.name);
+            }
+          },
+        ).asFuture();
+      } else if (_isSupportedImage(file.name)) {
+        FileReader reader = FileReader();
+        reader.readAsArrayBuffer(file);
+        await reader.onLoadEnd.listen(
+          (ProgressEvent progress) {
+            if (progress.loaded == progress.total) {
+              pdfCreation.onCreateFromImage(reader.result as List<int>);
+              StreamSubscription listener;
+              listener =
+                  pdfCreation.state.skip(1).listen((PdfCreationState state) {
+                if (state.isResult) {
+                  uploadBloc.onUpload(state.value, filename: file.name);
+                  listener.cancel();
+                }
+              });
+            }
+          },
+        ).asFuture();
+      } else if (_isSupportedText(file.name)) {
+        FileReader reader = FileReader();
+        reader.readAsText(file);
+        await reader.onLoadEnd.listen(
+          (ProgressEvent progress) {
+            if (progress.loaded == progress.total) {
+              pdfCreation.onCreateFromText(reader.result as String);
+              StreamSubscription listener;
+              listener =
+                  pdfCreation.state.skip(1).listen((PdfCreationState state) {
+                if (state.isResult) {
+                  uploadBloc.onUpload(state.value, filename: file.name);
+
+                  listener.cancel();
+                }
+              });
+            }
+          },
+        ).asFuture();
+      } else {
+        errorText =
+            '${file.name} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.';
+        showError = true;
+        Future.delayed(const Duration(seconds: 5))
+            .then((_) => showError = false);
+      }
     });
   }
 
@@ -361,5 +410,60 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void _cancelTimers() {
     deactivate(uploadsTimer);
     deactivate(printLockTimer);
+  }
+
+  bool _isSupportedDocument(String filename) {
+    const List<String> fileTypes = [
+      'pdf',
+      'ai',
+    ];
+    final String suffix = filename.split('.').last;
+    return fileTypes.contains(suffix.toLowerCase());
+  }
+
+  bool _isSupportedImage(String filename) {
+    const List<String> imageTypes = [
+      'png',
+      'apng',
+      'jpeg',
+      'jpg',
+      'jif',
+      'jfif',
+      'jpe',
+      'jfi',
+      'webp',
+      'tga',
+      'tpic',
+      'gif',
+      'pvr',
+      'tiff',
+      'tif',
+      'psd',
+      'exr',
+    ];
+    final String suffix = filename.split('.').last;
+    return imageTypes.contains(suffix.toLowerCase());
+  }
+
+  bool _isSupportedText(String filename) {
+    const List<String> fileTypes = [
+      'txt',
+      'asc',
+      'json',
+      'conf',
+      'cnf',
+      'cfg',
+      'log',
+      'xml',
+      'ini',
+      'tsv',
+      'tab',
+      'yaml',
+      'toml',
+      'md',
+      'diff',
+    ];
+    final String suffix = filename.split('.').last;
+    return fileTypes.contains(suffix.toLowerCase());
   }
 }
