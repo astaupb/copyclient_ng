@@ -6,11 +6,11 @@
         </material-button>
         <input class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)"
             accept="application/pdf,image/*,text/*">
+        <material-icon-tooltip type="help">
+            Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine
+            Textdateien
+        </material-icon-tooltip>
     </div>
-    <material-icon-tooltip type="help">
-        Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine
-        Textdateien
-    </material-icon-tooltip>
     <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
         <material-button raised class="controls-button" (trigger)="onStartScanning">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>
