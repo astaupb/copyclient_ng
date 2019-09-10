@@ -6,8 +6,10 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/blocs.dart';
+import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 
 import 'src/auth_guard.dart';
 import 'src/joblist/joblist_component.dart';
@@ -70,6 +72,7 @@ class AppComponent implements OnInit, OnDestroy {
   UserBloc userBloc;
   PdfBloc pdfBloc;
   JournalBloc journalBloc;
+  PdfCreationBloc pdfCreation;
 
   /// The [User] as shown in the drawer header
   User user;
@@ -144,6 +147,8 @@ class AppComponent implements OnInit, OnDestroy {
   }
 
   void onLogin() {
+    pdfCreation = PdfCreationBloc();
+
     // Listen for uploadJob event to be called by our custom JS
     uploadListener = document.on["uploadJob"].listen((Event event) {
       CustomEvent ce = (event as CustomEvent);
@@ -153,7 +158,29 @@ class AppComponent implements OnInit, OnDestroy {
       String filename = payload['filename'];
       List<int> data = base64.decode(payload['data']);
 
-      uploadBloc.onUpload(data, filename: filename);
+      final String mime =
+          lookupMimeType(filename, headerBytes: data.sublist(0, 8));
+      if (mime.startsWith('image/')) {
+        pdfCreation.onCreateFromImage(data);
+        StreamSubscription listener;
+        listener = pdfCreation.state.listen((PdfCreationState state) {
+          if (state.isResult) {
+            uploadBloc.onUpload(state.value, filename: filename);
+            listener.cancel();
+          }
+        });
+      } else if (mime.startsWith('text/')) {
+        pdfCreation.onCreateFromText(utf8.decode(data));
+        StreamSubscription listener;
+        listener = pdfCreation.state.listen((PdfCreationState state) {
+          if (state.isResult) {
+            uploadBloc.onUpload(state.value, filename: filename);
+            listener.cancel();
+          }
+        });
+      } else if (mime == 'application/pdf') {
+        uploadBloc.onUpload(data, filename: filename);
+      }
     });
 
     // Tell our custom JS to start watching for fakeprinting
