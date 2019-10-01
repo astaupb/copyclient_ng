@@ -156,6 +156,9 @@ class AppComponent implements OnInit, OnDestroy {
       // This converts event's payload from JSON to a Dart Map.
       Map<String, dynamic> payload = json.decode(ce.detail);
       String filename = payload['filename'];
+      bool a3 = payload.containsKey('a3') ? payload['a3'] : null;
+      bool color = payload.containsKey('color') ? payload['color'] : null;
+      int duplex = payload.containsKey('duplex') ? payload['duplex'] : null;
       List<int> data = base64.decode(payload['data']);
 
       final String mime =
@@ -165,7 +168,7 @@ class AppComponent implements OnInit, OnDestroy {
         StreamSubscription listener;
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
-            uploadBloc.onUpload(state.value, filename: filename);
+            uploadBloc.onUpload(state.value, filename: filename, a3: a3, color: color, duplex: duplex);
             listener.cancel();
           }
         });
@@ -174,12 +177,12 @@ class AppComponent implements OnInit, OnDestroy {
         StreamSubscription listener;
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
-            uploadBloc.onUpload(state.value, filename: filename);
+            uploadBloc.onUpload(state.value, filename: filename, a3: a3, color: color, duplex: duplex);
             listener.cancel();
           }
         });
       } else if (mime == 'application/pdf') {
-        uploadBloc.onUpload(data, filename: filename);
+        uploadBloc.onUpload(data, filename: filename, a3: a3, color: color, duplex: duplex);
       }
     });
 
