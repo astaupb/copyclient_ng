@@ -10,6 +10,7 @@ import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
+import 'package:copyclient_ng/src/providers/pdf_creation_provider.dart';
 import 'package:copyclient_ng/src/providers/pdf_provider.dart';
 import 'package:copyclient_ng/src/providers/print_queue_provider.dart';
 
@@ -111,12 +112,14 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     AuthProvider authProvider,
     PdfProvider pdfProvider,
     PrintQueueProvider printQueueProvider,
+    PdfCreationProvider pdfCreationProvider,
     Router _router,
   ) : super(authProvider, _router) {
     jobsBloc = joblistProvider.joblistBloc;
     uploadBloc = uploadsProvider.uploadBloc;
     pdfBloc = pdfProvider.pdfBloc;
     printQueueBloc = printQueueProvider.printQueueBloc;
+    pdfCreation = pdfCreationProvider.pdfCreationBloc;
   }
 
   void deactivate<T>(T subject) {
@@ -131,8 +134,6 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   @override
   void onActivate(_, __) {
-    pdfCreation = PdfCreationBloc();
-
     //onRefreshJobs();
     jobListener = jobsBloc.state.listen((JoblistState state) {
       if (state.isResult) {

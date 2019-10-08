@@ -44,3 +44,8 @@
 <material-content>
     <router-outlet [routes]="Routes.all"></router-outlet>
 </material-content>
+
+<div id="interface-blocker" *ngIf="blockInterface">
+    <material-spinner></material-spinner>
+    <div id="blocking-text">{{ blockedInterfaceText }}</div>
+</div>

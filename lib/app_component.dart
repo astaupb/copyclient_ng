@@ -17,6 +17,7 @@ import 'src/login/login_component.dart';
 import 'src/providers/auth_provider.dart';
 import 'src/providers/joblist_provider.dart';
 import 'src/providers/journal_provider.dart';
+import 'src/providers/pdf_creation_provider.dart';
 import 'src/providers/uploads_provider.dart';
 import 'src/providers/preview_provider.dart';
 import 'src/providers/print_queue_provider.dart';
@@ -45,6 +46,7 @@ import 'src/routes.dart';
     MaterialListItemComponent,
     MaterialListComponent,
     MaterialListItemComponent,
+    MaterialSpinnerComponent,
   ],
   providers: [
     AuthGuard,
@@ -57,6 +59,7 @@ import 'src/routes.dart';
     ClassProvider(UserProvider),
     ClassProvider(PdfProvider),
     ClassProvider(JournalProvider),
+    ClassProvider(PdfCreationProvider),
     ClassProvider(http.Client, useClass: BrowserClient),
   ],
   exports: [RoutePaths, Routes],
@@ -80,8 +83,12 @@ class AppComponent implements OnInit, OnDestroy {
   /// The authorization state; true if [AuthBloc] yields authorized state
   bool authorized = false;
 
+  bool blockInterface = false;
+  String blockedInterfaceText = '';
+
   StreamSubscription<Event> uploadListener;
   StreamSubscription userListener;
+  StreamSubscription pdfCreationListener;
 
   Timer refreshTimer;
 
@@ -94,6 +101,7 @@ class AppComponent implements OnInit, OnDestroy {
       UserProvider userProvider,
       PdfProvider pdfProvider,
       JournalProvider journalProvider,
+      PdfCreationProvider pdfCreationProvider,
       this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
@@ -103,6 +111,7 @@ class AppComponent implements OnInit, OnDestroy {
     userBloc = userProvider.userBloc;
     pdfBloc = pdfProvider.pdfBloc;
     journalBloc = journalProvider.journalBloc;
+    pdfCreation = pdfCreationProvider.pdfCreationBloc;
   }
 
   @override
@@ -147,8 +156,6 @@ class AppComponent implements OnInit, OnDestroy {
   }
 
   void onLogin() {
-    pdfCreation = PdfCreationBloc();
-
     // Listen for uploadJob event to be called by our custom JS
     uploadListener = document.on["uploadJob"].listen((Event event) {
       CustomEvent ce = (event as CustomEvent);
@@ -168,7 +175,8 @@ class AppComponent implements OnInit, OnDestroy {
         StreamSubscription listener;
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
-            uploadBloc.onUpload(state.value, filename: filename, a3: a3, color: color, duplex: duplex);
+            uploadBloc.onUpload(state.value,
+                filename: filename, a3: a3, color: color, duplex: duplex);
             listener.cancel();
           }
         });
@@ -177,12 +185,14 @@ class AppComponent implements OnInit, OnDestroy {
         StreamSubscription listener;
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
-            uploadBloc.onUpload(state.value, filename: filename, a3: a3, color: color, duplex: duplex);
+            uploadBloc.onUpload(state.value,
+                filename: filename, a3: a3, color: color, duplex: duplex);
             listener.cancel();
           }
         });
       } else if (mime == 'application/pdf') {
-        uploadBloc.onUpload(data, filename: filename, a3: a3, color: color, duplex: duplex);
+        uploadBloc.onUpload(data,
+            filename: filename, a3: a3, color: color, duplex: duplex);
       }
     });
 
@@ -199,6 +209,16 @@ class AppComponent implements OnInit, OnDestroy {
     userListener = userBloc.state.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
+      }
+    });
+
+    pdfCreationListener = pdfCreation.state.listen((PdfCreationState state) {
+      print('PdfCreation receive: $state');
+      if (state.isBusy) {
+        blockedInterfaceText = 'Konvertiere Datei';
+        blockInterface = true;
+      } else if (state.isResult) {
+        blockInterface = false;
       }
     });
   }
@@ -219,6 +239,7 @@ class AppComponent implements OnInit, OnDestroy {
       }
       if (uploadListener != null) uploadListener.cancel();
       if (refreshTimer != null) refreshTimer.cancel();
+      if (pdfCreationListener != null) pdfCreationListener.cancel();
     }
   }
 }

@@ -67,3 +67,27 @@ material-content {
     position: absolute;
     left: 256px;
 }
+
+#interface-blocker {
+    z-index: 999;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #000000ad;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    padding-top: 40%;
+}
+
+#blocking-text {
+    margin-top: 1vw;
+    color: white;
+    font-size: 20px;
+}
+
+material-spinner {
+    border-color: white;
+    min-width: 10vw;
+    min-height: 10vw;
+}
