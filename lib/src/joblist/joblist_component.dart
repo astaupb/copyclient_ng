@@ -306,7 +306,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             if (uploadsTimer != null) uploadsTimer.cancel();
             uploadsTimer = Timer.periodic(
                 Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
-          } else if (state.isException && state.error.toString().contains('423')) {
+          } else if (state.isException && (state.error as ApiException).statusCode == 423) {
             errorText = 'Der Drucker ist bereits gesperrt!';
             showError = true;
             Future.delayed(const Duration(seconds: 5))
@@ -314,6 +314,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             printerLocked = false;
             deactivate(printLockTimer);
             deactivate(uploadsTimer);
+            copyMode = false;
           } else if (!state.isLocked) {
             printerLocked = false;
             deactivate(printLockTimer);
