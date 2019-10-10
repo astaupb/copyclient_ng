@@ -46,7 +46,6 @@ import '../route_paths.dart';
     ModalComponent,
     MaterialSpinnerComponent,
     MaterialTooltipDirective,
-    MaterialIconTooltipComponent,
   ],
   providers: [
     materialTooltipBindings,

@@ -5,40 +5,46 @@
             <span class="controls-button-text">Datei hochladen</span>
         </material-button>
         <input class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)"
-            accept="application/pdf,image/*,text/*">
-        <material-icon-tooltip type="help">
+            accept="application/pdf,image/*,text/*" tooltipTarget #refUpload="tooltipTarget" title="">
+        <material-tooltip-text [for]="refUpload">
             Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine
             Textdateien
-        </material-icon-tooltip>
+        </material-tooltip-text>
     </div>
     <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
-        <material-button raised class="controls-button" tooltipTarget #refStartScanning="tooltipTarget" (trigger)="onStartScanning">
+        <material-button raised class="controls-button" tooltipTarget #refStartScanning="tooltipTarget"
+            (trigger)="onStartScanning">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>
             <material-icon class="controls-button-icon" icon="arrow_right_alt"></material-icon>
             <material-icon class="controls-button-icon" icon="picture_as_pdf"></material-icon>
             <span class="controls-button-text">Scanmodus</span>
             <material-tooltip-text [for]="refStartScanning">
-                <header>Scans vom nebenstehenden Drucker an das Ziel <strong>scan2asta</strong> gelangen in die untenstehende Liste</header>
+                <header>Scans vom nebenstehenden Drucker an das Ziel <strong>scan2asta</strong> gelangen in die
+                    untenstehende Liste</header>
             </material-tooltip-text>
         </material-button>
     </div>
     <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
-        <material-button raised class="controls-button" tooltipTarget #refStartCopying="tooltipTarget" (trigger)="onStartCopying">
+        <material-button raised class="controls-button" tooltipTarget #refStartCopying="tooltipTarget"
+            (trigger)="onStartCopying">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>
             <material-icon class="controls-button-icon" icon="arrow_right_alt"></material-icon>
             <material-icon class="controls-button-icon" icon="print"></material-icon>
             <span class="controls-button-text">Kopiermodus</span>
             <material-tooltip-text [for]="refStartCopying">
-                <header>Scans vom nebenstehenden Drucker an das Ziel <strong>scan2asta</strong> gelangen in die untenstehende Liste und werden automatisch wieder ausgedruckt</header>
+                <header>Scans vom nebenstehenden Drucker an das Ziel <strong>scan2asta</strong> gelangen in die
+                    untenstehende Liste und werden automatisch wieder ausgedruckt</header>
             </material-tooltip-text>
         </material-button>
     </div>
     <div *ngIf="printerLocked" class="button-wrapper">
-        <material-button raised class="controls-button" tooltipTarget #refDeleteAll="tooltipTarget" (trigger)="onUnlockPrinter">
+        <material-button raised class="controls-button" tooltipTarget #refUnlockPrinter="tooltipTarget"
+            (trigger)="onUnlockPrinter">
             <material-icon class="controls-button-icon" icon="cancel"></material-icon>
             <span class="controls-button-text">{{ copyMode ? 'Kopieren' : 'Scannen' }} beenden</span>
-            <material-tooltip-text [for]="refDeleteAll">
-                <header>Beendet den {{ copyMode ? 'Kopier' : 'Scan' }}modus und gibt den Drucker für andere Nutzer frei</header>
+            <material-tooltip-text [for]="refUnlockPrinter">
+                <header>Beendet den {{ copyMode ? 'Kopier' : 'Scan' }}modus und gibt den Drucker für andere Nutzer frei
+                </header>
             </material-tooltip-text>
         </material-button>
     </div>
