@@ -164,10 +164,11 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
         Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
 
         String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
+        String filename = job.jobInfo.filename.endsWith('.pdf') ? job.jobInfo.filename : job.jobInfo.filename + '.pdf';
 
         AnchorElement link = AnchorElement()
           ..href = blobUrl
-          ..download = job.jobInfo.filename;
+          ..download = filename;
 
         // dispatch click event so firefox works as well
         var event = MouseEvent("click", view: window, cancelable: false);
