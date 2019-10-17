@@ -129,17 +129,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
           Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
 
           if (isPasswordChange) {
-            /* FIXME
             authBloc.logout();
-            var logoutListener;
-            logoutListener = authBloc.state.listen((AuthState state) async {
-              if (state.isUnauthorized) {
-                _router.navigate(RoutePaths.login.path);
-                document.dispatchEvent(CustomEvent("loggedOut"));
-                logoutListener.cancel();
-              }
-            });
-            */
+            window.localStorage.remove('token');
+            window.location.reload();
           }
         } else if (state.isException) {
           ApiException e = (state.error as ApiException);
