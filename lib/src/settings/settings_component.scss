@@ -1,0 +1,16 @@
+@import 'package:angular_components/css/material/material';
+
+.form-card {
+    padding: 24px;
+    width: $mat-grid * 44;
+}
+
+.form-control {
+    min-width: 90%;
+}
+
+.btn-primary {
+    background-color: teal;
+    color: whitesmoke;
+    margin-top: 1vw !important;
+}

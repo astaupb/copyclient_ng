@@ -6,6 +6,7 @@ import 'joblist/joblist_component.template.dart' as joblist_template;
 import 'login/login_component.template.dart' as login_template;
 import 'payminator/payminator_component.template.dart' as payminator_template;
 import 'register/register_component.template.dart' as register_template;
+import 'settings/settings_component.template.dart' as settings_template;
 import 'route_paths.dart';
 
 export 'route_paths.dart';
@@ -18,6 +19,7 @@ class Routes {
     login,
     register,
     credit,
+    settings,
     RouteDefinition.redirect(
       path: '',
       redirectTo: joblist.path,
@@ -58,5 +60,11 @@ class Routes {
     routePath: RoutePaths.credit,
     component: payminator_template.PayminatorComponentNgFactory,
     additionalData: 'Guthaben',
+  );
+
+  static final settings = RouteDefinition(
+    routePath: RoutePaths.settings,
+    component: settings_template.SettingsComponentNgFactory,
+    additionalData: 'Einstellungen',
   );
 }
