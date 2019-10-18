@@ -8,6 +8,7 @@ import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/exceptions.dart';
 
 import '../providers/auth_provider.dart';
+import '../notifications.dart';
 
 @Component(
   selector: 'register',
@@ -50,9 +51,7 @@ class RegisterComponent implements OnActivate, OnDeactivate {
   /// The listener that reacts to new states in [AuthBloc] to navigate/show errors
   StreamSubscription<AuthState> authListener;
 
-  /// Variables for notification throwing
-  bool showNotification = false;
-  String notificationText = '';
+  Notifications notifications = Notifications();
 
   RegisterComponent(AuthProvider authProvider, this.location) {
     authBloc = authProvider.authBloc;
@@ -67,54 +66,40 @@ class RegisterComponent implements OnActivate, OnDeactivate {
   void onActivate(RouterState previous, RouterState current) {
     authListener = authBloc.state.listen((AuthState state) async {
       if (state.isRegistered) {
-        notificationText =
-            'Registrierung als ${state.username} erfolgreich . Du wirst nun zum Login weitergeleitet.';
-        showNotification = true;
+        notifications.add('Registrierung als ${state.username} erfolgreich . Du wirst nun zum Login weitergeleitet.');
         Future.delayed(const Duration(seconds: 3)).then((_) {
           creds = RegisterCredentials();
-          notificationText = '';
-          showNotification = false;
           location.back();
         });
       } else if (state.isException) {
         ApiException error = state.error as ApiException;
 
         if (error.statusCode == 470) {
-          notificationText = 'Dieser Name ist leider schon vergeben, bitte probiere einen anderen.';
+          notifications.add('Dieser Name ist leider schon vergeben, bitte probiere einen anderen.');
         } else if (error.statusCode == 471) {
-          notificationText =
-              'Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben.';
+          notifications.add('Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben.');
         } else if (error.statusCode >= 500) {
-          notificationText = 'Serverfehler - Bitte probiere es in einem Moment erneut.';
+          notifications.add('Serverfehler - Bitte probiere es in einem Moment erneut.');
         } else if (error.statusCode == 0) {
-          notificationText =
-              'Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.';
+          notifications.add('Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.');
         } else {
-          notificationText = error.toString();
+          notifications.add(error.toString());
         }
-
-        showNotification = true;
-        Future.delayed(const Duration(seconds: 5)).then((_) {
-          showNotification = false;
-          notificationText = '';
-        });
       }
     });
   }
 
   void onSubmitForm() {
     if (creds.password != creds.passwordRetype)
-      notificationText = 'Die Passwörter stimmen nicht überein';
+      notifications.add('Die Passwörter stimmen nicht überein');
     else if (creds.name.length < 2)
-      notificationText = 'Der Name ist zu kurz';
+      notifications.add('Der Name ist zu kurz');
     else if (creds.password.length < 7)
-      notificationText = 'Das Passwort ist zu kurz';
+      notifications.add('Das Passwort ist zu kurz');
     else {
       authBloc.register(creds.name.trim(), creds.password.trim());
-      notificationText = 'Registrierung wurde abgeschickt...';
+      notifications.add('Registrierung wurde abgeschickt...');
     }
-    showNotification = true;
-    Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
   }
 }
 

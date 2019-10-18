@@ -19,6 +19,7 @@ import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/uploads_provider.dart';
 import '../route_paths.dart';
+import '../notifications.dart';
 
 @Component(
   selector: 'joblist',
@@ -102,8 +103,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   DateTime copyStartTime;
   List<int> copiedIds = [];
 
-  bool showError = false;
-  String errorText = '';
+  Notifications notifications = Notifications();
 
   JobListComponent(
     JoblistProvider joblistProvider,
@@ -181,13 +181,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       } else if (state.isException) {
         uploads = [];
         if ((state.error as ApiException).statusCode == 400)
-          errorText =
-              'Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.';
+          notifications.add('Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.');
         else
-          errorText = 'Unbekannter Fehler beim Hochladen einer Datei';
-        showError = true;
-        Future.delayed(const Duration(seconds: 5))
-            .then((_) => showError = false);
+          notifications.add('Unbekannter Fehler beim Hochladen einer Datei');
       }
     });
   }
@@ -307,10 +303,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             uploadsTimer = Timer.periodic(
                 Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
           } else if (state.isException && (state.error as ApiException).statusCode == 423) {
-            errorText = 'Der Drucker ist bereits gesperrt!';
-            showError = true;
-            Future.delayed(const Duration(seconds: 5))
-                .then((_) => showError = false);
+            notifications.add('Der Drucker ist bereits gesperrt!');
             printerLocked = false;
             deactivate(printLockTimer);
             deactivate(uploadsTimer);
@@ -391,11 +384,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
           },
         ).asFuture();
       } else {
-        errorText =
-            '${file.name} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.';
-        showError = true;
-        Future.delayed(const Duration(seconds: 5))
-            .then((_) => showError = false);
+        notifications.add('${file.name} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.');
       }
     });
   }
