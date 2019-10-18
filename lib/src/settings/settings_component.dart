@@ -107,6 +107,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   AuthBloc authBloc;
 
+  bool isUsernameChange = false;
   bool isPasswordChange = false;
 
   SettingsComponent(
@@ -121,39 +122,43 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   @override
   void onActivate(_, RouterState current) async {
       userListener = userBloc.state.listen((UserState state) {
-        if (state.isResult) {
-          user = state.value;
-          settings = Settings();
-          notificationText = (isPasswordChange ? 'Passwort' : 'Benutzername') + ' erfolgreich geändert';
-          showNotification = true;
-          Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+        if (isUsernameChange || isPasswordChange) {
+          if (state.isResult) {
+            user = state.value;
+            settings = Settings();
+            notificationText = (isPasswordChange ? 'Passwort' : 'Benutzername') + ' erfolgreich geändert';
+            showNotification = true;
+            Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
 
-          if (isPasswordChange) {
-            authBloc.logout();
-            window.localStorage.remove('token');
-            window.location.reload();
+            if (isPasswordChange) {
+              authBloc.logout();
+              window.localStorage.remove('token');
+              window.location.reload();
+            }
+          } else if (state.isException) {
+            ApiException e = (state.error as ApiException);
+            final int statusCode = e != null ? e.statusCode : 499;
+
+            if (isPasswordChange) {
+              if (statusCode == 471)
+                notificationText = 'Das Passwort ist ungültig';
+              else
+                notificationText = 'Konnte das Passwort nicht ändern: Unbekannter Fehler';
+            } else {
+              if (statusCode == 471)
+                notificationText = 'Der Benutzername ist ungültig';
+              else if (statusCode == 472)
+                notificationText = 'Der Benutzername ist bereits vergeben';
+              else
+                notificationText = 'Konnte den Benutzernamen nicht ändern: Unbekannter Fehler';
+            }
+
+            showNotification = true;
+            Future.delayed(const Duration(seconds: 5))
+                .then((_) => showNotification = false);
           }
-        } else if (state.isException) {
-          ApiException e = (state.error as ApiException);
-          final int statusCode = e != null ? e.statusCode : 499;
-
-          if (isPasswordChange) {
-            if (statusCode == 471)
-              notificationText = 'Das Passwort ist ungültig';
-            else
-              notificationText = 'Konnte das Passwort nicht ändern: Unbekannter Fehler';
-          } else {
-            if (statusCode == 471)
-              notificationText = 'Der Benutzername ist ungültig';
-            else if (statusCode == 472)
-              notificationText = 'Der Benutzername ist bereits vergeben';
-            else
-              notificationText = 'Konnte den Benutzernamen nicht ändern: Unbekannter Fehler';
-          }
-
-          showNotification = true;
-          Future.delayed(const Duration(seconds: 5))
-              .then((_) => showNotification = false);
+          isPasswordChange = false;
+          isUsernameChange = false;
         }
       });
     }
@@ -165,6 +170,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void onSubmitName() {
     isPasswordChange = false;
+    isUsernameChange = true;
     if (settings.name.length < 2) {
       notificationText = 'Der Benutzername ist zu kurz';
       showNotification = true;
@@ -176,6 +182,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void onSubmitPassword() {
     isPasswordChange = true;
+    isUsernameChange = false;
     if (settings.passwordOld.length < 1) {
       notificationText = 'Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein';
       showNotification = true;
