@@ -86,6 +86,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   int nup = 1;
   int nupPageOrder = 1;
   bool keep = false;
+  bool bypass = false;
 
   final List<String> duplexOptions = ['Simplex', 'Lange Kante', 'Kurze Kante'];
   String duplexSelection = 'Simplex';
@@ -149,6 +150,12 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
 
   void copiesChanged() {
     job.jobOptions.copies = copies;
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
+  void bypasChecked() {
+    bypass = !bypass;
+    job.jobOptions.bypass = bypass;
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
 

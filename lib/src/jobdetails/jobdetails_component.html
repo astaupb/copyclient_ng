@@ -107,6 +107,15 @@
                             </material-toggle>
                         </div>
                     </material-list-item>
+                    <material-list-item class="options-row">
+                        <div class="options-key">
+                            Seiteneinzug (Bypass):
+                        </div>
+                        <div class="options-value">
+                            <material-toggle [checked]="bypass" (checkedChange)="bypassChecked()">
+                            </material-toggle>
+                        </div>
+                    </material-list-item>
                 </div>
 
                 <div group>
