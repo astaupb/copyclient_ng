@@ -166,6 +166,7 @@ class AppComponent implements OnInit, OnDestroy {
       bool a3 = payload.containsKey('a3') ? payload['a3'] : null;
       bool color = payload.containsKey('color') ? payload['color'] : null;
       int duplex = payload.containsKey('duplex') ? payload['duplex'] : null;
+      int copies = payload.containsKey('copies') ? payload['copies'] : null;
       List<int> data = base64.decode(payload['data']);
 
       final String mime =
@@ -176,7 +177,7 @@ class AppComponent implements OnInit, OnDestroy {
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
             uploadBloc.onUpload(state.value,
-                filename: filename, a3: a3, color: color, duplex: duplex);
+                filename: filename, a3: a3, color: color, duplex: duplex, copies: copies);
             listener.cancel();
           }
         });
@@ -186,13 +187,13 @@ class AppComponent implements OnInit, OnDestroy {
         listener = pdfCreation.state.listen((PdfCreationState state) {
           if (state.isResult) {
             uploadBloc.onUpload(state.value,
-                filename: filename, a3: a3, color: color, duplex: duplex);
+                filename: filename, a3: a3, color: color, duplex: duplex, copies: copies);
             listener.cancel();
           }
         });
       } else if (mime == 'application/pdf') {
         uploadBloc.onUpload(data,
-            filename: filename, a3: a3, color: color, duplex: duplex);
+            filename: filename, a3: a3, color: color, duplex: duplex, copies: copies);
       }
     });
 
