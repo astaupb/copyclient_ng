@@ -153,7 +153,7 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
 
-  void bypasChecked() {
+  void bypassChecked() {
     bypass = !bypass;
     job.jobOptions.bypass = bypass;
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
