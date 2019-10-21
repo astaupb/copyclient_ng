@@ -138,9 +138,7 @@
     </material-tooltip-text>
 </material-fab>
 
-<div class="bottom-notification" *ngIf="showError">
-    {{ errorText }}
-</div>
+<div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>
 
 <modal [visible]="showSelectPrinter">
     <material-dialog id="selectPrinter">

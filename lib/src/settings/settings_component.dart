@@ -16,12 +16,11 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/exceptions.dart';
 import 'package:blocs_copyclient/src/auth/auth_bloc.dart';
 import 'package:blocs_copyclient/user.dart';
-import 'package:copyclient_ng/src/providers/user_provider.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
 import '../providers/user_provider.dart';
-import '../route_paths.dart';
+import '../notifications.dart';
 
 /// Object representation of the settings form
 class Settings {
@@ -95,9 +94,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   StreamSubscription userListener;
 
-  /// Variables for notification throwing
-  bool showNotification = false;
-  String notificationText = '';
+  Notifications notifications = Notifications();
 
   User user;
 
@@ -107,6 +104,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   AuthBloc authBloc;
 
+  bool isUsernameChange = false;
   bool isPasswordChange = false;
 
   SettingsComponent(
@@ -121,39 +119,37 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   @override
   void onActivate(_, RouterState current) async {
       userListener = userBloc.state.listen((UserState state) {
-        if (state.isResult) {
-          user = state.value;
-          settings = Settings();
-          notificationText = (isPasswordChange ? 'Passwort' : 'Benutzername') + ' erfolgreich geändert';
-          showNotification = true;
-          Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+        if (isUsernameChange || isPasswordChange) {
+          if (state.isResult) {
+            user = state.value;
+            settings = Settings();
+            notifications.add((isPasswordChange ? 'Passwort' : 'Benutzername') + ' erfolgreich geändert');
 
-          if (isPasswordChange) {
-            authBloc.logout();
-            window.localStorage.remove('token');
-            window.location.reload();
+            if (isPasswordChange) {
+              authBloc.logout();
+              window.localStorage.remove('token');
+              window.location.reload();
+            }
+          } else if (state.isException) {
+            ApiException e = (state.error as ApiException);
+            final int statusCode = e != null ? e.statusCode : 499;
+
+            if (isPasswordChange) {
+              if (statusCode == 471)
+                notifications.add('Das Passwort ist ungültig');
+              else
+                notifications.add('Konnte das Passwort nicht ändern: Unbekannter Fehler');
+            } else {
+              if (statusCode == 471)
+                notifications.add('Der Benutzername ist ungültig');
+              else if (statusCode == 472)
+                notifications.add('Der Benutzername ist bereits vergeben');
+              else
+                notifications.add('Konnte den Benutzernamen nicht ändern: Unbekannter Fehler');
+            }
           }
-        } else if (state.isException) {
-          ApiException e = (state.error as ApiException);
-          final int statusCode = e != null ? e.statusCode : 499;
-
-          if (isPasswordChange) {
-            if (statusCode == 471)
-              notificationText = 'Das Passwort ist ungültig';
-            else
-              notificationText = 'Konnte das Passwort nicht ändern: Unbekannter Fehler';
-          } else {
-            if (statusCode == 471)
-              notificationText = 'Der Benutzername ist ungültig';
-            else if (statusCode == 472)
-              notificationText = 'Der Benutzername ist bereits vergeben';
-            else
-              notificationText = 'Konnte den Benutzernamen nicht ändern: Unbekannter Fehler';
-          }
-
-          showNotification = true;
-          Future.delayed(const Duration(seconds: 5))
-              .then((_) => showNotification = false);
+          isPasswordChange = false;
+          isUsernameChange = false;
         }
       });
     }
@@ -165,10 +161,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void onSubmitName() {
     isPasswordChange = false;
+    isUsernameChange = true;
     if (settings.name.length < 2) {
-      notificationText = 'Der Benutzername ist zu kurz';
-      showNotification = true;
-      Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+      notifications.add('Der Benutzername ist zu kurz');
     } else {
       userBloc.onChangeUsername(settings.name);
     }
@@ -176,18 +171,13 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void onSubmitPassword() {
     isPasswordChange = true;
+    isUsernameChange = false;
     if (settings.passwordOld.length < 1) {
-      notificationText = 'Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein';
-      showNotification = true;
-      Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+      notifications.add('Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein');
     } else if (settings.password.length < 7) {
-      notificationText = 'Das neue Passwort ist zu kurz';
-      showNotification = true;
-      Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+      notifications.add('Das neue Passwort ist zu kurz');
     } else if (settings.password != settings.passwordRetype) {
-      notificationText = 'Die neuen Passwörter stimmen nicht überein';
-      showNotification = true;
-      Future.delayed(const Duration(seconds: 3)).then((_) => showNotification = false);
+      notifications.add('Die neuen Passwörter stimmen nicht überein');
     } else {
       userBloc.onChangePassword(settings.passwordOld, settings.password);
     }

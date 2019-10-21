@@ -38,6 +38,4 @@
     <material-button type="submit" class="btn-primary" (trigger)="onSubmitPassword()">Passwort ändern</material-button>
 </form>
 
-<div *ngIf="showNotification" class="bottom-notification">
-    {{notificationText}}
-</div>
+<div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>
