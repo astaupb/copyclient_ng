@@ -9,6 +9,7 @@ import 'main.template.dart' as self;
 
 void main() async {
   final locale = await findSystemLocale();
+  print('locale: $locale');
   await initializeMessages(locale);
 
   runApp(ng.AppComponentNgFactory);

@@ -18,14 +18,22 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'en';
 
+  static m0(name) => "PayPal payment for ${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Aktuelles Guthaben:" : MessageLookupByLibrary.simpleMessage("Current credit:"),
-    "Alle Transaktionen" : MessageLookupByLibrary.simpleMessage("Alle Transaktionen"),
+    "Alle Transaktionen" : MessageLookupByLibrary.simpleMessage("All Transactions"),
     "Aufladung" : MessageLookupByLibrary.simpleMessage("Choose Credit"),
+    "Beschreibung" : MessageLookupByLibrary.simpleMessage("Description"),
     "Betrag" : MessageLookupByLibrary.simpleMessage("Amount"),
-    "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus." : MessageLookupByLibrary.simpleMessage("Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus."),
-    "PayPal öffnen" : MessageLookupByLibrary.simpleMessage("PayPal öffnen"),
+    "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus." : MessageLookupByLibrary.simpleMessage("This is not your user? Then please log out to the left at the last point."),
+    "PayPal öffnen" : MessageLookupByLibrary.simpleMessage("Open PayPal Checkout"),
+    "Transaktionen aktualisieren" : MessageLookupByLibrary.simpleMessage("Update transactions"),
+    "Wert" : MessageLookupByLibrary.simpleMessage("Value"),
+    "Zeit" : MessageLookupByLibrary.simpleMessage("Time"),
+    "_paypalWindowTitle" : m0,
+    "_userDefinedMessage" : MessageLookupByLibrary.simpleMessage("Custom"),
     "mit Kartennummer" : MessageLookupByLibrary.simpleMessage("with card number")
   };
 }

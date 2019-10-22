@@ -9,6 +9,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/journal.dart';
 import 'package:blocs_copyclient/user.dart';
+import 'package:intl/intl.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
@@ -48,7 +49,8 @@ import 'payment_service.dart';
     materialProviders,
   ],
 )
-class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate {
+class PayminatorComponent extends AuthGuard
+    implements OnActivate, OnDeactivate {
   final PaymentService paymentService;
   UserBloc userBloc;
   AuthBloc authBloc;
@@ -146,10 +148,14 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
     window.localStorage.remove('token');
   }
 
+  void onRefreshTransactions() {
+    journalBloc.onRefresh();
+  }
+
   void onSubmitPayment() async {
     //print('value: $value\nselected value: $selectedValue ');
     final String url = await paymentService.getPaymentUrl(user.userId, value);
-    window.open(url, 'PayPal Zahlung für ${user.name}');
+    window.open(url, _paypalWindowTitle(user.name));
   }
 
   void onValueChanged(String value) {
@@ -165,13 +171,9 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
     }
   }
 
-  void onRefreshTransactions() {
-    journalBloc.onRefresh();
-  }
-
   String renderValueOption(dynamic value) {
     if (((value is int) ? value : int.tryParse(value)) == -1) {
-      return 'Benutzerdefiniert';
+      return _userDefinedMessage();
     } else {
       return (value as double).toStringAsFixed(2) + ' €';
     }
@@ -179,9 +181,24 @@ class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate 
 
   String selectedValueFormatted() {
     if (selectedValue == -1) {
-      return 'Benutzerdefiniert';
+      return _userDefinedMessage();
     } else {
       return (selectedValue as double).toStringAsFixed(2) + ' €';
     }
   }
+
+  String _paypalWindowTitle(String name) => Intl.message(
+        'PayPal Zahlung für $name',
+        name: '_paypalWindowTitle',
+        args: [name],
+        desc:
+            'Title of the newly opened paypal window containing the users name',
+      );
+
+  String _userDefinedMessage() => Intl.message(
+        'Benutzerdefiniert',
+        name: '_userDefinedMessage',
+        desc:
+            'Shows a value can be user defined as opposed to a predefined value',
+      );
 }
