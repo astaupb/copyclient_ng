@@ -1,0 +1,127 @@
+{
+  "@@locale": "de",
+  "@@last_modified": "2019-10-22T20:48:35.411557",
+  "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.",
+  "@Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": {
+    "description": "Tell the user to log out if he finds this being logged into another user's account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Guthaben:": "Aktuelles Guthaben:",
+  "@Aktuelles Guthaben:": {
+    "description": "Label for current user credit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aufladung": "Aufladung",
+  "@Aufladung": {
+    "description": "Title of the credit buying selection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PayPal öffnen": "PayPal öffnen",
+  "@PayPal öffnen": {
+    "description": "Button text for opening paypal with set value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Transaktionen": "Alle Transaktionen",
+  "@Alle Transaktionen": {
+    "description": "title of the transactions list segment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mit Kartennummer": "mit Kartennummer",
+  "@mit Kartennummer": {
+    "description": "imitation of a sentence with [username] [this text] [card number]",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Betrag": "Betrag",
+  "@Betrag": {
+    "description": "Literally the value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "@@locale": "en",
+  "@@last_modified": "2019-06-20T17:05:46.429806",
+  "AStA Copyservice Aufwerter": "AStA Copyservice Credit Shop",
+  "@AStA Copyservice Aufwerter": {
+    "description": "Title of the app",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ausloggen ": "Logout ",
+  "@Ausloggen ": {
+    "description": "Button text to log out of your account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das ist nicht dein Benutzer? Dann logge dich bitte oben rechts aus.": "This is not your user? Then please log out in the top right corner of your screen",
+  "@Das ist nicht dein Benutzer? Dann logge dich bitte oben rechts aus.": {
+    "description": "Tell the user to log out if he finds this being logged into another user's account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Guthaben:": "Current credit:",
+  "@Aktuelles Guthaben:": {
+    "description": "Label for current user credit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aufladung": "Choose Credit",
+  "@Aufladung": {
+    "description": "Title of the credit buying selection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Paypal öffnen": "Open PayPal Checkout",
+  "@Paypal öffnen": {
+    "description": "Button text for opening paypal with set value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mit Kartennummer": "with card number",
+  "@mit Kartennummer": {
+    "description": "imitation of a sentence with [username] [this text] [card number]",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Betrag": "Amount",
+  "@Betrag": {
+    "description": "Literally the value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "AStA Copyclient Login": "AStA Copyclient Login",
+  "@AStA Copyclient Login": {
+    "description": "Title of the login screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nutzername/SN": "Username / SN",
+  "@Nutzername/SN": {
+    "description": "Label of the username login field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort/PIN": "Password / PIN",
+  "@Passwort/PIN": {
+    "description": "Lebel of the password login field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eingeloggt bleiben": "Remember me",
+  "@Eingeloggt bleiben": {
+    "description": "Label of the checkbox for staying logged in",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einloggen": "Login",
+  "@Einloggen": {
+    "description": "Login button text",
+    "type": "text",
+    "placeholders": {}
+  }
+
+}
