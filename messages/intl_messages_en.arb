@@ -1,6 +1,62 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2019-10-22T23:52:11.939198",
+  "@@last_modified": "2019-10-23T01:07:43.271415",
+  "_registerSucessful": "Registration as {name} was successful. You're now being redirected to the login window.",
+  "@_registerSucessful": {
+    "description": "Message to be shown if registration went well and the ui is returning to login window",
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "_nameUsed": "This name is already taken, please try another one.",
+  "@_nameUsed": {
+    "description": "Notification to be shown if entered name is already used",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_forbiddenCharacters": "Forbidden characters inside username/password - Please check your input. For reference read the tooltips right to the input fields.",
+  "@_forbiddenCharacters": {
+    "description": "Notification to be shown if username contains forbidden characters",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_serverError": "Server error - Please try again in a moment or contact us if the problem persists",
+  "@_serverError": {
+    "description": "Notification to be shown if app receives a server error (500)",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_timeout": "Server connection timed out - Please check your internet connection",
+  "@_timeout": {
+    "description": "Notification to  be shown if connection to server takes too long",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordMismatch": "Your password confirmation does not match the first password",
+  "@_passwordMismatch": {
+    "description": "Notification to be shown if the password confirmation on register page fails",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nameShort": "Supplied name is too short",
+  "@_nameShort": {
+    "description": "Notification to be shown if the name to be registered is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordShort": "Supplied password is too short",
+  "@_passwordShort": {
+    "description": "Notification to be shown if password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_registrationSubmitted": "Registration was submitted...",
+  "@_registrationSubmitted": {
+    "description": "Notification to be shown if registration is submitted",
+    "type": "text",
+    "placeholders": {}
+  },
   "_paypalWindowTitle": "PayPal payment for {name}",
   "@_paypalWindowTitle": {
     "description": "Title of the newly opened paypal window containing the users name",
@@ -48,6 +104,54 @@
   "Logout": "Logout",
   "@Logout": {
     "description": "Logout button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zurück": "Back",
+  "@Zurück": {
+    "description": "Button text for navigating back a page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "AStA Copyservice Account Registrieren": "Register AStA Copyservice Account",
+  "@AStA Copyservice Account Registrieren": {
+    "description": "Title of account registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name": "Name",
+  "@Name": {
+    "description": "Form field label of new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": "The name has to consist of at least 2 characters. The following characters can be used: 'A' to 'Z', 'a' to 'z' and '0' to '9'",
+  "@Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": {
+    "description": "Tootip text for username restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort": "Password",
+  "@Passwort": {
+    "description": "Form field label of new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": "The password has to consist of at least 6 characters. Special characters are allowed.",
+  "@Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": {
+    "description": "Tooltip text for password restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password wiederholen": "Confirm password",
+  "@Password wiederholen": {
+    "description": "Form field label of password confirmation field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Abschicken": "Submit",
+  "@Abschicken": {
+    "description": "Button text for submit button of registration form",
     "type": "text",
     "placeholders": {}
   },
@@ -114,6 +218,42 @@
   "Betrag": "Amount",
   "@Betrag": {
     "description": "Literally the value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nutzername/SN": "Username/SN",
+  "@Nutzername/SN": {
+    "description": "Label for username field of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort/PIN": "Password/PIN",
+  "@Passwort/PIN": {
+    "description": "Label for password field of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eingeloggt bleiben": "Remember me",
+  "@Eingeloggt bleiben": {
+    "description": "Label for checkbox deciding wether you wanna stay logged in",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einloggen": "Login",
+  "@Einloggen": {
+    "description": "Login button text of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Login-Formular zurücksetzen": "Reset login form",
+  "@Login-Formular zurücksetzen": {
+    "description": "Tooltip text for reset-login-form button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Registrierung": "To Registration",
+  "@Zur Registrierung": {
+    "description": "Button text for link to account registration",
     "type": "text",
     "placeholders": {}
   }

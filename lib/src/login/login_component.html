@@ -3,23 +3,26 @@
         <h2>AStA Copyclient Login</h2>
         <material-input autoFocus id="username" class="login-input" label="Nutzername/SN" [maxRows]="1"
             [checkValid]="validateUsername" required type="text" #username="ngForm" ngControl="username"
-            [(ngModel)]="cred.username"></material-input>
+            [(ngModel)]="cred.username" @i18n:label="Label for username field of login form"></material-input>
         <material-input id="password" type="password" class="login-input" label="Passwort/PIN" #password="ngForm"
             ngControl="password" [maxRows]="1" [checkValid]="validatePassword" required name="password"
-            [(ngModel)]="cred.password" (keyup.enter)="submitForm()"></material-input>
-        <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"></material-checkbox>
-        <material-button (trigger)="submitForm()" type="submit" class="login-button" raised>Einloggen</material-button>
+            [(ngModel)]="cred.password" (keyup.enter)="submitForm()"
+            @i18n:label="Label for password field of login form"></material-input>
+        <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"
+            @i18n:label="Label for checkbox deciding wether you wanna stay logged in"></material-checkbox>
+        <material-button (trigger)="submitForm()" type="submit" class="login-button" raised
+            @i18n="Login button text of login form">Einloggen</material-button>
         <material-button tooltipTarget #refReset="tooltipTarget" class="reset-button" (trigger)="clearForm()">
             <material-icon icon="refresh"></material-icon>
             <material-tooltip-text [for]="refReset">
-                <header>Login-Formular zurücksetzen</header>
+                <header @i18n="Tooltip text for reset-login-form button">Login-Formular zurücksetzen</header>
             </material-tooltip-text>
         </material-button>
     </form>
 </div>
 
 <a [routerLink]="RoutePaths.register.toUrl()">
-    <material-button class="login-button register-button">Zur Registrierung</material-button>
+    <material-button class="login-button register-button" @i18n="Button text for link to account registration">Zur Registrierung</material-button>
 </a>
 
 <div *ngIf="showException" class="loginException">

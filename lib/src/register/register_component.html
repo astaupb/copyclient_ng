@@ -1,15 +1,16 @@
-<material-button (trigger)="location.back()">Zurück</material-button>
+<material-button (trigger)="location.back()" @i18n="Button text for navigating back a page">Zurück</material-button>
 
-<h1>AStA Copyservice Account Registrieren</h1>
+<h1 @i18n="Title of account registration">AStA Copyservice Account Registrieren</h1>
 <form class="mdc-card form-card">
     <div>
         <material-input [(ngModel)]="creds.name" type="text" class="form-control" id="name" label="Name" required
-            floatingLabel></material-input>
+            floatingLabel @i18n:label="Form field label of new username"></material-input>
         <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
             #ref1="tooltipTarget">
         </material-icon>
         <material-tooltip-card [for]="ref1">
-            <header>Der Name muss aus mindestens 2 Zeichen bestehen.<br> Es dürfen folgende Zeichen in Kombination
+            <header @i18n="Tootip text for username restrictions while registration">Der Name muss aus mindestens 2
+                Zeichen bestehen. Es dürfen folgende Zeichen in Kombination
                 benutzt werden: A bis Z, a bis z, 0 bis 9
             </header>
         </material-tooltip-card>
@@ -17,21 +18,24 @@
 
     <div>
         <material-input [(ngModel)]="creds.password" type="password" class="form-control" id="password" label="Passwort"
-            required floatingLabel>
+            required floatingLabel @i18n:label="Form field label of new password">
         </material-input>
         <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
             #ref2="tooltipTarget">
         </material-icon>
         <material-tooltip-card [for]="ref2">
-            <header>Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.
+            <header @i18n="Tooltip text for password  restrictions while registration">Das Passwort muss aus mindestens
+                5 Zeichen bestehen. Sonderzeichen sind erlaubt.
             </header>
         </material-tooltip-card>
     </div>
 
     <material-input [(ngModel)]="creds.passwordRetype" type="password" class="form-control" id="password_retype"
-        label="Password wiederholen" required floatingLabel></material-input>
+        label="Password wiederholen" required floatingLabel
+        @i18n:label="Form field label of password confirmation field"></material-input>
 
-    <material-button type="submit" class="btn-primary" (trigger)="onSubmitForm()">Abschicken</material-button>
+    <material-button type="submit" class="btn-primary" (trigger)="onSubmitForm()"
+        @i18n="Button text for submit button of registration form">Abschicken</material-button>
 </form>
 
 <div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>
