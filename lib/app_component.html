@@ -10,39 +10,46 @@
         <div class="drawer-userspace-image"></div>
         <div class="drawer-userspace-text">
             <span><b>{{ user?.name ?? '' }}</b></span><br>
-            <span>Guthaben: {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}} €</span>
+            <span><span @i18n="Text before current credit value in drawer">Guthaben</span>:
+                {{ ((user?.credit ?? 0) / 100.0).toStringAsFixed(2)}} €</span>
         </div>
         <div group>
             <a [routerLink]="RoutePaths.dashboard.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
-                    <material-icon icon="dashboard"></material-icon>Dashboard
+                    <material-icon icon="dashboard"></material-icon>
+                    <span @i18n="Navigation link text for dashboard">Dashboard</span>
                 </material-list-item>
             </a>
             <a [routerLink]="RoutePaths.joblist.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
-                    <material-icon icon="view_list"></material-icon>Jobliste
+                    <material-icon icon="view_list"></material-icon>
+                    <span @i18n="Navigation link text for joblist">Jobliste</span>
                 </material-list-item>
             </a>
             <a [routerLink]="RoutePaths.credit.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
-                    <material-icon icon="credit_card"></material-icon>Guthaben
+                    <material-icon icon="credit_card"></material-icon>
+                    <span @i18n="Navigation link text for credit overview">Guthaben</span>
                 </material-list-item>
             </a>
             <a [routerLink]="RoutePaths.settings.toUrl()" class="drawer-link">
                 <material-list-item class="drawer-list-item">
-                    <material-icon icon="settings"></material-icon>Einstellungen
+                    <material-icon icon="settings"></material-icon>
+                    <span @i18n="Navigation link text for settings">Einstellungen</span>
                 </material-list-item>
             </a>
         </div>
         <div group>
             <material-list-item class="drawer-list-item" (trigger)="onLogout()">
-                <material-icon icon="exit_to_app"></material-icon>Logout
+                <material-icon icon="exit_to_app"></material-icon>
+                <span @i18n="Logout button text">Logout</span>
             </material-list-item>
         </div>
     </material-list>
     <div id="support-disclaimer">
-        <material-icon icon="help" size="small"></material-icon> Email für Support und Anregungen: <a
-            href="mailto:app@asta.upb.de">app@asta.upb.de</a>
+        <material-icon icon="help" size="small"></material-icon>
+        <span @i18n="Prefix text for support email adress">Email für Support und Anregungen</span>:
+        <a href="mailto:app@asta.upb.de">app@asta.upb.de</a>
     </div>
 </material-drawer>
 

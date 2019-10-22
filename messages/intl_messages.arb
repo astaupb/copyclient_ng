@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-23T00:33:30.763176",
+  "@@last_modified": "2019-10-23T00:41:01.356913",
   "_paypalWindowTitle": "PayPal Zahlung für {name}",
   "@_paypalWindowTitle": {
     "description": "Title of the newly opened paypal window containing the users name",
@@ -12,6 +12,42 @@
   "_userDefinedMessage": "Benutzerdefiniert",
   "@_userDefinedMessage": {
     "description": "Shows a value can be user defined as opposed to a predefined value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Email für Support und Anregungen": "Email für Support und Anregungen",
+  "@Email für Support und Anregungen": {
+    "description": "Prefix text for support email adress",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Guthaben": "Guthaben",
+  "@Guthaben": {
+    "description": "Text before current credit value in drawer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dashboard": "Dashboard",
+  "@Dashboard": {
+    "description": "Navigation link text for dashboard",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jobliste": "Jobliste",
+  "@Jobliste": {
+    "description": "Navigation link text for joblist",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen": "Einstellungen",
+  "@Einstellungen": {
+    "description": "Navigation link text for settings",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Logout": "Logout",
+  "@Logout": {
+    "description": "Logout button text",
     "type": "text",
     "placeholders": {}
   },
