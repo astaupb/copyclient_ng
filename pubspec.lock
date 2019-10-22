@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fb8439a563f56714df102d76619d71c45dd142ca
+      resolved-ref: "1e3a2b2418a9493fe8a7321a77b1a2d3a7bebf34"
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
     version: "0.1.0"
@@ -303,7 +303,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   intl:
     dependency: transitive
     description:
@@ -352,7 +352,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.5"
+    version: "0.12.6"
   meta:
     dependency: transitive
     description:
