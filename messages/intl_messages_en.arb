@@ -1,7 +1,7 @@
 {
-  "@@locale": "de",
-  "@@last_modified": "2019-10-23T00:33:30.763176",
-  "_paypalWindowTitle": "PayPal Zahlung für {name}",
+  "@@locale": "en",
+  "@@last_modified": "2019-10-22T23:52:11.939198",
+  "_paypalWindowTitle": "PayPal payment for {name}",
   "@_paypalWindowTitle": {
     "description": "Title of the newly opened paypal window containing the users name",
     "type": "text",
@@ -9,73 +9,73 @@
       "name": {}
     }
   },
-  "_userDefinedMessage": "Benutzerdefiniert",
+  "_userDefinedMessage": "Custom",
   "@_userDefinedMessage": {
     "description": "Shows a value can be user defined as opposed to a predefined value",
     "type": "text",
     "placeholders": {}
   },
-  "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.",
+  "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": "This is not your user? Then please log out to the left at the last point.",
   "@Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": {
     "description": "Tell the user to log out if he finds this being logged into another user's account",
     "type": "text",
     "placeholders": {}
   },
-  "Aktuelles Guthaben:": "Aktuelles Guthaben:",
+  "Aktuelles Guthaben:": "Current credit:",
   "@Aktuelles Guthaben:": {
     "description": "Label for current user credit",
     "type": "text",
     "placeholders": {}
   },
-  "Aufladung": "Aufladung",
+  "Aufladung": "Choose Credit",
   "@Aufladung": {
     "description": "Title of the credit buying selection",
     "type": "text",
     "placeholders": {}
   },
-  "PayPal öffnen": "PayPal öffnen",
+  "PayPal öffnen": "Open PayPal Checkout",
   "@PayPal öffnen": {
     "description": "Button text for opening paypal",
     "type": "text",
     "placeholders": {}
   },
-  "Alle Transaktionen": "Alle Transaktionen",
+  "Alle Transaktionen": "All Transactions",
   "@Alle Transaktionen": {
     "description": "title of the transactions list segment",
     "type": "text",
     "placeholders": {}
   },
-  "Beschreibung": "Beschreibung",
+  "Beschreibung": "Description",
   "@Beschreibung": {
     "description": "column title for descriptions",
     "type": "text",
     "placeholders": {}
   },
-  "Zeit": "Zeit",
+  "Zeit": "Time",
   "@Zeit": {
     "description": "column title for timestamps",
     "type": "text",
     "placeholders": {}
   },
-  "Wert": "Wert",
+  "Wert": "Value",
   "@Wert": {
     "description": "column title for transaction value",
     "type": "text",
     "placeholders": {}
   },
-  "Transaktionen aktualisieren": "Transaktionen aktualisieren",
+  "Transaktionen aktualisieren": "Update transactions",
   "@Transaktionen aktualisieren": {
     "description": "Tooltip text for refresh transactions button",
     "type": "text",
     "placeholders": {}
   },
-  "mit Kartennummer": "mit Kartennummer",
+  "mit Kartennummer": "with card number",
   "@mit Kartennummer": {
     "description": "imitation of a sentence with [username] [this text] [card number]",
     "type": "text",
     "placeholders": {}
   },
-  "Betrag": "Betrag",
+  "Betrag": "Amount",
   "@Betrag": {
     "description": "Literally the value",
     "type": "text",

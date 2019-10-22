@@ -15,7 +15,7 @@ deploy: build
 clean:
 	rm -rf build
 
-i18n_build_arb: build
+i18n_build_arb:
 	### Generating ARB file from @i18n annotated component templates...
 	mkdir -p messages
 	find . -name '*.dart' -print0 | xargs -0 \
@@ -29,4 +29,4 @@ i18n_build_code:
 	find . -name '*.dart' -print0 | xargs -0 \
         pub run intl_translation:generate_from_arb \
 		--output-dir lib/messages \
-		messages/intl_messages.arb
+		messages/*
