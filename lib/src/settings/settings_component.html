@@ -1,41 +1,48 @@
-<h1>Einstellungen</h1>
+<h1 @i18n="Settings page title text">Einstellungen</h1>
 <form class="mdc-card form-card">
     <div>
-        <material-input [(ngModel)]="settings.name" type="text" class="form-control" id="name" label="Neuer Benutzername" required
-            floatingLabel></material-input>
+        <material-input [(ngModel)]="settings.name" type="text" class="form-control" id="name"
+            label="Neuer Benutzername" required floatingLabel @i18n:label="Label text for new username">
+        </material-input>
         <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
             #ref1="tooltipTarget">
         </material-icon>
         <material-tooltip-card [for]="ref1">
-            <header>Der Name muss aus mindestens 2 Zeichen bestehen.<br> Es dürfen folgende Zeichen in Kombination
+            <header @i18n="Info text about name restrictions: at least 2 alphabetical characters or numbers">Der Name
+                muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination
                 benutzt werden: A bis Z, a bis z, 0 bis 9
             </header>
         </material-tooltip-card>
     </div>
-    <material-button type="submit" class="btn-primary" (trigger)="onSubmitName()">Benutzername ändern</material-button>
+    <material-button type="submit" class="btn-primary" (trigger)="onSubmitName()"
+        @i18n="button text for changing username">Benutzername ändern</material-button>
 </form>
 <br />
 <form class="mdc-card form-card">
     <material-input [(ngModel)]="settings.passwordOld" type="password" class="form-control" id="password_old"
-        label="Aktuelles Password" required floatingLabel></material-input>
+        label="Aktuelles Password" required floatingLabel @i18n:label="Label text for current password">
+    </material-input>
 
     <div>
-        <material-input [(ngModel)]="settings.password" type="password" class="form-control" id="password" label="Neues Passwort"
-            required floatingLabel>
+        <material-input [(ngModel)]="settings.password" type="password" class="form-control" id="password"
+            label="Neues Passwort" required floatingLabel @i18n:label="Label text for new password">
         </material-input>
         <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
             #ref2="tooltipTarget">
         </material-icon>
         <material-tooltip-card [for]="ref2">
-            <header>Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.
+            <header @i18n="Info text saying password consist of at least 5 letters and can include special characters">
+                Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.
             </header>
         </material-tooltip-card>
     </div>
 
     <material-input [(ngModel)]="settings.passwordRetype" type="password" class="form-control" id="password_retype"
-        label="Password wiederholen" required floatingLabel></material-input>
+        label="Password wiederholen" required floatingLabel @i18n:label="Label text for password confirmation field">
+    </material-input>
 
-    <material-button type="submit" class="btn-primary" (trigger)="onSubmitPassword()">Passwort ändern</material-button>
+    <material-button type="submit" class="btn-primary" (trigger)="onSubmitPassword()"
+        @i18n="BUtton text for changing password">Passwort ändern</material-button>
 </form>
 
 <div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>

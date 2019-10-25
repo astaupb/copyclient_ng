@@ -1,6 +1,78 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2019-10-23T01:07:43.271415",
+  "@@last_modified": "2019-10-25T19:14:12.366209",
+  "_enterCurrentPw": "Please enter your current password or pin",
+  "@_enterCurrentPw": {
+    "description": "notify user that he/she should enter the current password to confirm its the user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordChangeSuccess": "Successfully changed password",
+  "@_passwordChangeSuccess": {
+    "description": "Notify user that password or user change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordInvalid": "The entered password is invalid",
+  "@_passwordInvalid": {
+    "description": "Notify user that entered password is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordTooShort": "The entered password is too short",
+  "@_passwordTooShort": {
+    "description": "Notify user that the entered new password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_pwUnknownError": "Could not chage the password due to an unknown error",
+  "@_pwUnknownError": {
+    "description": "Notify user that password could not be changed due to unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameChangeSuccess": "Successfully changed username",
+  "@_usernameChangeSuccess": {
+    "description": "Notify user that password or user change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameInvalid": "This username is invalid",
+  "@_usernameInvalid": {
+    "description": "Notify user that the entered username is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTaken": "This username is already taken",
+  "@_usernameTaken": {
+    "description": "Notify user that thee entered username is already taken",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTooShort": "Thit username is too short",
+  "@_usernameTooShort": {
+    "description": "Notify user that the entered name is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameUnknownError": "Could not change the user name due to an unknown error",
+  "@_usernameUnknownError": {
+    "description": "Notify user that username could not be changed due to an unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort ändern": "Change password",
+  "@Passwort ändern": {
+    "description": "BUtton text for changing password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzername ändern": "Change username",
+  "@Benutzername ändern": {
+    "description": "button text for changing username",
+    "type": "text",
+    "placeholders": {}
+  },
   "_registerSucessful": "Registration as {name} was successful. You're now being redirected to the login window.",
   "@_registerSucessful": {
     "description": "Message to be shown if registration went well and the ui is returning to login window",
@@ -68,6 +140,36 @@
   "_userDefinedMessage": "Custom",
   "@_userDefinedMessage": {
     "description": "Shows a value can be user defined as opposed to a predefined value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name": "Username",
+  "@Name": {
+    "description": "Form field label of new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Password": "Current password",
+  "@Aktuelles Password": {
+    "description": "Label text for current password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neuer Benutzername": "New username",
+  "@Neuer Benutzername": {
+    "description": "Label text for new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues Passwort": "New password",
+  "@Neues Passwort": {
+    "description": "Label text for new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort": "Password",
+  "@Passwort": {
+    "description": "Form field label of new password",
     "type": "text",
     "placeholders": {}
   },

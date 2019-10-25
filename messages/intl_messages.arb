@@ -1,6 +1,72 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-23T01:07:43.271415",
+  "@@last_modified": "2019-10-25T19:25:59.399533",
+  "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
+  "@_enterCurrentPw": {
+    "description": "notify user that he/she should enter the current password to confirm its the user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordChangeSuccess": "Passwort erfolgreich geändert",
+  "@_passwordChangeSuccess": {
+    "description": "Notify user that password or user change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordInvalid": "Das Passwort ist ungültig",
+  "@_passwordInvalid": {
+    "description": "Notify user that entered password is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordMismatch": "Die angegebenen Passwörter stimmen nicht überein",
+  "@_passwordMismatch": {
+    "description": "Notification to be shown if the password confirmation on register page fails",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordTooShort": "Das neue Passwort ist zu kurz",
+  "@_passwordTooShort": {
+    "description": "Notify user that the entered new password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_pwUnknownError": "Konnte das Passwort nicht ändern: Unbekannter Fehler",
+  "@_pwUnknownError": {
+    "description": "Notify user that password could not be changed due to unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameChangeSuccess": "Benutzername erfolgreich geändert",
+  "@_usernameChangeSuccess": {
+    "description": "Notify user that password or user change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameInvalid": "Der Benutzername ist ungültig",
+  "@_usernameInvalid": {
+    "description": "Notify user that the entered username is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTaken": "Der Benutzername ist bereits vergeben",
+  "@_usernameTaken": {
+    "description": "Notify user that thee entered username is already taken",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTooShort": "Der Benutzername ist zu kurz",
+  "@_usernameTooShort": {
+    "description": "Notify user that the entered name is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameUnknownError": "Konnte den Benutzernamen nicht ändern: Unbekannter Fehler",
+  "@_usernameUnknownError": {
+    "description": "Notify user that username could not be changed due to an unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
   "_registerSucessful": "Registrierung als {name} erfolgreich . Du wirst nun zum Login weitergeleitet.",
   "@_registerSucessful": {
     "description": "Message to be shown if registration went well and the ui is returning to login window",
@@ -30,12 +96,6 @@
   "_timeout": "Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.",
   "@_timeout": {
     "description": "Notification to  be shown if connection to server takes too long",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordMismatch": "Die angegebenen Passwörter stimmen nicht überein",
-  "@_passwordMismatch": {
-    "description": "Notification to be shown if the password confirmation on register page fails",
     "type": "text",
     "placeholders": {}
   },
@@ -97,13 +157,61 @@
   },
   "Einstellungen": "Einstellungen",
   "@Einstellungen": {
-    "description": "Navigation link text for settings",
+    "description": "Settings page title text",
     "type": "text",
     "placeholders": {}
   },
   "Logout": "Logout",
   "@Logout": {
     "description": "Logout button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neuer Benutzername": "Neuer Benutzername",
+  "@Neuer Benutzername": {
+    "description": "Label text for new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9",
+  "@Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": {
+    "description": "Tootip text for username restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzername ändern": "Benutzername ändern",
+  "@Benutzername ändern": {
+    "description": "button text for changing username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Password": "Aktuelles Password",
+  "@Aktuelles Password": {
+    "description": "Label text for current password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues Passwort": "Neues Passwort",
+  "@Neues Passwort": {
+    "description": "Label text for new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.",
+  "@Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": {
+    "description": "Tooltip text for password restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password wiederholen": "Password wiederholen",
+  "@Password wiederholen": {
+    "description": "Form field label of password confirmation field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort ändern": "Passwort ändern",
+  "@Passwort ändern": {
+    "description": "BUtton text for changing password",
     "type": "text",
     "placeholders": {}
   },
@@ -125,27 +233,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9",
-  "@Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": {
-    "description": "Tootip text for username restrictions while registration",
-    "type": "text",
-    "placeholders": {}
-  },
   "Passwort": "Passwort",
   "@Passwort": {
     "description": "Form field label of new password",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.",
-  "@Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": {
-    "description": "Tooltip text for password restrictions while registration",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Password wiederholen": "Password wiederholen",
-  "@Password wiederholen": {
-    "description": "Form field label of password confirmation field",
     "type": "text",
     "placeholders": {}
   },
