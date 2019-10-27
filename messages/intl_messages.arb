@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-27T18:37:56.809067",
+  "@@last_modified": "2019-10-27T19:12:07.340245",
   "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",
@@ -66,6 +66,32 @@
     "description": "Notify user that username could not be changed due to an unknown error",
     "type": "text",
     "placeholders": {}
+  },
+  "_fileBroken": "Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.",
+  "@_fileBroken": {
+    "description": "Notify user that the selected file is corrupt or  cant  be read",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_printerLocked": "Der Drucker ist bereits gesperrt!",
+  "@_printerLocked": {
+    "description": "Notify user that the selected printer is locked by another user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_unknownUploadError": "Unbekannter Fehler beim Hochladen einer Datei",
+  "@_unknownUploadError": {
+    "description": "Notify user that an unknown error occured during upload",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_unsupportedFormat": "{filename} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.",
+  "@_unsupportedFormat": {
+    "description": "Notify user that the provided file is not in one of the supported fiel formats (which is PDF, most images and pure text)",
+    "type": "text",
+    "placeholders": {
+      "filename": {}
+    }
   },
   "_registerSucessful": "Registrierung als {name} erfolgreich . Du wirst nun zum Login weitergeleitet.",
   "@_registerSucessful": {
@@ -215,6 +241,204 @@
     "type": "text",
     "placeholders": {}
   },
+  "Datei hochladen": "Datei hochladen",
+  "@Datei hochladen": {
+    "description": "Button text for file upload dialog",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine Textdateien": "Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine Textdateien",
+  "@Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine Textdateien": {
+    "description": "Description of what file formats are suported for direct upload",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle löschen": "Alle löschen",
+  "@Alle löschen": {
+    "description": "button text for deleting all printjobs in list",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Jobs in der untenstehenden Liste löschen": "Alle Jobs in der untenstehenden Liste löschen",
+  "@Alle Jobs in der untenstehenden Liste löschen": {
+    "description": "Tooltip text of delete all jobs button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Jobs in der untenstehenden Liste in Downloads sichern": "Alle Jobs in der untenstehenden Liste in Downloads sichern",
+  "@Alle Jobs in der untenstehenden Liste in Downloads sichern": {
+    "description": "Tooltip text of download all as pdf button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meine Jobs:": "Meine Jobs:",
+  "@Meine Jobs:": {
+    "description": "Title of list segment for jobs inside printjob cloud",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktualisieren": "Aktualisieren",
+  "@Aktualisieren": {
+    "description": "Tooltip text of refresh button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Drucker auswählen": "Drucker auswählen",
+  "@Drucker auswählen": {
+    "description": "Popup title for printer selection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Abbrechen": "Abbrechen",
+  "@Abbrechen": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wirklich alle Jobs drucken?": "Wirklich alle Jobs drucken?",
+  "@Wirklich alle Jobs drucken?": {
+    "description": "Dialog header asking if user really wants to print all jobs",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ja": "Ja",
+  "@Ja": {
+    "description": "Yes button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wirklich alle Jobs löschen?": "Wirklich alle Jobs löschen?",
+  "@Wirklich alle Jobs löschen?": {
+    "description": "Dialog title asking to delete all jobs",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wirklich alle Jobs herunterladen?": "Wirklich alle Jobs herunterladen?",
+  "@Wirklich alle Jobs herunterladen?": {
+    "description": "Button text asking to download all jobs as pdf",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Scanmodus": "Scanmodus",
+  "@Scanmodus": {
+    "description": "Button text for starting scan mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste": "Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste",
+  "@Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste": {
+    "description": "Tootip description text for scan mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kopiermodus": "Kopiermodus",
+  "@Kopiermodus": {
+    "description": "Button text for copy mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste und werden automatisch wieder ausgedruckt": "Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste und werden automatisch wieder ausgedruckt",
+  "@Scans vom nebenstehenden Drucker an das Ziel scan2asta gelangen in die untenstehende Liste und werden automatisch wieder ausgedruckt": {
+    "description": "Tootip description text for copy mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kopieren beenden": "Kopieren beenden",
+  "@Kopieren beenden": {
+    "description": "Button text for ending copy mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Scannen beenden": "Scannen beenden",
+  "@Scannen beenden": {
+    "description": "Button text for ending scan mode",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beendet den Kopiermodus und gibt den Drucker für andere Nutzer frei": "Beendet den Kopiermodus und gibt den Drucker für andere Nutzer frei",
+  "@Beendet den Kopiermodus und gibt den Drucker für andere Nutzer frei": {
+    "description": "Tooltip text for end copymode botton",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beendet den Scanmodus und gibt den Drucker für andere Nutzer frei": "Beendet den Scanmodus und gibt den Drucker für andere Nutzer frei",
+  "@Beendet den Scanmodus und gibt den Drucker für andere Nutzer frei": {
+    "description": "Tooltip text for end scanmode botton",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle drucken": "Alle drucken",
+  "@Alle drucken": {
+    "description": "Button text for printing all jobs in list",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Am Hochladen/Verarbeiten:": "Am Hochladen/Verarbeiten:",
+  "@Am Hochladen/Verarbeiten:": {
+    "description": "Title of joblist segment for uploading or processing jobs",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Am Hochladen...": "Am Hochladen...",
+  "@Am Hochladen...": {
+    "description": "List item subtitle for uploading items",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Hochladen abgeschlossen - Am Verarbeiten... (Du kannst die Seite jetzt schließen)": "Hochladen abgeschlossen - Am Verarbeiten... (Du kannst die Seite jetzt schließen)",
+  "@Hochladen abgeschlossen - Am Verarbeiten... (Du kannst die Seite jetzt schließen)": {
+    "description": "List item subtitle for processing items",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job nach dem Drucken behalten": "Job nach dem Drucken behalten",
+  "@Job nach dem Drucken behalten": {
+    "description": "tooltip text for keep button (keeps job after printing)",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job löschen": "Job löschen",
+  "@Job löschen": {
+    "description": "Tootlip text for delete job button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job als PDF speichern": "Job als PDF speichern",
+  "@Job als PDF speichern": {
+    "description": "tooltip text for save single job as pdf button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job links drucken": "Job links drucken",
+  "@Job links drucken": {
+    "description": "Print button tooltip text when printing to left printer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job rechts drucken": "Job rechts drucken",
+  "@Job rechts drucken": {
+    "description": "Print button tooltip text when printing to right printer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Linker": "Linker",
+  "@Linker": {
+    "description": "Text saying left",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Drucker": "Drucker",
+  "@Drucker": {
+    "description": "Text saying printer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rechter": "Rechter",
+  "@Rechter": {
+    "description": "Text saying right",
+    "type": "text",
+    "placeholders": {}
+  },
   "Benutzer": "Benutzer",
   "@Benutzer": {
     "description": "Title for user segment",
@@ -242,12 +466,6 @@
   "Alle Transaktionen zeigen": "Alle Transaktionen zeigen",
   "@Alle Transaktionen zeigen": {
     "description": "Button text for showing all transactions on account",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Aktualisieren": "Aktualisieren",
-  "@Aktualisieren": {
-    "description": "Tooltip text of refresh button",
     "type": "text",
     "placeholders": {}
   },

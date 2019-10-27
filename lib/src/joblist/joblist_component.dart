@@ -10,16 +10,18 @@ import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
+import 'package:copyclient_ng/messages/messages_de.dart';
 import 'package:copyclient_ng/src/providers/pdf_creation_provider.dart';
 import 'package:copyclient_ng/src/providers/pdf_provider.dart';
 import 'package:copyclient_ng/src/providers/print_queue_provider.dart';
+import 'package:intl/intl.dart';
 
 import '../auth_guard.dart';
+import '../notifications.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/uploads_provider.dart';
 import '../route_paths.dart';
-import '../notifications.dart';
 
 @Component(
   selector: 'joblist',
@@ -121,6 +123,20 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     pdfCreation = pdfCreationProvider.pdfCreationBloc;
   }
 
+  String get _fileBroken => Intl.message(
+      'Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.',
+      name: '_fileBroken',
+      desc: 'Notify user that the selected file is corrupt or  cant  be read');
+
+  String get _printerLocked => Intl.message('Der Drucker ist bereits gesperrt!',
+      name: '_printerLocked',
+      desc: 'Notify user that the selected printer is locked by another user');
+
+  String get _unknownUploadError =>
+      Intl.message('Unbekannter Fehler beim Hochladen einer Datei',
+          name: '_unknownUploadError',
+          desc: 'Notify user that an unknown error occured during upload');
+
   void deactivate<T>(T subject) {
     if (subject != null) {
       if (subject is StreamSubscription) {
@@ -181,9 +197,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       } else if (state.isException) {
         uploads = [];
         if ((state.error as ApiException).statusCode == 400)
-          notifications.add('Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.');
+          notifications.add(_fileBroken);
         else
-          notifications.add('Unbekannter Fehler beim Hochladen einer Datei');
+          notifications.add(_unknownUploadError);
       }
     });
   }
@@ -226,7 +242,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             'application/pdf');
 
         final String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
-        String filename = lastJobs.where((Job job) => id == job.id).first.jobInfo.filename;
+        String filename =
+            lastJobs.where((Job job) => id == job.id).first.jobInfo.filename;
         filename = filename.endsWith('.pdf') ? filename : filename + '.pdf';
 
         final AnchorElement link = AnchorElement()
@@ -302,8 +319,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             if (uploadsTimer != null) uploadsTimer.cancel();
             uploadsTimer = Timer.periodic(
                 Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
-          } else if (state.isException && (state.error as ApiException).statusCode == 423) {
-            notifications.add('Der Drucker ist bereits gesperrt!');
+          } else if (state.isException &&
+              (state.error as ApiException).statusCode == 423) {
+            notifications.add(_printerLocked);
             printerLocked = false;
             deactivate(printLockTimer);
             deactivate(uploadsTimer);
@@ -384,7 +402,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
           },
         ).asFuture();
       } else {
-        notifications.add('${file.name} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.');
+        notifications.add(_unsupportedFormat(file.name));
       }
     });
   }
@@ -465,4 +483,11 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     final String suffix = filename.split('.').last;
     return fileTypes.contains(suffix.toLowerCase());
   }
+
+  String _unsupportedFormat(String filename) => Intl.message(
+      '$filename hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.',
+      name: '_unsupportedFormat',
+      args: [filename],
+      desc:
+          'Notify user that the provided file is not in one of the supported fiel formats (which is PDF, most images and pure text)');
 }
