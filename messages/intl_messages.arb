@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-25T19:25:59.399533",
+  "@@last_modified": "2019-10-27T18:37:56.809067",
   "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",
@@ -139,7 +139,7 @@
   },
   "Guthaben": "Guthaben",
   "@Guthaben": {
-    "description": "Text before current credit value in drawer",
+    "description": "Row title for user credit",
     "type": "text",
     "placeholders": {}
   },
@@ -215,6 +215,42 @@
     "type": "text",
     "placeholders": {}
   },
+  "Benutzer": "Benutzer",
+  "@Benutzer": {
+    "description": "Title for user segment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Name": "Name",
+  "@Name": {
+    "description": "Form field label of new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Authorisierte Copyclients": "Authorisierte Copyclients",
+  "@Authorisierte Copyclients": {
+    "description": "Row title for number of authorized clients for that user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Transaktionen": "Letzte Transaktionen",
+  "@Letzte Transaktionen": {
+    "description": "title for last transactions in journal",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Transaktionen zeigen": "Alle Transaktionen zeigen",
+  "@Alle Transaktionen zeigen": {
+    "description": "Button text for showing all transactions on account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktualisieren": "Aktualisieren",
+  "@Aktualisieren": {
+    "description": "Tooltip text of refresh button",
+    "type": "text",
+    "placeholders": {}
+  },
   "Zurück": "Zurück",
   "@Zurück": {
     "description": "Button text for navigating back a page",
@@ -224,12 +260,6 @@
   "AStA Copyservice Account Registrieren": "AStA Copyservice Account Registrieren",
   "@AStA Copyservice Account Registrieren": {
     "description": "Title of account registration",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Name": "Name",
-  "@Name": {
-    "description": "Form field label of new username",
     "type": "text",
     "placeholders": {}
   },

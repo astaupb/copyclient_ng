@@ -1,10 +1,10 @@
 <div id="dashboard-container">
 
     <div class="mdc-card card-narrow user-card">
-        <span class="card-heading">Benutzer</span>
+        <span class="card-heading" @i18n="Title for user segment">Benutzer</span>
         <material-list>
             <material-list-item group class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for username">
                     Name
                 </div>
                 <div class="options-value">
@@ -31,7 +31,7 @@
             </div>
 
             <material-list-item group class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for user credit">
                     Guthaben
                 </div>
                 <div class="options-value">
@@ -39,7 +39,7 @@
                 </div>
             </material-list-item>
             <material-list-item group class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for number of authorized clients for that user">
                     Authorisierte Copyclients
                 </div>
                 <div class="options-value">
@@ -50,7 +50,7 @@
     </div>
 
     <div class="mdc-card card-narrow user-card">
-        <span class="card-heading">Letzte Transaktionen</span>
+        <span class="card-heading" @i18n="title for last transactions in journal">Letzte Transaktionen</span>
         <material-list>
             <material-list-item group class="options-row" *ngFor="let item of transactions">
                 <div class="options-key">
@@ -63,7 +63,7 @@
             </material-list-item>
         </material-list>
         <a [routerLink]="RoutePaths.credit.toUrl()">
-            <material-button id="show-transactions">Alle Transaktionen zeigen</material-button>
+            <material-button id="show-transactions" @i18n="Button text for showing all transactions on account">Alle Transaktionen zeigen</material-button>
         </a>
     </div>
 </div>
@@ -75,6 +75,6 @@
     <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
     <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
     <material-tooltip-text [for]="refRefresh">
-        <header>Aktualisieren</header>
+        <header @i18n="Tooltip text of refresh button">Aktualisieren</header>
     </material-tooltip-text>
 </material-fab>

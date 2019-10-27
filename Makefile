@@ -15,7 +15,7 @@ deploy: build
 clean:
 	rm -rf build
 
-i18n_build_arb:
+i18n_build_arb: build
 	### Generating ARB file from @i18n annotated component templates...
 	mkdir -p messages
 	find . -name '*.dart' -print0 | xargs -0 \

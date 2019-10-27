@@ -67,6 +67,36 @@
     "type": "text",
     "placeholders": {}
   },
+  "Benutzer": "User",
+  "@Benutzer": {
+    "description": "Title for user segment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Authorisierte Copyclients": "Authorized Copyclients",
+  "@Authorisierte Copyclients": {
+    "description": "Row title for number of authorized clients for that user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Letzte Transaktionen": "Last transactions",
+  "@Letzte Transaktionen": {
+    "description": "title for last transactions in journal",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Transaktionen zeigen": "Show all transactions",
+  "@Alle Transaktionen zeigen": {
+    "description": "Button text for showing all transactions on account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktualisieren": "Refresh",
+  "@Aktualisieren": {
+    "description": "Tooltip text of refresh button",
+    "type": "text",
+    "placeholders": {}
+  },
   "Benutzername ändern": "Change username",
   "@Benutzername ändern": {
     "description": "button text for changing username",
