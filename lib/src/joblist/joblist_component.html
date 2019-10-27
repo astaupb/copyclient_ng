@@ -68,7 +68,7 @@
 
 <material-button tooltipTarget #refDownloadAll="tooltipTarget" (trigger)="showDownloadAll = true">
     <material-icon class="button-icon" icon="cloud_download"></material-icon>
-    <span i18n="Button text for downloading all jobs as pdf">Alle herunterladen</span>
+    <span @i18n="Button text for downloading all jobs as pdf">Alle herunterladen</span>
     <material-tooltip-text [for]="refDownloadAll">
         <header @i18n="Tooltip text of download all as pdf button">Alle Jobs in der untenstehenden Liste in Downloads
             sichern</header>

@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Alle Transaktionen" : MessageLookupByLibrary.simpleMessage("Alle Transaktionen"),
     "Alle Transaktionen zeigen" : MessageLookupByLibrary.simpleMessage("Alle Transaktionen zeigen"),
     "Alle drucken" : MessageLookupByLibrary.simpleMessage("Alle drucken"),
+    "Alle herunterladen" : MessageLookupByLibrary.simpleMessage("Alle herunterladen"),
     "Alle löschen" : MessageLookupByLibrary.simpleMessage("Alle löschen"),
     "Am Hochladen..." : MessageLookupByLibrary.simpleMessage("Am Hochladen..."),
     "Am Hochladen/Verarbeiten:" : MessageLookupByLibrary.simpleMessage("Am Hochladen/Verarbeiten:"),
@@ -133,8 +134,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zurück" : MessageLookupByLibrary.simpleMessage("Zurück"),
     "Zurück" : MessageLookupByLibrary.simpleMessage("Zurück"),
     "_enterCurrentPw" : MessageLookupByLibrary.simpleMessage("Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein"),
+    "_errorTimeout" : MessageLookupByLibrary.simpleMessage("Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung"),
     "_fileBroken" : MessageLookupByLibrary.simpleMessage("Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument."),
-    "_forbiddenCharacters" : MessageLookupByLibrary.simpleMessage("Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben."),
+    "_forbiddenCharacters" : MessageLookupByLibrary.simpleMessage("Nicht erlaubte Zeichen im Nutzernamen oder Passwort"),
+    "_forbiddenCharacters" : MessageLookupByLibrary.simpleMessage("Nicht erlaubte Zeichen im Nutzernamen oder Passwort"),
     "_longBorder" : MessageLookupByLibrary.simpleMessage("Lange Kante"),
     "_nameShort" : MessageLookupByLibrary.simpleMessage("Der Name ist zu kurz"),
     "_nameUsed" : MessageLookupByLibrary.simpleMessage("Dieser Name ist leider schon vergeben, bitte probiere einen anderen."),
@@ -153,7 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "_pwUnknownError" : MessageLookupByLibrary.simpleMessage("Konnte das Passwort nicht ändern: Unbekannter Fehler"),
     "_registerSucessful" : m1,
     "_registrationSubmitted" : MessageLookupByLibrary.simpleMessage("Registrierung wurde abgeschickt..."),
-    "_serverError" : MessageLookupByLibrary.simpleMessage("Serverfehler - Bitte probiere es in einem Moment erneut."),
+    "_serverError" : MessageLookupByLibrary.simpleMessage("Serverfehler - Bitte versuche es in einem Moment noch mal"),
+    "_serverError" : MessageLookupByLibrary.simpleMessage("Serverfehler - Bitte versuche es in einem Moment noch mal"),
     "_shortBorder" : MessageLookupByLibrary.simpleMessage("Kurze Kante"),
     "_simplex" : MessageLookupByLibrary.simpleMessage("Simplex"),
     "_timeout" : MessageLookupByLibrary.simpleMessage("Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung."),
@@ -165,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "_usernameTaken" : MessageLookupByLibrary.simpleMessage("Der Benutzername ist bereits vergeben"),
     "_usernameTooShort" : MessageLookupByLibrary.simpleMessage("Der Benutzername ist zu kurz"),
     "_usernameUnknownError" : MessageLookupByLibrary.simpleMessage("Konnte den Benutzernamen nicht ändern: Unbekannter Fehler"),
+    "_wrongCredentials" : MessageLookupByLibrary.simpleMessage("Username oder Passwort falsch"),
     "mit Kartennummer" : MessageLookupByLibrary.simpleMessage("mit Kartennummer")
   };
 }

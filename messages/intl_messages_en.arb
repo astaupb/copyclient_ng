@@ -1,6 +1,24 @@
 {
   "@@locale": "en",
   "@@last_modified": "2019-10-27T20:22:14.992830",
+  "Alle herunterladen": "Download all",
+  "_errorTimeout": "Timeout of connection, please check your internet connection",
+  "@_errorTimeout": {
+    "description": "Notify user that the connection timed out",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_wrongCredentials": "Username or password wrong",
+  "@_wrongCredentials": {
+    "description": "Notify user that the entered credentials are wrong",
+    "type": "text",
+    "placeholders": {}
+  },
+  "@Alle herunterladen": {
+    "description": "Button text for downloading all jobs as pdf",
+    "type": "text",
+    "placeholders": {}
+  },
   "_enterCurrentPw": "Please enter your current password or pin",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",

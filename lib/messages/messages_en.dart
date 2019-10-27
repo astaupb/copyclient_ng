@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Alle Transaktionen" : MessageLookupByLibrary.simpleMessage("All Transactions"),
     "Alle Transaktionen zeigen" : MessageLookupByLibrary.simpleMessage("Show all transactions"),
     "Alle drucken" : MessageLookupByLibrary.simpleMessage("Print all"),
+    "Alle herunterladen" : MessageLookupByLibrary.simpleMessage("Download all"),
     "Alle löschen" : MessageLookupByLibrary.simpleMessage("Delete all"),
     "Am Hochladen..." : MessageLookupByLibrary.simpleMessage("Is uploading..."),
     "Am Hochladen/Verarbeiten:" : MessageLookupByLibrary.simpleMessage("Uploading/Processing:"),
@@ -133,7 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zurück" : MessageLookupByLibrary.simpleMessage("Back"),
     "Zurück" : MessageLookupByLibrary.simpleMessage("Back"),
     "_enterCurrentPw" : MessageLookupByLibrary.simpleMessage("Please enter your current password or pin"),
+    "_errorTimeout" : MessageLookupByLibrary.simpleMessage("Timeout of connection, please check your internet connection"),
     "_fileBroken" : MessageLookupByLibrary.simpleMessage("The uploaded file is corruopt or cannot be read. Please check the original file by e.g. opening it"),
+    "_forbiddenCharacters" : MessageLookupByLibrary.simpleMessage("Forbidden characters inside username/password - Please check your input. For reference read the tooltips right to the input fields."),
     "_forbiddenCharacters" : MessageLookupByLibrary.simpleMessage("Forbidden characters inside username/password - Please check your input. For reference read the tooltips right to the input fields."),
     "_longBorder" : MessageLookupByLibrary.simpleMessage("Long border"),
     "_nameShort" : MessageLookupByLibrary.simpleMessage("Supplied name is too short"),
@@ -154,6 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "_registerSucessful" : m1,
     "_registrationSubmitted" : MessageLookupByLibrary.simpleMessage("Registration was submitted..."),
     "_serverError" : MessageLookupByLibrary.simpleMessage("Server error - Please try again in a moment or contact us if the problem persists"),
+    "_serverError" : MessageLookupByLibrary.simpleMessage("Server error - Please try again in a moment or contact us if the problem persists"),
     "_shortBorder" : MessageLookupByLibrary.simpleMessage("Short border"),
     "_simplex" : MessageLookupByLibrary.simpleMessage("Simplex"),
     "_timeout" : MessageLookupByLibrary.simpleMessage("Server connection timed out - Please check your internet connection"),
@@ -165,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "_usernameTaken" : MessageLookupByLibrary.simpleMessage("This username is already taken"),
     "_usernameTooShort" : MessageLookupByLibrary.simpleMessage("Thit username is too short"),
     "_usernameUnknownError" : MessageLookupByLibrary.simpleMessage("Could not change the user name due to an unknown error"),
+    "_wrongCredentials" : MessageLookupByLibrary.simpleMessage("Username or password wrong"),
     "mit Kartennummer" : MessageLookupByLibrary.simpleMessage("with card number")
   };
 }
