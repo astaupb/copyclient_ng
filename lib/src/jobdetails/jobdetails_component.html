@@ -1,6 +1,6 @@
-<material-button (trigger)="goBack()">Zurück</material-button>
+<material-button (trigger)="goBack()" @i18n="Navigation back button">Zurück</material-button>
 
-<h2 id="details-title">Jobdetails für {{ job?.jobInfo?.filename }}</h2>
+<h2 id="details-title"><span @i18n="Title for job details">Jobdetails für</span> {job?.jobInfo?.filename}</h2>
 
 <div>
     <material-button tooltipTarget #refPrint="tooltipTarget" raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
@@ -12,20 +12,20 @@
     <material-button tooltipTarget #refDelete="tooltipTarget" raised (trigger)="deleteJob()">
         <material-icon icon="delete"></material-icon>
         <material-tooltip-text [for]="refDelete">
-            <header>Job löschen</header>
+            <header @i18n="Tooltip text for delete job button">Job löschen</header>
         </material-tooltip-text>
     </material-button>
     <material-button tooltipTarget #refDownload="tooltipTarget" raised (trigger)="downloadPdf()">
         <material-icon icon="cloud_download"></material-icon>
         <material-tooltip-text [for]="refDownload">
-            <header>Zugehörige PDF herunterladen</header>
+            <header @i18n="Tooltip text for pdf download button">Zugehörige PDF herunterladen</header>
         </material-tooltip-text>
     </material-button>
     <material-button id="keep-button" raised tooltipTarget #refKeep="tooltipTarget" (trigger)="onKeepJob(job?.id)">
         <material-icon [icon]="(job?.jobOptions?.keep ?? false) ? 'favorite' : 'favorite_outline'">
         </material-icon>
         <material-tooltip-text [for]="refKeep">
-            <header>Job nach dem Drucken behalten</header>
+            <header @i18n="Tooltip text for keep button">Job nach dem Drucken behalten</header>
         </material-tooltip-text>
     </material-button>
     <div id="link-area"></div>
@@ -34,9 +34,9 @@
 <div id="jobdetails">
     <div id="card-grid">
         <div class="mdc-card mdc-card--outlined job-card">
-            <b class="heading">Infos zum Originaldokument:</b><br>
+            <b class="heading" @i18n="Title for infos about documents">Infos zum Originaldokument:</b><br>
             <material-list-item class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for filename">
                     Dateiname:
                 </div>
                 <div class="options-value">
@@ -44,7 +44,7 @@
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for page count">
                     Seitenzahl:
                 </div>
                 <div class="options-value">
@@ -52,7 +52,7 @@
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for colour page count">
                     Farbseiten:
                 </div>
                 <div class="options-value">
@@ -60,7 +60,7 @@
                 </div>
             </material-list-item>
             <material-list-item class="options-row">
-                <div class="options-key">
+                <div class="options-key" @i18n="Row title for A3 information">
                     A3:
                 </div>
                 <div class="options-value">
@@ -70,18 +70,19 @@
         </div>
 
         <div class="mdc-card mdc-card--outlined estimation-card">
-            <b>Erwartete Kosten für das ganze Dokument:</b>
+            <b @i18n="Title of estimated cost for printing the document">Erwartete Kosten für das ganze Dokument:</b>
             <b class="jobdetails-credit">{{ (estimatedDouble | number:'1.2-2')?.toString() }} €</b>
-            Verbleibendes Guthaben nach Druck:
+            <span @i18n="Title for remaining credit after printing this document">Verbleibendes Guthaben nach
+                Druck:</span>
             {{ (((user?.credit ?? 0) / 100 - estimatedDouble)  | number:'1.2-2').toString() }} €
         </div>
 
         <div class="mdc-card mdc-card--outlined job-card">
-            <b>Optionen:</b>
+            <b @i18n="Card title for job options">Optionen:</b>
             <material-list>
                 <div group>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for colour option">
                             Farbe:
                         </div>
                         <div class="options-value">
@@ -89,7 +90,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for duplex printing option">
                             Duplex:
                         </div>
                         <div class="options-value">
@@ -99,7 +100,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for A3 print option">
                             A3:
                         </div>
                         <div class="options-value">
@@ -108,7 +109,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for bypass mode option">
                             Seiteneinzug (Bypass):
                         </div>
                         <div class="options-value">
@@ -120,7 +121,7 @@
 
                 <div group>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for number of copies option">
                             Anzahl Kopien:
                         </div>
                         <div class="options-value">
@@ -128,7 +129,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for collate option">
                             Kopien zusammenhalten:
                         </div>
                         <div class="options-value">
@@ -136,7 +137,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title of page range option">
                             Seitenbereich:
                         </div>
                         <div class="options-value">
@@ -144,7 +145,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title of NuP option">
                             Seiten pro Blatt:
                         </div>
                         <div class="options-value">
@@ -154,7 +155,7 @@
                         </div>
                     </material-list-item>
                     <material-list-item class="options-row" *ngIf="nup > 2 && false">
-                        <div class="options-key">
+                        <div class="options-key" @i18n="Row title for NuP order option">
                             Reihenfolge auf dem Blatt:
                         </div>
                         <div class="options-value">
@@ -178,26 +179,26 @@
     <material-spinner *ngIf="refreshing" class="button-spinner"></material-spinner>
     <material-icon icon="refresh" *ngIf="!refreshing"></material-icon>
     <material-tooltip-text [for]="refRefresh">
-        <header>Job aktualisieren</header>
+        <header @i18n="Refresh button tooltip">Aktualisieren</header>
     </material-tooltip-text>
 </material-fab>
 
 <modal [visible]="showSelectPrinter">
     <material-dialog id="selectPrinter">
-        <h1 header>Drucker auswählen</h1>
+        <h1 header @i18n="Select printer title">Drucker auswählen</h1>
         <div class="printer-selector">
             <material-button *ngIf="leftPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobLeft()">
                 <material-icon class="big-ass-icon" icon="keyboard_arrow_left"></material-icon>
-                Linker<br>Drucker
+                <span @i18n="Text saying left">Linker</span><br><span @i18n="Text saying printer">Drucker</span>
             </material-button>
             <material-button *ngIf="rightPrinter.isNotEmpty" class="printer-selection" (trigger)="printJobRight()">
-                Rechter<br>Drucker
+                <span @i18n="Text saying right">Rechter</span><br><span @i18n="Text saying printer">Drucker</span>
                 <material-icon class="big-ass-icon" icon="keyboard_arrow_right"></material-icon>
             </material-button>
         </div>
 
         <div footer>
-            <material-button autoFocus clear-size (trigger)="showSelectPrinter = false">
+            <material-button autoFocus clear-size (trigger)="showSelectPrinter = false" @i18n="Cancel button text">
                 Abbrechen
             </material-button>
         </div>

@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2019-10-25T19:14:12.366209",
+  "@@last_modified": "2019-10-27T20:22:14.992830",
   "_enterCurrentPw": "Please enter your current password or pin",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",
@@ -86,6 +86,44 @@
     "placeholders": {
       "filename": {}
     }
+  },
+  "_simplex": "Simplex",
+  "@_simplex": {
+    "description": "Dropdown menu selection for simplex",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_longBorder": "Long border",
+  "@_longBorder": {
+    "description": "Dropdown menu selection for duplexing at long border",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_shortBorder": "Short border",
+  "@_shortBorder": {
+    "description": "Dropdown menu selection for duplexing at short border",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nupOrder1": "Right, then down",
+  "@_nupOrder1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nupOrder2": "Down, then right",
+  "@_nupOrder2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nupOrder3": "Left, then down",
+  "@_nupOrder3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nupOrder4": "Down, then left",
+  "@_nupOrder4": {
+    "type": "text",
+    "placeholders": {}
   },
   "Passwort ändern": "Change password",
   "@Passwort ändern": {
@@ -604,6 +642,114 @@
   "Zur Registrierung": "To Registration",
   "@Zur Registrierung": {
     "description": "Button text for link to account registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jobdetails für": "Jobdetails for",
+  "@Jobdetails für": {
+    "description": "Title for job details",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zugehörige PDF herunterladen": "Download PDF",
+  "@Zugehörige PDF herunterladen": {
+    "description": "Tooltip text for pdf download button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Infos zum Originaldokument:": "Info about original document:",
+  "@Infos zum Originaldokument:": {
+    "description": "Title for infos about documents",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dateiname:": "Filename:",
+  "@Dateiname:": {
+    "description": "Row title for filename",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seitenzahl:": "Number of pages:",
+  "@Seitenzahl:": {
+    "description": "Row title for page count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Farbseiten:": "Number of color pages:",
+  "@Farbseiten:": {
+    "description": "Row title for colour page count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "A3:": "A3:",
+  "@A3:": {
+    "description": "Row title for A3 information",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erwartete Kosten für das ganze Dokument:": "Estimated cost:",
+  "@Erwartete Kosten für das ganze Dokument:": {
+    "description": "Title of estimated cost for printing the document",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbleibendes Guthaben nach Druck:": "Estimated credit after printing:",
+  "@Verbleibendes Guthaben nach Druck:": {
+    "description": "Title for remaining credit after printing this document",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Optionen:": "Options:",
+  "@Optionen:": {
+    "description": "Card title for job options",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Farbe:": "Color:",
+  "@Farbe:": {
+    "description": "Row title for colour option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Duplex:": "Duplex:",
+  "@Duplex:": {
+    "description": "Row title for duplex printing option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seiteneinzug (Bypass):": "Paper bypass/side feed:",
+  "@Seiteneinzug (Bypass):": {
+    "description": "Row title for bypass mode option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Kopien:": "Number of copies:",
+  "@Anzahl Kopien:": {
+    "description": "Row title for number of copies option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kopien zusammenhalten:": "Collate:",
+  "@Kopien zusammenhalten:": {
+    "description": "Row title for collate option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seitenbereich:": "Page range:",
+  "@Seitenbereich:": {
+    "description": "Row title of page range option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seiten pro Blatt:": "Sheets per page:",
+  "@Seiten pro Blatt:": {
+    "description": "Row title of NuP option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reihenfolge auf dem Blatt:": "Order of sheets:",
+  "@Reihenfolge auf dem Blatt:": {
+    "description": "Row title for NuP order option",
     "type": "text",
     "placeholders": {}
   }
