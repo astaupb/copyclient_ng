@@ -10,7 +10,10 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/exceptions.dart';
+import 'package:copyclient_ng/messages/messages_en.dart';
+import 'package:intl/intl.dart';
 
+import '../notifications.dart';
 import '../providers/auth_provider.dart';
 import '../route_paths.dart';
 
@@ -68,13 +71,31 @@ class LoginComponent implements OnInit {
 
   Credentials cred;
 
-  bool showException = false;
-  ApiException exception;
+  Notifications notifications = Notifications();
 
   LoginComponent(AuthProvider auth, this._router) {
     authBloc = auth.authBloc;
     cred = Credentials();
   }
+
+  String get _errorTimeout => Intl.message(
+      'Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung',
+      name: '_errorTimeout',
+      desc: 'Notify user that the connection timed out');
+
+  String get _forbiddenCharacters => Intl.message(
+      'Nicht erlaubte Zeichen im Nutzernamen oder Passwort',
+      name: '_forbiddenCharacters',
+      desc:
+          'Notify user that the username/password that was entered contains forbidden characters');
+
+  String get _serverError =>
+      Intl.message('Serverfehler - Bitte versuche es in einem Moment noch mal',
+          name: '_serverError', desc: 'Notify user about server error');
+
+  String get _wrongCredentials => Intl.message('Username oder Passwort falsch',
+      name: '_wrongCredentials',
+      desc: 'Notify user that the entered credentials are wrong');
 
   void clearForm() => cred = Credentials();
 
@@ -87,10 +108,16 @@ class LoginComponent implements OnInit {
         }
         _router.navigate(RoutePaths.joblist.path);
       } else if (state.isException) {
-        showException = true;
-        exception = state.error;
-        await Future.delayed(Duration(seconds: 3));
-        showException = false;
+        final ApiException error = state.error as ApiException;
+        if (error.statusCode == 0) {
+          notifications.add(_errorTimeout);
+        } else if (error.statusCode == 400) {
+          notifications.add(_forbiddenCharacters);
+        } else if (error.statusCode == 401) {
+          notifications.add(_wrongCredentials);
+        } else if (error.statusCode >= 500) {
+          notifications.add(_serverError);
+        }
       }
     });
   }
