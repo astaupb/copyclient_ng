@@ -89,6 +89,7 @@ class JobDetailsComponent extends AuthGuard
   int nupPageOrder = 1;
   bool keep = false;
   bool bypass = false;
+  String displayname = '';
 
   final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
   String duplexSelection = _simplex;
@@ -187,6 +188,11 @@ class JobDetailsComponent extends AuthGuard
     goBack();
   }
 
+  void displaynameChanged() {
+    job.jobOptions.displayName = displayname.substring(0, (displayname.length > 80 ? 80 : displayname.length));
+    joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
+  }
+
   void downloadPdf() {
     pdfBloc.onGetPdf(job.id);
     pdfListener = pdfBloc.state.listen((PdfState state) {
@@ -194,9 +200,10 @@ class JobDetailsComponent extends AuthGuard
         Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
 
         String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
-        String filename = job.jobInfo.filename.endsWith('.pdf')
-            ? job.jobInfo.filename
-            : job.jobInfo.filename + '.pdf';
+        String filename = (displayname != null && displayname != "")
+            ? displayname
+            : job.jobInfo.filename;
+        if (! filename.endsWith('.pdf')) filename = filename + '.pdf';
 
         AnchorElement link = AnchorElement()
           ..href = blobUrl
@@ -356,6 +363,7 @@ class JobDetailsComponent extends AuthGuard
     this.nup = options.nup;
     this.nupPageOrder = options.nupPageOrder;
     this.keep = options.keep;
+    this.displayname = options.displayName;
   }
 
   int _sanitizeNup(int n) {

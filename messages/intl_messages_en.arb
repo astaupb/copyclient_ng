@@ -691,9 +691,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dateiname:": "Filename:",
-  "@Dateiname:": {
+  "Dateiname": "Filename:",
+  "@Dateiname": {
     "description": "Row title for filename",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzeigename:": "Display name:",
+  "@Anzeigename:": {
+    "description": "Row title for display name",
     "type": "text",
     "placeholders": {}
   },

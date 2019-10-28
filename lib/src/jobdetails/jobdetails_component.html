@@ -1,6 +1,5 @@
 <material-button (trigger)="goBack()" @i18n="Navigation back button">Zurück</material-button>
-
-<h2 id="details-title"><span @i18n="Title for job details">Jobdetails für</span> {{ job?.jobInfo?.filename }}</h2>
+<h2 id="details-title"><span @i18n="Title for job details">Jobdetails für</span> {{ (displayname != null && displayname != "") ? displayname : job?.jobInfo?.filename }}</h2>
 
 <div>
     <material-button tooltipTarget #refPrint="tooltipTarget" raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
@@ -89,6 +88,14 @@
             <b @i18n="Card title for job options">Optionen:</b>
             <material-list>
                 <div group>
+                    <material-list-item class="options-row">
+                        <div class="options-key" @i18n="Row title for display name">
+                            Anzeigename:
+                        </div>
+                        <div class="options-value">
+                            <material-input hint="Anzeigename" [(ngModel)]="displayname" (input)="displaynameChanged()"></material-input>
+                        </div>
+                    </material-list-item>
                     <material-list-item class="options-row">
                         <div class="options-key" @i18n="Row title for colour option">
                             Farbe:

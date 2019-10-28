@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Dashboard" : MessageLookupByLibrary.simpleMessage("Dashboard"),
     "Datei hochladen" : MessageLookupByLibrary.simpleMessage("Upload file"),
     "Dateiname:" : MessageLookupByLibrary.simpleMessage("Filename:"),
+    "Anzeigename:" : MessageLookupByLibrary.simpleMessage("Display name:"),
     "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9" : MessageLookupByLibrary.simpleMessage("The name has to consist of at least 2 characters. The following characters can be used: \'A\' to \'Z\', \'a\' to \'z\' and \'0\' to \'9\'"),
     "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9" : MessageLookupByLibrary.simpleMessage("The name has to consist of at least 2 characters. The following characters can be used: \'A\' to \'Z\', \'a\' to \'z\' and \'0\' to \'9\'"),
     "Drucker" : MessageLookupByLibrary.simpleMessage("Printer"),

@@ -685,6 +685,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Anzeigename:": "Anzeigename:",
+  "@Anzeigename:": {
+    "description": "Row title for display name",
+    "type": "text",
+    "placeholders": {}
+  },
   "Seitenzahl:": "Seitenzahl:",
   "@Seitenzahl:": {
     "description": "Row title for page count",

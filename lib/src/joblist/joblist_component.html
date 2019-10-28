@@ -111,7 +111,7 @@
                 </material-tooltip-text>
             </material-button>
             <div class="jobitem-info" [routerLink]="jobDetailsUrl(job.id)">
-                <b><span class="filename">{{job.jobInfo?.filename}}</span></b><br>
+                <b><span class="filename">{{(job.jobOptions.displayName != null && job.jobOptions.displayName != "") ? job.jobOptions.displayName : job.jobInfo?.filename}}</span></b><br>
                 <span class="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
             </div>
