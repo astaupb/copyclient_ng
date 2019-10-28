@@ -86,8 +86,6 @@ class Settings {
   ],
 )
 class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
-  final Router _router;
-
   final AuthProvider authProvider;
   final UserProvider userProvider;
 
@@ -110,7 +108,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   SettingsComponent(
     this.authProvider,
-    this._router,
+    Router _router,
     this.userProvider,
   ) : super(authProvider, _router) {
     authBloc = authProvider.authBloc;

@@ -224,6 +224,15 @@ class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  void onChangeLocale() {
+    if (window.localStorage.containsKey('locale') &&
+        window.localStorage['locale'] == 'en_US')
+      window.localStorage['locale'] = 'de_DE';
+    else
+      window.localStorage['locale'] = 'en_US';
+    window.location.reload();
+  }
+
   void onLogout() {
     if (authorized) {
       window.localStorage.remove('token');

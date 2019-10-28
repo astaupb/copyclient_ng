@@ -10,7 +10,6 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/auth.dart';
 import 'package:blocs_copyclient/exceptions.dart';
-import 'package:copyclient_ng/messages/messages_en.dart';
 import 'package:intl/intl.dart';
 
 import '../notifications.dart';
@@ -120,6 +119,15 @@ class LoginComponent implements OnInit {
         }
       }
     });
+  }
+
+  void onChangeLocale() {
+    if (window.localStorage.containsKey('locale') &&
+        window.localStorage['locale'] == 'en_US')
+      window.localStorage['locale'] = 'de_DE';
+    else
+      window.localStorage['locale'] = 'en_US';
+    window.location.reload();
   }
 
   void submitForm() {

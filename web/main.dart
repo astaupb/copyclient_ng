@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:copyclient_ng/app_component.template.dart' as ng;
@@ -8,7 +10,13 @@ import 'package:logging/logging.dart';
 import 'main.template.dart' as self;
 
 void main() async {
-  final locale = await findSystemLocale();
+  // init locale from browser storage or system
+  String locale;
+  if (window.localStorage.containsKey('locale')) {
+    locale = window.localStorage['locale'];
+  } else {
+    locale = await findSystemLocale();
+  }
   print('locale: $locale');
   await initializeMessages(locale);
 

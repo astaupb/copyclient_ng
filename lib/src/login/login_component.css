@@ -21,6 +21,11 @@
     grid-column: 2;
 }
 
+#language_switch {
+    position: fixed;
+    left: 16px;
+}
+
 .underline {
     color: teal;
 }

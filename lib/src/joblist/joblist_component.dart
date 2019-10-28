@@ -10,7 +10,6 @@ import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
-import 'package:copyclient_ng/messages/messages_de.dart';
 import 'package:copyclient_ng/src/providers/pdf_creation_provider.dart';
 import 'package:copyclient_ng/src/providers/pdf_provider.dart';
 import 'package:copyclient_ng/src/providers/print_queue_provider.dart';

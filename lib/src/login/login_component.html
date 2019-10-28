@@ -1,3 +1,7 @@
+<material-button id="language_switch" (trigger)="onChangeLocale()">
+    <img src="/img/language_switch.png" height="32px">
+</material-button>
+
 <div class="login-container">
     <form #loginForm="ngForm" class="mdc-card login-card">
         <h2>AStA Copyclient Login</h2>
@@ -22,7 +26,8 @@
 </div>
 
 <a [routerLink]="RoutePaths.register.toUrl()">
-    <material-button class="login-button register-button" @i18n="Button text for link to account registration">Zur Registrierung</material-button>
+    <material-button class="login-button register-button" @i18n="Button text for link to account registration">Zur
+        Registrierung</material-button>
 </a>
 
 <div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>
