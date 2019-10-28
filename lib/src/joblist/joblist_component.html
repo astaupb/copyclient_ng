@@ -4,7 +4,7 @@
             <material-icon class="controls-button-icon" icon="note_add"></material-icon>
             <span class="controls-button-text" @i18n="Button text for file upload dialog">Datei hochladen</span>
         </material-button>
-        <input class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)"
+        <input id="input-box" class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)"
             accept="application/pdf,image/*,text/*" tooltipTarget #refUpload="tooltipTarget" title="">
         <material-tooltip-text [for]="refUpload"
             @i18n="Description of what file formats are suported for direct upload">

@@ -404,6 +404,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
         notifications.add(_unsupportedFormat(file.name));
       }
     });
+    
+    (window.document.getElementById('input-box') as InputElement).value = null;
   }
 
   void printJobLeft() {
