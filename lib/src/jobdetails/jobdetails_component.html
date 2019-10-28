@@ -1,6 +1,6 @@
 <material-button (trigger)="goBack()" @i18n="Navigation back button">Zurück</material-button>
 
-<h2 id="details-title"><span @i18n="Title for job details">Jobdetails für</span> {job?.jobInfo?.filename}</h2>
+<h2 id="details-title"><span @i18n="Title for job details">Jobdetails für</span> {{ job?.jobInfo?.filename }}</h2>
 
 <div>
     <material-button tooltipTarget #refPrint="tooltipTarget" raised (trigger)="openPrintDialog()" *ngIf="directPrinter">
