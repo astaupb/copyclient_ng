@@ -691,8 +691,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dateiname": "Filename:",
-  "@Dateiname": {
+  "Dateiname:": "Filename:",
+  "@Dateiname:": {
     "description": "Row title for filename",
     "type": "text",
     "placeholders": {}
