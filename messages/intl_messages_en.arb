@@ -143,6 +143,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "yes": "Yes",
+  "@yes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "No",
+  "@no": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Passwort ändern": "Change password",
   "@Passwort ändern": {
     "description": "BUtton text for changing password",
@@ -702,6 +712,12 @@
   "A3:": "A3:",
   "@A3:": {
     "description": "Row title for A3 information",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Querformat:": "Landscape:",
+  "@Querformat:": {
+    "description": "Row title for landscape information",
     "type": "text",
     "placeholders": {}
   },

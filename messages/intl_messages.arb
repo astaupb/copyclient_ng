@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-27T20:48:41.948837",
+  "@@last_modified": "2019-10-28T19:13:51.103158",
   "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",
@@ -204,6 +204,16 @@
   },
   "_nupOrder4": "Nach Unten, dann Links",
   "@_nupOrder4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "Ja",
+  "@yes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "Nein",
+  "@no": {
     "type": "text",
     "placeholders": {}
   },
@@ -690,6 +700,12 @@
   "A3:": "A3:",
   "@A3:": {
     "description": "Row title for A3 information",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Querformat:": "Querformat:",
+  "@Querformat:": {
+    "description": "Row title for landscape information",
     "type": "text",
     "placeholders": {}
   },

@@ -129,6 +129,9 @@ class JobDetailsComponent extends AuthGuard
   static String get _nupOrder4 =>
       Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
 
+  String get yes => Intl.message('Ja', name: 'yes');
+  String get no => Intl.message('Nein', name: 'no');
+
   double estimatedDouble = 0.0;
   List<List<int>> previews;
 

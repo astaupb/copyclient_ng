@@ -64,7 +64,15 @@
                     A3:
                 </div>
                 <div class="options-value">
-                    {{ (job?.jobInfo?.a3 ?? false) ? 'Ja' : 'Nein' }}
+                    {{ (job?.jobInfo?.a3 ?? false) ? yes : no }}
+                </div>
+            </material-list-item>
+            <material-list-item class="options-row">
+                <div class="options-key" @i18n="Row title for landscape information">
+                    Querformat:
+                </div>
+                <div class="options-value">
+                    {{ (job?.jobInfo?.landscape ?? false) ? yes : no }}
                 </div>
             </material-list-item>
         </div>

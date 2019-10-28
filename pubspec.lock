@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.35.4"
+  analyzer_plugin:
+    dependency: transitive
+    description:
+      name: analyzer_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   angular:
     dependency: "direct main"
     description:
@@ -88,11 +95,9 @@ packages:
   blocs_copyclient:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: c439999dca92c7c0f280b86d01685d81c2f84f8f
-      url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
-    source: git
+      path: "../blocs_copyclient"
+      relative: true
+    source: path
     version: "0.1.0"
   build:
     dependency: transitive
@@ -163,7 +168,14 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.7.1"
+    version: "6.8.1"
+  built_value_generator:
+    dependency: transitive
+    description:
+      name: built_value_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.8.1"
   charcode:
     dependency: transitive
     description:
@@ -269,6 +281,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.0+3"
   http:
     dependency: transitive
     description:

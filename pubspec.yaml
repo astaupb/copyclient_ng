@@ -12,8 +12,8 @@ dependencies:
   angular_components: ^0.13.0+1
   angular_forms: ^2.1.2
   blocs_copyclient:
-    git: https://git.uni-paderborn.de/asta/blocs_copyclient.git
-    #path: ../blocs_copyclient/
+    #git: https://git.uni-paderborn.de/asta/blocs_copyclient.git
+    path: ../blocs_copyclient/
   logging: 0.11.3+2
   angular_router: ^2.0.0-alpha+21
   mime: ^0.9.6+3

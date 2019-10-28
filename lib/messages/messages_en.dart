@@ -110,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Passwort ändern" : MessageLookupByLibrary.simpleMessage("Change password"),
     "Passwort/PIN" : MessageLookupByLibrary.simpleMessage("Password/PIN"),
     "PayPal öffnen" : MessageLookupByLibrary.simpleMessage("Open PayPal Checkout"),
+    "Querformat:" : MessageLookupByLibrary.simpleMessage("Landscape:"),
     "Rechter" : MessageLookupByLibrary.simpleMessage("Right"),
     "Rechter" : MessageLookupByLibrary.simpleMessage("Right"),
     "Reihenfolge auf dem Blatt:" : MessageLookupByLibrary.simpleMessage("Order of sheets:"),
@@ -170,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "_usernameTooShort" : MessageLookupByLibrary.simpleMessage("Thit username is too short"),
     "_usernameUnknownError" : MessageLookupByLibrary.simpleMessage("Could not change the user name due to an unknown error"),
     "_wrongCredentials" : MessageLookupByLibrary.simpleMessage("Username or password wrong"),
-    "mit Kartennummer" : MessageLookupByLibrary.simpleMessage("with card number")
+    "mit Kartennummer" : MessageLookupByLibrary.simpleMessage("with card number"),
+    "no" : MessageLookupByLibrary.simpleMessage("No"),
+    "yes" : MessageLookupByLibrary.simpleMessage("Yes")
   };
 }
