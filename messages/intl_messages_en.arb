@@ -792,5 +792,17 @@
     "description": "Row title for NuP order option",
     "type": "text",
     "placeholders": {}
+  },
+  "Joboptionen speichern": "Save job options",
+  "@Joboptionen speichern": {
+    "description": "Button text for changing default options",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standard-Joboptionen": "Default job options",
+  "@Standard-Joboptionen": {
+    "description": "Title for default settings",
+    "type": "text",
+    "placeholders": {}
   }
 }
