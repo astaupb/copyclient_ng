@@ -1,48 +1,126 @@
 <h1 @i18n="Settings page title text">Einstellungen</h1>
-<form class="mdc-card form-card">
-    <div>
-        <material-input [(ngModel)]="settings.name" type="text" class="form-control" id="name"
-            label="Neuer Benutzername" required floatingLabel @i18n:label="Label text for new username">
-        </material-input>
-        <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
-            #ref1="tooltipTarget">
-        </material-icon>
-        <material-tooltip-card [for]="ref1">
-            <header @i18n="Info text about name restrictions: at least 2 alphabetical characters or numbers">Der Name
-                muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination
-                benutzt werden: A bis Z, a bis z, 0 bis 9
-            </header>
-        </material-tooltip-card>
+
+<div id="settings-container">
+    <div class="mdc-card card-narrow settings-card">
+        <form class="mdc-card card-narrow form-card">
+            <div>
+                <material-input [(ngModel)]="settings.name" type="text" class="form-control" id="name"
+                    label="Neuer Benutzername" required floatingLabel @i18n:label="Label text for new username">
+                </material-input>
+                <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
+                    #ref1="tooltipTarget">
+                </material-icon>
+                <material-tooltip-card [for]="ref1">
+                    <header @i18n="Info text about name restrictions: at least 2 alphabetical characters or numbers">Der Name
+                        muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination
+                        benutzt werden: A bis Z, a bis z, 0 bis 9
+                    </header>
+                </material-tooltip-card>
+            </div>
+            <material-button type="submit" class="btn-primary" (trigger)="onSubmitName()"
+                @i18n="button text for changing username">Benutzername ändern</material-button>
+        </form>
+
+        <form class="mdc-card card-narrow form-card">
+            <material-input [(ngModel)]="settings.passwordOld" type="password" class="form-control" id="password_old"
+                label="Aktuelles Password" required floatingLabel @i18n:label="Label text for current password">
+            </material-input>
+
+            <div>
+                <material-input [(ngModel)]="settings.password" type="password" class="form-control" id="password"
+                    label="Neues Passwort" required floatingLabel @i18n:label="Label text for new password">
+                </material-input>
+                <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
+                    #ref2="tooltipTarget">
+                </material-icon>
+                <material-tooltip-card [for]="ref2">
+                    <header @i18n="Info text saying password consist of at least 5 letters and can include special characters">
+                        Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.
+                    </header>
+                </material-tooltip-card>
+            </div>
+
+            <material-input [(ngModel)]="settings.passwordRetype" type="password" class="form-control" id="password_retype"
+                label="Password wiederholen" required floatingLabel @i18n:label="Label text for password confirmation field">
+            </material-input>
+
+            <material-button type="submit" class="btn-primary" (trigger)="onSubmitPassword()"
+                @i18n="Button text for changing password">Passwort ändern</material-button>
+        </form>
     </div>
-    <material-button type="submit" class="btn-primary" (trigger)="onSubmitName()"
-        @i18n="button text for changing username">Benutzername ändern</material-button>
-</form>
-<br />
-<form class="mdc-card form-card">
-    <material-input [(ngModel)]="settings.passwordOld" type="password" class="form-control" id="password_old"
-        label="Aktuelles Password" required floatingLabel @i18n:label="Label text for current password">
-    </material-input>
+    <div class="mdc-card card-narrow settings-card">
+        <span class="card-heading" @i18n="Title for default settings">Standard-Joboptionen</span>
+        <material-list>
+            <div group>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for colour option">
+                        Farbe:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="settings.color" (checkedChange)="colorChecked()"></material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for duplex printing option">
+                        Duplex:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="duplexSelection" [options]="duplexOptions"
+                            [buttonText]="duplexSelection" (selectionChange)="duplexChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for A3 print option">
+                        A3:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="settings.a3" (checkedChange)="a3Checked()">
+                        </material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for number of copies option">
+                        Anzahl Kopien:
+                    </div>
+                    <div class="options-value">
+                        <input type="number" [(ngModel)]="settings.copies" (change)="copiesChanged()" min="1" max="999">
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for collate option">
+                        Kopien zusammenhalten:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="settings.collate" (checkedChange)="collateChecked()"></material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title of NuP option">
+                        Seiten pro Blatt:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="nupSelection" [options]="nupOptions"
+                            [buttonText]="nupSelection" (selectionChange)="nupChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row" *ngIf="false">
+                    <div class="options-key" @i18n="Row title for NuP order option">
+                        Reihenfolge auf dem Blatt:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="nupOrderSelection" [options]="nupOrderOptions"
+                            [buttonText]="nupOrderSelection" (selectionChange)="nupOrderChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+            </div>
+        </material-list>
 
-    <div>
-        <material-input [(ngModel)]="settings.password" type="password" class="form-control" id="password"
-            label="Neues Passwort" required floatingLabel @i18n:label="Label text for new password">
-        </material-input>
-        <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
-            #ref2="tooltipTarget">
-        </material-icon>
-        <material-tooltip-card [for]="ref2">
-            <header @i18n="Info text saying password consist of at least 5 letters and can include special characters">
-                Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.
-            </header>
-        </material-tooltip-card>
+        <material-button type="submit" class="btn-primary" (trigger)="onSubmitOptions()"
+            @i18n="Button text for changing default options">Joboptionen speichern</material-button>
     </div>
-
-    <material-input [(ngModel)]="settings.passwordRetype" type="password" class="form-control" id="password_retype"
-        label="Password wiederholen" required floatingLabel @i18n:label="Label text for password confirmation field">
-    </material-input>
-
-    <material-button type="submit" class="btn-primary" (trigger)="onSubmitPassword()"
-        @i18n="BUtton text for changing password">Passwort ändern</material-button>
-</form>
+</div>
 
 <div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>

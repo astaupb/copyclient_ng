@@ -16,6 +16,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/exceptions.dart';
 import 'package:blocs_copyclient/src/auth/auth_bloc.dart';
 import 'package:blocs_copyclient/user.dart';
+import 'package:blocs_copyclient/src/models/joboptions.dart';
 import 'package:intl/intl.dart';
 
 import '../auth_guard.dart';
@@ -30,11 +31,29 @@ class Settings {
   String passwordRetype;
   String passwordOld;
 
+  // Default job options
+  bool color;
+  int duplex;
+  bool a3;
+  int copies;
+  bool collate;
+  int nup;
+  int nupPageOrder;
+  bool keep;
+
   Settings({
     this.name = '',
     this.password = '',
     this.passwordRetype = '',
     this.passwordOld = '',
+    this.color = false,
+    this.duplex = 0,
+    this.a3 = false,
+    this.copies = 1,
+    this.collate = false,
+    this.nup = 1,
+    this.nupPageOrder = 1,
+    this.keep = false,
   });
 
   Map<String, String> toMap() => {
@@ -105,6 +124,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   bool isUsernameChange = false;
   bool isPasswordChange = false;
+  bool isFetchingOptions = false;
+
+  JobOptions defaultOptions;
 
   SettingsComponent(
     this.authProvider,
@@ -169,6 +191,38 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
       desc:
           'Notify user that username could not be changed due to an unknown error');
 
+  final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
+  String duplexSelection = _simplex;
+
+  static String get _simplex => Intl.message('Simplex',
+      name: '_simplex', desc: 'Dropdown menu selection for simplex');
+  static String get _longBorder => Intl.message('Lange Kante',
+      name: '_longBorder',
+      desc: 'Dropdown menu selection for duplexing at long border');
+  static String get _shortBorder => Intl.message('Kurze Kante',
+      name: '_shortBorder',
+      desc: 'Dropdown menu selection for duplexing at short border');
+
+  List<String> nupOptions = ['1', '2', '4'];
+  String nupSelection = '1';
+
+  final List<String> nupOrderOptions = [
+    _nupOrder1,
+    _nupOrder2,
+    _nupOrder3,
+    _nupOrder4
+  ];
+  String nupOrderSelection = _nupOrder1;
+
+  static String get _nupOrder1 =>
+      Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
+  static String get _nupOrder2 =>
+      Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
+  static String get _nupOrder3 =>
+      Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
+  static String get _nupOrder4 =>
+      Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
+
   @override
   void onActivate(_, RouterState current) async {
     userListener = userBloc.state.listen((UserState state) {
@@ -205,8 +259,26 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         }
         isPasswordChange = false;
         isUsernameChange = false;
+      } else if (isFetchingOptions) {
+        if (state.isResult) {
+          defaultOptions = state.value.options;
+          if (defaultOptions != null) {
+            settings.a3 = defaultOptions.a3;
+            settings.color = defaultOptions.color;
+            settings.collate = defaultOptions.collate;
+            settings.duplex = defaultOptions.duplex;
+            settings.nup = defaultOptions.nup;
+            settings.nupPageOrder = defaultOptions.nupPageOrder;
+            settings.copies = defaultOptions.copies;
+            duplexSelection = duplexOptions[defaultOptions.duplex];
+            nupSelection = defaultOptions.nup.toString();
+            isFetchingOptions = false;
+          }
+        }
       }
     });
+    userBloc.onGetOptions();
+    isFetchingOptions = true;
   }
 
   @override
@@ -236,5 +308,63 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
     } else {
       userBloc.onChangePassword(settings.passwordOld, settings.password);
     }
+  }
+
+  void colorChecked() {
+    settings.color = ! settings.color;
+    if (defaultOptions != null) defaultOptions.color = settings.color;
+  }
+
+  void a3Checked() {
+    settings.a3 = ! settings.a3;
+    if (defaultOptions != null) defaultOptions.a3 = settings.a3;
+  }
+
+  void collateChecked() {
+    settings.collate = ! settings.collate;
+    if (defaultOptions != null) defaultOptions.collate = settings.collate;
+  }
+
+  void duplexChanged(String selection) {
+    duplexSelection = selection;
+    settings.duplex =
+        duplexOptions.indexWhere((String option) => option == selection);
+    if (defaultOptions != null) defaultOptions.duplex = settings.duplex;
+  }
+
+  void copiesChanged() {
+    if (defaultOptions != null) defaultOptions.copies = settings.copies;
+  }
+
+  void nupChanged(String selection) {
+    nupSelection = selection;
+    int index = nupOptions.indexWhere((String option) => option == selection);
+    switch (index) {
+      case 0:
+        settings.nup = 1;
+        break;
+      case 1:
+        settings.nup = 2;
+        break;
+      case 2:
+        settings.nup = 4;
+        break;
+      default:
+        settings.nup = 1;
+        break;
+    }
+    if (defaultOptions != null) defaultOptions.nup = settings.nup;
+  }
+
+  void nupOrderChanged(String selection) {
+    nupOrderSelection = selection;
+    settings.nupPageOrder =
+        nupOrderOptions.indexWhere((String option) => option == selection);
+    if (defaultOptions != null) defaultOptions.nupPageOrder = settings.nupPageOrder;
+  }
+
+  void onSubmitOptions() {
+    userBloc.onChangeOptions(defaultOptions);
+    print('Foobar');
   }
 }

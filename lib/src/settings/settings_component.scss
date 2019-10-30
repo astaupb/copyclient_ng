@@ -1,7 +1,8 @@
 @import 'package:angular_components/css/material/material';
 
 .form-card {
-    padding: 24px;
+    padding: 1vw;
+    margin: 0.5vw;
     width: $mat-grid * 44;
 }
 
@@ -13,4 +14,40 @@
     background-color: teal;
     color: whitesmoke;
     margin-top: 1vw !important;
+}
+
+.card-narrow {
+    width: $mat-grid * 44;
+}
+
+.settings-card {
+    width: ($mat-grid * 44) + 15px;
+}
+
+#settings-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.settings-card .card-heading {
+    font-weight: bold;
+    font-size: 1.4em;
+    text-indent: 16px;
+    margin-bottom: 16px;
+}
+
+.settings-card .options-row {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.settings-card .options-row .options-value {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.settings-card .options-row .options-key {
+    grid-column: 1;
+    grid-row: 1;
 }
