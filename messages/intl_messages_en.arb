@@ -153,6 +153,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "Speichern": "Save",
+  "@Speichern": {
+    "description": "button text for saving",
+    "type": "text",
+    "placeholders": {}
+  },
   "Passwort ändern": "Change password",
   "@Passwort ändern": {
     "description": "BUtton text for changing password",

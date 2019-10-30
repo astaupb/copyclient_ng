@@ -1,11 +1,5 @@
 @import 'package:angular_components/css/material/material';
 
-.form-card {
-    padding: 1vw;
-    margin: 0.5vw;
-    width: $mat-grid * 44;
-}
-
 .form-control {
     min-width: 90%;
 }
@@ -22,6 +16,8 @@
 
 .settings-card {
     width: ($mat-grid * 44) + 15px;
+    padding: 1vw;
+    margin: 0.5vw;
 }
 
 #settings-container {
@@ -29,10 +25,13 @@
     flex-wrap: wrap;
 }
 
+#default-options-card {
+    height: 0%;
+}
+
 .settings-card .card-heading {
     font-weight: bold;
     font-size: 1.4em;
-    text-indent: 16px;
     margin-bottom: 16px;
 }
 

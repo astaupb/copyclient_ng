@@ -131,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Seitenbereich:" : MessageLookupByLibrary.simpleMessage("Page range:"),
     "Seiteneinzug (Bypass):" : MessageLookupByLibrary.simpleMessage("Paper bypass/side feed:"),
     "Seitenzahl:" : MessageLookupByLibrary.simpleMessage("Number of pages:"),
+    "Speichern" : MessageLookupByLibrary.simpleMessage("Save"),
     "Standard-Joboptionen" : MessageLookupByLibrary.simpleMessage("Default job options"),
     "Transaktionen aktualisieren" : MessageLookupByLibrary.simpleMessage("Update transactions"),
     "Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine Textdateien" : MessageLookupByLibrary.simpleMessage("Supported file formats: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr and plaintext"),
