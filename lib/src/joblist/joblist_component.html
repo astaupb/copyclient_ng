@@ -4,8 +4,9 @@
             <material-icon class="controls-button-icon" icon="note_add"></material-icon>
             <span class="controls-button-text" @i18n="Button text for file upload dialog">Datei hochladen</span>
         </material-button>
-        <input id="input-box" class="upload-input" #jobUpload type="file" multiple (change)="onUploadFileSelected(jobUpload.files)"
-            accept="application/pdf,image/*,text/*" tooltipTarget #refUpload="tooltipTarget" title="">
+        <input id="input-box" class="upload-input" #jobUpload type="file" multiple
+            (change)="onUploadFileSelected(jobUpload.files)" accept="application/pdf,image/*,text/*" tooltipTarget
+            #refUpload="tooltipTarget" title="">
         <material-tooltip-text [for]="refUpload"
             @i18n="Description of what file formats are suported for direct upload">
             Unterstützte Formate: pdf, ai, png, apng, jpg, jif, webp, tga, tpic, gif, pvr, tiff, psd, exr und reine
@@ -93,7 +94,7 @@
             <b><span class="filename">{{task?.filename}}</span></b><br>
             <span class="timestamp" *ngIf="task?.isUploading" @i18n="List item subtitle for uploading items">Am
                 Hochladen...</span>
-            <span class="timestamp" *ngIf="task?.isUploading" @i18n="List item subtitle for processing items">Hochladen
+            <span class="timestamp" *ngIf="!task?.isUploading" @i18n="List item subtitle for processing items">Hochladen
                 abgeschlossen - Am Verarbeiten... (Du kannst die Seite jetzt schließen)</span>
         </div>
     </material-list-item>
@@ -111,7 +112,8 @@
                 </material-tooltip-text>
             </material-button>
             <div class="jobitem-info" [routerLink]="jobDetailsUrl(job.id)">
-                <b><span class="filename">{{(job.jobOptions.displayName != null && job.jobOptions.displayName != "") ? job.jobOptions.displayName : job.jobInfo?.filename}}</span></b><br>
+                <b><span
+                        class="filename">{{(job.jobOptions.displayName != null && job.jobOptions.displayName != "") ? job.jobOptions.displayName : job.jobInfo?.filename}}</span></b><br>
                 <span class="timestamp">{{DateTime.fromMillisecondsSinceEpoch(job?.timestamp *
                     1000).toString().split('.')[0]}}</span>
             </div>
