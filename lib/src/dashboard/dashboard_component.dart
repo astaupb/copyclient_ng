@@ -68,13 +68,13 @@ class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   @override
   void onActivate(RouterState previous, RouterState current) {
-    userListener = userBloc.state.listen((UserState state) {
+    userListener = userBloc.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
       }
     });
 
-    journalListener = journalBloc.state.listen((JournalState state) {
+    journalListener = journalBloc.listen((JournalState state) {
       if (state.isResult) {
         transactions = state.value.transactions.sublist(0, 5);
       }

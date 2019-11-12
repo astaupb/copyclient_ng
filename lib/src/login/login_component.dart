@@ -100,7 +100,7 @@ class LoginComponent implements OnInit {
 
   @override
   void ngOnInit() async {
-    authBloc.state.listen((AuthState state) async {
+    authBloc.listen((AuthState state) async {
       if (state.isAuthorized) {
         if (cred.saveToken) {
           window.localStorage['token'] = state.token;
@@ -132,7 +132,7 @@ class LoginComponent implements OnInit {
 
   void submitForm() {
     print('submit form with $cred');
-    authBloc.login(cred.username.trim(), cred.password.trim());
+    authBloc.onLogin(cred.username.trim(), cred.password.trim());
   }
 
   /// TODO: implement password validation

@@ -15,6 +15,6 @@ class AuthProvider {
 
   AuthProvider._internal(this.authBloc) {
     String storageToken = window.localStorage['token'] ?? '';
-    if (storageToken.isNotEmpty) authBloc.tokenLogin(storageToken);
+    if (storageToken.isNotEmpty) authBloc.onTokenLogin(storageToken);
   }
 }

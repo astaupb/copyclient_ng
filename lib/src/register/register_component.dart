@@ -65,7 +65,7 @@ class RegisterComponent implements OnActivate, OnDeactivate {
 
   @override
   void onActivate(RouterState previous, RouterState current) {
-    authListener = authBloc.state.listen((AuthState state) async {
+    authListener = authBloc.listen((AuthState state) async {
       if (state.isRegistered) {
         notifications.add(_registerSucessful(state.username));
         Future.delayed(const Duration(seconds: 3)).then((_) {
@@ -98,7 +98,7 @@ class RegisterComponent implements OnActivate, OnDeactivate {
     else if (creds.password.length < 7)
       notifications.add(_passwordShort);
     else {
-      authBloc.register(creds.name.trim(), creds.password.trim());
+      authBloc.onRegister(creds.name.trim(), creds.password.trim());
       notifications.add(_registrationSubmitted);
     }
   }

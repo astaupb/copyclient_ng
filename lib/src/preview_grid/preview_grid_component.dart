@@ -50,7 +50,7 @@ class PreviewGridComponent implements OnInit, OnDestroy {
 
   @override
   void ngOnInit() {
-    previewListener = previewBloc.state.skip(1).listen((PreviewState state) {
+    previewListener = previewBloc.skip(1).listen((PreviewState state) {
       if (state.isResult) {
         refreshing = false;
         previews =
@@ -62,7 +62,7 @@ class PreviewGridComponent implements OnInit, OnDestroy {
       }
     });
 
-    previewBloc.getPreview(job);
+    previewBloc.onGetPreview(job);
   }
 
   /// return image dimensions of PNG files according to information found in the file header

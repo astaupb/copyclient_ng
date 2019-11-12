@@ -17,7 +17,7 @@ class AuthGuard implements CanActivate {
   @override
   Future<bool> canActivate(RouterState current, RouterState next) async {
     // Just continue if already authorized
-    if (await _authBloc.state.first.then((state) => state.isAuthorized)) return true;
+    if (await _authBloc.first.then((state) => state.isAuthorized)) return true;
 
     //  otherwise navigate to login if not already
     if (next.path != RoutePaths.login.path) _router.navigate(RoutePaths.login.path);

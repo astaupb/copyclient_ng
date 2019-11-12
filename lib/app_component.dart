@@ -116,20 +116,20 @@ class AppComponent implements OnInit, OnDestroy {
 
   @override
   void ngOnDestroy() {
-    authBloc.dispose();
-    joblistBloc.dispose();
-    uploadBloc.dispose();
-    previewBloc.dispose();
-    printQueueBloc.dispose();
-    userBloc.dispose();
-    pdfBloc.dispose();
+    authBloc.close();
+    joblistBloc.close();
+    uploadBloc.close();
+    previewBloc.close();
+    printQueueBloc.close();
+    userBloc.close();
+    pdfBloc.close();
     if (userListener != null) userListener.cancel();
     if (refreshTimer != null) refreshTimer.cancel();
   }
 
   @override
   void ngOnInit() {
-    authBloc.state.listen(
+    authBloc.listen(
       (AuthState state) {
         if (state.isAuthorized) {
           authorized = true;
@@ -174,7 +174,7 @@ class AppComponent implements OnInit, OnDestroy {
       if (mime.startsWith('image/')) {
         pdfCreation.onCreateFromImage(data);
         StreamSubscription listener;
-        listener = pdfCreation.state.listen((PdfCreationState state) {
+        listener = pdfCreation.listen((PdfCreationState state) {
           if (state.isResult) {
             uploadBloc.onUpload(state.value,
                 filename: filename, a3: a3, color: color, duplex: duplex, copies: copies);
@@ -184,7 +184,7 @@ class AppComponent implements OnInit, OnDestroy {
       } else if (mime.startsWith('text/')) {
         pdfCreation.onCreateFromText(utf8.decode(data));
         StreamSubscription listener;
-        listener = pdfCreation.state.listen((PdfCreationState state) {
+        listener = pdfCreation.listen((PdfCreationState state) {
           if (state.isResult) {
             uploadBloc.onUpload(state.value,
                 filename: filename, a3: a3, color: color, duplex: duplex, copies: copies);
@@ -207,13 +207,13 @@ class AppComponent implements OnInit, OnDestroy {
     });
 
     // listen for new [User]s from the bloc and set local [user]
-    userListener = userBloc.state.listen((UserState state) {
+    userListener = userBloc.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
       }
     });
 
-    pdfCreationListener = pdfCreation.state.listen((PdfCreationState state) {
+    pdfCreationListener = pdfCreation.listen((PdfCreationState state) {
       print('PdfCreation receive: $state');
       if (state.isBusy) {
         blockedInterfaceText = 'Konvertiere Datei';
@@ -237,9 +237,9 @@ class AppComponent implements OnInit, OnDestroy {
     if (authorized) {
       window.localStorage.remove('token');
       if (authBloc != null) {
-        authBloc.logout();
+        authBloc.onLogout();
         var logoutListener;
-        logoutListener = authBloc.state.listen((AuthState state) async {
+        logoutListener = authBloc.listen((AuthState state) async {
           if (state.isUnauthorized) {
             _router.navigate(RoutePaths.login.path);
             document.dispatchEvent(CustomEvent("loggedOut"));

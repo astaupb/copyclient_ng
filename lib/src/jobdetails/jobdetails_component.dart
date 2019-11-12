@@ -195,7 +195,7 @@ class JobDetailsComponent extends AuthGuard
 
   void downloadPdf() {
     pdfBloc.onGetPdf(job.id);
-    pdfListener = pdfBloc.state.listen((PdfState state) {
+    pdfListener = pdfBloc.listen((PdfState state) {
       if (state.isResult && state.value.last.id == job.id) {
         Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
 
@@ -266,7 +266,7 @@ class JobDetailsComponent extends AuthGuard
   void onActivate(_, RouterState current) async {
     int id = getId(current.parameters);
     if (id != null) {
-      jobListener = joblistBloc.state.listen((state) {
+      jobListener = joblistBloc.listen((state) {
         if (state.isResult) {
           refreshing = false;
 
@@ -285,7 +285,7 @@ class JobDetailsComponent extends AuthGuard
         }
       });
 
-      userListener = userBloc.state.listen((UserState state) {
+      userListener = userBloc.listen((UserState state) {
         if (state.isResult) {
           user = state.value;
         }

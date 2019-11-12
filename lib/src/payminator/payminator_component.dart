@@ -91,7 +91,7 @@ class PayminatorComponent extends AuthGuard
   @override
   void onActivate(RouterState previous, RouterState current) {
     /// listen for user information and make value field accessible if all is okay
-    userListener = userBloc.state.listen((UserState state) {
+    userListener = userBloc.listen((UserState state) {
       if (state.isResult) {
         user = state.value;
         if (user.name != null && user.name.isNotEmpty && user.userId != null) {
@@ -107,7 +107,7 @@ class PayminatorComponent extends AuthGuard
     });
 
     /// listen for new transactions from [JournalBloc] also
-    journalListener = journalBloc.state.listen((JournalState state) {
+    journalListener = journalBloc.listen((JournalState state) {
       if (state.isResult) {
         transactions = state.value.transactions;
       }
@@ -144,7 +144,7 @@ class PayminatorComponent extends AuthGuard
   }
 
   void onLogout() {
-    authBloc.logout();
+    authBloc.onLogout();
     window.localStorage.remove('token');
   }
 

@@ -225,7 +225,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   @override
   void onActivate(_, RouterState current) async {
-    userListener = userBloc.state.listen((UserState state) {
+    userListener = userBloc.listen((UserState state) {
       if (isUsernameChange || isPasswordChange) {
         if (state.isResult) {
           user = state.value;
@@ -235,7 +235,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
               : _usernameChangeSuccess));
 
           if (isPasswordChange) {
-            authBloc.logout();
+            authBloc.onLogout();
             window.localStorage.remove('token');
             window.location.reload();
           }

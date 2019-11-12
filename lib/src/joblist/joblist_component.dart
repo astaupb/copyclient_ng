@@ -149,7 +149,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   @override
   void onActivate(_, __) {
     //onRefreshJobs();
-    jobListener = jobsBloc.state.listen((JoblistState state) {
+    jobListener = jobsBloc.listen((JoblistState state) {
       if (state.isResult) {
         refreshing = false;
 
@@ -180,7 +180,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     directPrinter = (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty);
 
-    uploadListener = uploadBloc.state.listen((UploadState state) async {
+    uploadListener = uploadBloc.listen((UploadState state) async {
       if (state.isResult) {
         uploads = state.value.reversed.toList();
         if (state.value.isNotEmpty) {
@@ -190,7 +190,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
           }
         } else {
           refreshing = true;
-          await Future.delayed(const Duration(milliseconds: 1000));
+          //await Future.delayed(const Duration(milliseconds: 1000));
           jobsBloc.onRefresh();
         }
       } else if (state.isException) {
@@ -207,7 +207,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onDeactivate(RouterState previous, RouterState current) {
     _cancelListeners();
 
-    if (printQueueBloc.currentState.isLocked) printQueueBloc.onDelete();
+    if (printQueueBloc.state.isLocked) printQueueBloc.onDelete();
 
     _cancelTimers();
   }
@@ -234,7 +234,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onDownloadPdf(int id) {
     pdfBloc.onGetPdf(id);
     StreamSubscription pdfListener;
-    pdfListener = pdfBloc.state.skip(1).listen((PdfState state) {
+    pdfListener = pdfBloc.skip(1).listen((PdfState state) {
       if (state.isResult) {
         final Blob pdfBlob = Blob(
             [state.value.where((PdfFile file) => id == file.id).first.file],
@@ -301,12 +301,12 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onStartScanning() {
-    printQueueListener = printQueueBloc.state.listen((PrintQueueState state) {
+    printQueueListener = printQueueBloc.listen((PrintQueueState state) {
       if (state.isResult) {
         printQueue = state.value.processing;
         printQueueBloc.onLockDevice();
 
-        lockListener = printQueueBloc.state.listen((PrintQueueState state) {
+        lockListener = printQueueBloc.listen((PrintQueueState state) {
           if (state.isLocked) {
             lockUid = state.lockUid;
             printerLocked = true;
@@ -372,7 +372,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
               pdfCreation.onCreateFromImage(reader.result as List<int>);
               StreamSubscription listener;
               listener =
-                  pdfCreation.state.skip(1).listen((PdfCreationState state) {
+                  pdfCreation.skip(1).listen((PdfCreationState state) {
                 if (state.isResult) {
                   uploadBloc.onUpload(state.value, filename: file.name);
                   listener.cancel();
@@ -390,7 +390,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
               pdfCreation.onCreateFromText(reader.result as String);
               StreamSubscription listener;
               listener =
-                  pdfCreation.state.skip(1).listen((PdfCreationState state) {
+                  pdfCreation.skip(1).listen((PdfCreationState state) {
                 if (state.isResult) {
                   uploadBloc.onUpload(state.value, filename: file.name);
 
