@@ -62,8 +62,7 @@ import '../route_paths.dart';
     DecimalPipe,
   ],
 )
-class JobDetailsComponent extends AuthGuard
-    implements OnActivate, OnDeactivate {
+class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final Router _router;
 
   final JoblistProvider joblistProvider;
@@ -94,14 +93,12 @@ class JobDetailsComponent extends AuthGuard
   final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
   String duplexSelection = _simplex;
 
-  static String get _simplex => Intl.message('Simplex',
-      name: '_simplex', desc: 'Dropdown menu selection for simplex');
+  static String get _simplex =>
+      Intl.message('Simplex', name: '_simplex', desc: 'Dropdown menu selection for simplex');
   static String get _longBorder => Intl.message('Lange Kante',
-      name: '_longBorder',
-      desc: 'Dropdown menu selection for duplexing at long border');
+      name: '_longBorder', desc: 'Dropdown menu selection for duplexing at long border');
   static String get _shortBorder => Intl.message('Kurze Kante',
-      name: '_shortBorder',
-      desc: 'Dropdown menu selection for duplexing at short border');
+      name: '_shortBorder', desc: 'Dropdown menu selection for duplexing at short border');
 
   List<String> nupOptions = ['1', '2', '4'];
   String nupSelection = '1';
@@ -113,22 +110,13 @@ class JobDetailsComponent extends AuthGuard
   String selectedPrinter = '';
   bool showSelectPrinter = false;
 
-  final List<String> nupOrderOptions = [
-    _nupOrder1,
-    _nupOrder2,
-    _nupOrder3,
-    _nupOrder4
-  ];
+  final List<String> nupOrderOptions = [_nupOrder1, _nupOrder2, _nupOrder3, _nupOrder4];
   String nupOrderSelection = _nupOrder1;
 
-  static String get _nupOrder1 =>
-      Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
-  static String get _nupOrder2 =>
-      Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
-  static String get _nupOrder3 =>
-      Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
-  static String get _nupOrder4 =>
-      Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
+  static String get _nupOrder1 => Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
+  static String get _nupOrder2 => Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
+  static String get _nupOrder3 => Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
+  static String get _nupOrder4 => Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
 
   String get yes => Intl.message('Ja', name: 'yes');
   String get no => Intl.message('Nein', name: 'no');
@@ -189,7 +177,8 @@ class JobDetailsComponent extends AuthGuard
   }
 
   void displaynameChanged() {
-    job.jobOptions.displayName = displayname.substring(0, (displayname.length > 80 ? 80 : displayname.length));
+    job.jobOptions.displayName =
+        displayname.substring(0, (displayname.length > 80 ? 80 : displayname.length));
     joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
   }
 
@@ -200,10 +189,9 @@ class JobDetailsComponent extends AuthGuard
         Blob pdfBlob = Blob([state.value.last.file], 'application/pdf');
 
         String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
-        String filename = (displayname != null && displayname != "")
-            ? displayname
-            : job.jobInfo.filename;
-        if (! filename.endsWith('.pdf')) filename = filename + '.pdf';
+        String filename =
+            (displayname != null && displayname != "") ? displayname : job.jobInfo.filename;
+        if (!filename.endsWith('.pdf')) filename = filename + '.pdf';
 
         AnchorElement link = AnchorElement()
           ..href = blobUrl
@@ -254,8 +242,7 @@ class JobDetailsComponent extends AuthGuard
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    nupPageOrder =
-        nupOrderOptions.indexWhere((String option) => option == selection);
+    nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
     if (job != null) {
       job.jobOptions.nup = nup;
       joblistBloc.onUpdateOptionsById(job.id, job.jobOptions);
@@ -291,17 +278,13 @@ class JobDetailsComponent extends AuthGuard
         }
       });
 
-      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty)
-        joblistBloc.onRefresh();
+      if (joblistBloc.jobs != null && joblistBloc.jobs.isEmpty) joblistBloc.onRefresh();
 
-      leftPrinter =
-          const String.fromEnvironment('leftPrinter', defaultValue: '');
+      leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-      rightPrinter =
-          const String.fromEnvironment('rightPrinter', defaultValue: '');
+      rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
-      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty)
-        directPrinter = true;
+      if (leftPrinter.isNotEmpty || rightPrinter.isNotEmpty) directPrinter = true;
     }
   }
 
@@ -313,8 +296,7 @@ class JobDetailsComponent extends AuthGuard
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions =
-        joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    JobOptions newOptions = joblistBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     joblistBloc.onUpdateOptionsById(id, newOptions);
   }

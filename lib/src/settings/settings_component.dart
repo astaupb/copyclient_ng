@@ -140,88 +140,63 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   String get _enterCurrentPw => Intl.message(
       'Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein',
       name: '_enterCurrentPw',
-      desc:
-          'notify user that he/she should enter the current password to confirm its the user');
+      desc: 'notify user that he/she should enter the current password to confirm its the user');
 
-  String get _passwordChangeSuccess =>
-      Intl.message('Passwort erfolgreich geändert',
-          name: '_passwordChangeSuccess',
-          desc: 'Notify user that password or user change was a success');
+  String get _passwordChangeSuccess => Intl.message('Passwort erfolgreich geändert',
+      name: '_passwordChangeSuccess',
+      desc: 'Notify user that password or user change was a success');
 
   String get _passwordInvalid => Intl.message('Das Passwort ist ungültig',
-      name: '_passwordInvalid',
-      desc: 'Notify user that entered password is invalid');
+      name: '_passwordInvalid', desc: 'Notify user that entered password is invalid');
 
-  String get _passwordMismatch =>
-      Intl.message('Die neuen Passwörter stimmen nicht überein',
-          name: '_passwordMismatch',
-          desc: 'Notify user that the entered password is too short');
+  String get _passwordMismatch => Intl.message('Die neuen Passwörter stimmen nicht überein',
+      name: '_passwordMismatch', desc: 'Notify user that the entered password is too short');
 
   String get _passwordTooShort => Intl.message('Das neue Passwort ist zu kurz',
-      name: '_passwordTooShort',
-      desc: 'Notify user that the entered new password is too short');
+      name: '_passwordTooShort', desc: 'Notify user that the entered new password is too short');
 
-  String get _pwUnknownError => Intl.message(
-      'Konnte das Passwort nicht ändern: Unbekannter Fehler',
+  String get _pwUnknownError => Intl.message('Konnte das Passwort nicht ändern: Unbekannter Fehler',
       name: '_pwUnknownError',
-      desc:
-          'Notify user that password could not be changed due to unknown error');
+      desc: 'Notify user that password could not be changed due to unknown error');
 
-  String get _usernameChangeSuccess =>
-      Intl.message('Benutzername erfolgreich geändert',
-          name: '_usernameChangeSuccess',
-          desc: 'Notify user that password or user change was a success');
+  String get _usernameChangeSuccess => Intl.message('Benutzername erfolgreich geändert',
+      name: '_usernameChangeSuccess',
+      desc: 'Notify user that password or user change was a success');
 
   String get _usernameInvalid => Intl.message('Der Benutzername ist ungültig',
-      name: '_usernameInvalid',
-      desc: 'Notify user that the entered username is invalid');
+      name: '_usernameInvalid', desc: 'Notify user that the entered username is invalid');
 
-  String get _usernameTaken =>
-      Intl.message('Der Benutzername ist bereits vergeben',
-          name: '_usernameTaken',
-          desc: 'Notify user that thee entered username is already taken');
+  String get _usernameTaken => Intl.message('Der Benutzername ist bereits vergeben',
+      name: '_usernameTaken', desc: 'Notify user that thee entered username is already taken');
 
   String get _usernameTooShort => Intl.message('Der Benutzername ist zu kurz',
-      name: '_usernameTooShort',
-      desc: 'Notify user that the entered name is too short');
+      name: '_usernameTooShort', desc: 'Notify user that the entered name is too short');
 
-  String get _usernameUnknownError => Intl.message(
-      'Konnte den Benutzernamen nicht ändern: Unbekannter Fehler',
-      name: '_usernameUnknownError',
-      desc:
-          'Notify user that username could not be changed due to an unknown error');
+  String get _usernameUnknownError =>
+      Intl.message('Konnte den Benutzernamen nicht ändern: Unbekannter Fehler',
+          name: '_usernameUnknownError',
+          desc: 'Notify user that username could not be changed due to an unknown error');
 
   final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
   String duplexSelection = _simplex;
 
-  static String get _simplex => Intl.message('Simplex',
-      name: '_simplex', desc: 'Dropdown menu selection for simplex');
+  static String get _simplex =>
+      Intl.message('Simplex', name: '_simplex', desc: 'Dropdown menu selection for simplex');
   static String get _longBorder => Intl.message('Lange Kante',
-      name: '_longBorder',
-      desc: 'Dropdown menu selection for duplexing at long border');
+      name: '_longBorder', desc: 'Dropdown menu selection for duplexing at long border');
   static String get _shortBorder => Intl.message('Kurze Kante',
-      name: '_shortBorder',
-      desc: 'Dropdown menu selection for duplexing at short border');
+      name: '_shortBorder', desc: 'Dropdown menu selection for duplexing at short border');
 
   List<String> nupOptions = ['1', '2', '4'];
   String nupSelection = '1';
 
-  final List<String> nupOrderOptions = [
-    _nupOrder1,
-    _nupOrder2,
-    _nupOrder3,
-    _nupOrder4
-  ];
+  final List<String> nupOrderOptions = [_nupOrder1, _nupOrder2, _nupOrder3, _nupOrder4];
   String nupOrderSelection = _nupOrder1;
 
-  static String get _nupOrder1 =>
-      Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
-  static String get _nupOrder2 =>
-      Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
-  static String get _nupOrder3 =>
-      Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
-  static String get _nupOrder4 =>
-      Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
+  static String get _nupOrder1 => Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
+  static String get _nupOrder2 => Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
+  static String get _nupOrder3 => Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
+  static String get _nupOrder4 => Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
 
   @override
   void onActivate(_, RouterState current) async {
@@ -230,9 +205,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         if (state.isResult) {
           user = state.value;
           settings = Settings();
-          notifications.add((isPasswordChange
-              ? _passwordChangeSuccess
-              : _usernameChangeSuccess));
+          notifications.add((isPasswordChange ? _passwordChangeSuccess : _usernameChangeSuccess));
 
           if (isPasswordChange) {
             authBloc.onLogout();
@@ -311,24 +284,23 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void colorChecked() {
-    settings.color = ! settings.color;
+    settings.color = !settings.color;
     if (defaultOptions != null) defaultOptions.color = settings.color;
   }
 
   void a3Checked() {
-    settings.a3 = ! settings.a3;
+    settings.a3 = !settings.a3;
     if (defaultOptions != null) defaultOptions.a3 = settings.a3;
   }
 
   void collateChecked() {
-    settings.collate = ! settings.collate;
+    settings.collate = !settings.collate;
     if (defaultOptions != null) defaultOptions.collate = settings.collate;
   }
 
   void duplexChanged(String selection) {
     duplexSelection = selection;
-    settings.duplex =
-        duplexOptions.indexWhere((String option) => option == selection);
+    settings.duplex = duplexOptions.indexWhere((String option) => option == selection);
     if (defaultOptions != null) defaultOptions.duplex = settings.duplex;
   }
 
@@ -358,8 +330,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    settings.nupPageOrder =
-        nupOrderOptions.indexWhere((String option) => option == selection);
+    settings.nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
     if (defaultOptions != null) defaultOptions.nupPageOrder = settings.nupPageOrder;
   }
 

@@ -77,10 +77,9 @@ class LoginComponent implements OnInit {
     cred = Credentials();
   }
 
-  String get _errorTimeout => Intl.message(
-      'Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung',
-      name: '_errorTimeout',
-      desc: 'Notify user that the connection timed out');
+  String get _errorTimeout =>
+      Intl.message('Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung',
+          name: '_errorTimeout', desc: 'Notify user that the connection timed out');
 
   String get _forbiddenCharacters => Intl.message(
       'Nicht erlaubte Zeichen im Nutzernamen oder Passwort',
@@ -93,8 +92,7 @@ class LoginComponent implements OnInit {
           name: '_serverError', desc: 'Notify user about server error');
 
   String get _wrongCredentials => Intl.message('Username oder Passwort falsch',
-      name: '_wrongCredentials',
-      desc: 'Notify user that the entered credentials are wrong');
+      name: '_wrongCredentials', desc: 'Notify user that the entered credentials are wrong');
 
   void clearForm() => cred = Credentials();
 
@@ -122,8 +120,7 @@ class LoginComponent implements OnInit {
   }
 
   void onChangeLocale() {
-    if (window.localStorage.containsKey('locale') &&
-        window.localStorage['locale'] == 'en_US')
+    if (window.localStorage.containsKey('locale') && window.localStorage['locale'] == 'en_US')
       window.localStorage['locale'] = 'de_DE';
     else
       window.localStorage['locale'] = 'en_US';

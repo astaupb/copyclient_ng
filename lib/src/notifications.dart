@@ -7,15 +7,14 @@ class _Notification {
     this.id = id;
     this.text = text;
 
-    Future.delayed(const Duration(seconds: 5))
-        .then((_){
-          notifications.list.removeWhere((n) => n.id == this.id);
-          notifications._buildNotificationText();
-          if (notifications.list.length == 0) {
-            notifications.show = false;
-            notifications.text = '';
-          }
-        });
+    Future.delayed(const Duration(seconds: 5)).then((_) {
+      notifications.list.removeWhere((n) => n.id == this.id);
+      notifications._buildNotificationText();
+      if (notifications.list.length == 0) {
+        notifications.show = false;
+        notifications.text = '';
+      }
+    });
   }
 }
 
@@ -34,10 +33,10 @@ class Notifications {
   Notifications._();
 
   void add(String message) {
-      list.add(new _Notification(count, message));
-      _buildNotificationText();
-      show = true;
-      count = (count + 1) % max;
+    list.add(_Notification(count, message));
+    _buildNotificationText();
+    show = true;
+    count = (count + 1) % max;
   }
 
   void _buildNotificationText() {

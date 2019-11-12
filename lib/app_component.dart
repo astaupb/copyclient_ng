@@ -169,8 +169,7 @@ class AppComponent implements OnInit, OnDestroy {
       int copies = payload.containsKey('copies') ? payload['copies'] : null;
       List<int> data = base64.decode(payload['data']);
 
-      final String mime =
-          lookupMimeType(filename, headerBytes: data.sublist(0, 8));
+      final String mime = lookupMimeType(filename, headerBytes: data.sublist(0, 8));
       if (mime.startsWith('image/')) {
         pdfCreation.onCreateFromImage(data);
         StreamSubscription listener;
@@ -225,8 +224,7 @@ class AppComponent implements OnInit, OnDestroy {
   }
 
   void onChangeLocale() {
-    if (window.localStorage.containsKey('locale') &&
-        window.localStorage['locale'] == 'en_US')
+    if (window.localStorage.containsKey('locale') && window.localStorage['locale'] == 'en_US')
       window.localStorage['locale'] = 'de_DE';
     else
       window.localStorage['locale'] = 'en_US';

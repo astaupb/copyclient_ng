@@ -49,8 +49,7 @@ import 'payment_service.dart';
     materialProviders,
   ],
 )
-class PayminatorComponent extends AuthGuard
-    implements OnActivate, OnDeactivate {
+class PayminatorComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final PaymentService paymentService;
   UserBloc userBloc;
   AuthBloc authBloc;
@@ -191,14 +190,12 @@ class PayminatorComponent extends AuthGuard
         'PayPal Zahlung für $name',
         name: '_paypalWindowTitle',
         args: [name],
-        desc:
-            'Title of the newly opened paypal window containing the users name',
+        desc: 'Title of the newly opened paypal window containing the users name',
       );
 
   String _userDefinedMessage() => Intl.message(
         'Benutzerdefiniert',
         name: '_userDefinedMessage',
-        desc:
-            'Shows a value can be user defined as opposed to a predefined value',
+        desc: 'Shows a value can be user defined as opposed to a predefined value',
       );
 }

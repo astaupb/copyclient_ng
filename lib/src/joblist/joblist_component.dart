@@ -131,10 +131,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       name: '_printerLocked',
       desc: 'Notify user that the selected printer is locked by another user');
 
-  String get _unknownUploadError =>
-      Intl.message('Unbekannter Fehler beim Hochladen einer Datei',
-          name: '_unknownUploadError',
-          desc: 'Notify user that an unknown error occured during upload');
+  String get _unknownUploadError => Intl.message('Unbekannter Fehler beim Hochladen einer Datei',
+      name: '_unknownUploadError', desc: 'Notify user that an unknown error occured during upload');
 
   void deactivate<T>(T subject) {
     if (subject != null) {
@@ -156,8 +154,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
         if (copyMode) {
           for (Job job in (state.value.where((Job j) =>
               !copiedIds.contains(j.id) &&
-              DateTime.fromMillisecondsSinceEpoch(j.timestamp * 1000)
-                  .isAfter(copyStartTime)))) {
+              DateTime.fromMillisecondsSinceEpoch(j.timestamp * 1000).isAfter(copyStartTime)))) {
             print('copying ${job.jobInfo.filename}');
             jobsBloc.onPrintById(selectedPrinter, job.id);
             copiedIds.add(job.id);
@@ -170,8 +167,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
     leftPrinter = const String.fromEnvironment('leftPrinter', defaultValue: '');
 
-    rightPrinter =
-        const String.fromEnvironment('rightPrinter', defaultValue: '');
+    rightPrinter = const String.fromEnvironment('rightPrinter', defaultValue: '');
 
     if (leftPrinter.isEmpty)
       selectedPrinter = rightPrinter;
@@ -237,12 +233,10 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     pdfListener = pdfBloc.skip(1).listen((PdfState state) {
       if (state.isResult) {
         final Blob pdfBlob = Blob(
-            [state.value.where((PdfFile file) => id == file.id).first.file],
-            'application/pdf');
+            [state.value.where((PdfFile file) => id == file.id).first.file], 'application/pdf');
 
         final String blobUrl = Url.createObjectUrlFromBlob(pdfBlob);
-        String filename =
-            lastJobs.where((Job job) => id == job.id).first.jobInfo.filename;
+        String filename = lastJobs.where((Job job) => id == job.id).first.jobInfo.filename;
         filename = filename.endsWith('.pdf') ? filename : filename + '.pdf';
 
         final AnchorElement link = AnchorElement()
@@ -250,8 +244,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
           ..download = filename;
 
         // dispatch click event so firefox works as well
-        final MouseEvent event =
-            MouseEvent("click", view: window, cancelable: false);
+        final MouseEvent event = MouseEvent("click", view: window, cancelable: false);
         link.dispatchEvent(event);
 
         pdfListener.cancel();
@@ -260,8 +253,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions =
-        jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
     newOptions.keep = !newOptions.keep;
     jobsBloc.onUpdateOptionsById(id, newOptions);
   }
@@ -282,8 +274,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
     showPrintAll = false;
     for (Job job in lastJobs) {
       print('printing job ${job.id}');
-      jobsBloc.onPrintById(
-          (leftPrinter.isEmpty) ? rightPrinter : leftPrinter, job.id);
+      jobsBloc.onPrintById((leftPrinter.isEmpty) ? rightPrinter : leftPrinter, job.id);
       await Future.delayed(const Duration(milliseconds: 500));
       jobsBloc.onRefresh();
     }
@@ -311,15 +302,14 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             lockUid = state.lockUid;
             printerLocked = true;
             if (printLockTimer != null) printLockTimer.cancel();
-            printLockTimer = Timer.periodic(Duration(seconds: 50),
-                (Timer t) => printQueueBloc.onLockDevice());
+            printLockTimer =
+                Timer.periodic(Duration(seconds: 50), (Timer t) => printQueueBloc.onLockDevice());
             //if (jobTimer != null) jobTimer.cancel();
             //jobTimer = Timer.periodic(Duration(seconds: 2), (Timer t) => jobsBloc.onRefresh());
             if (uploadsTimer != null) uploadsTimer.cancel();
-            uploadsTimer = Timer.periodic(
-                Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
-          } else if (state.isException &&
-              (state.error as ApiException).statusCode == 423) {
+            uploadsTimer =
+                Timer.periodic(Duration(seconds: 1), (Timer t) => uploadBloc.onRefresh());
+          } else if (state.isException && (state.error as ApiException).statusCode == 423) {
             notifications.add(_printerLocked);
             printerLocked = false;
             deactivate(printLockTimer);
@@ -358,8 +348,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
         await reader.onLoadEnd.listen(
           (ProgressEvent progress) {
             if (progress.loaded == progress.total) {
-              uploadBloc.onUpload(reader.result as List<int>,
-                  filename: file.name);
+              uploadBloc.onUpload(reader.result as List<int>, filename: file.name);
             }
           },
         ).asFuture();
@@ -371,8 +360,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             if (progress.loaded == progress.total) {
               pdfCreation.onCreateFromImage(reader.result as List<int>);
               StreamSubscription listener;
-              listener =
-                  pdfCreation.skip(1).listen((PdfCreationState state) {
+              listener = pdfCreation.skip(1).listen((PdfCreationState state) {
                 if (state.isResult) {
                   uploadBloc.onUpload(state.value, filename: file.name);
                   listener.cancel();
@@ -389,8 +377,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
             if (progress.loaded == progress.total) {
               pdfCreation.onCreateFromText(reader.result as String);
               StreamSubscription listener;
-              listener =
-                  pdfCreation.skip(1).listen((PdfCreationState state) {
+              listener = pdfCreation.skip(1).listen((PdfCreationState state) {
                 if (state.isResult) {
                   uploadBloc.onUpload(state.value, filename: file.name);
 
@@ -404,7 +391,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
         notifications.add(_unsupportedFormat(file.name));
       }
     });
-    
+
     (window.document.getElementById('input-box') as InputElement).value = null;
   }
 
