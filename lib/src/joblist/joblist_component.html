@@ -27,7 +27,7 @@
             </material-tooltip-text>
         </material-button>
     </div>
-    <div *ngIf="true || (directPrinter && !printerLocked)" class="button-wrapper">
+    <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
         <material-button raised class="controls-button" tooltipTarget #refStartCopying="tooltipTarget"
             (trigger)="showSelectCopyOptions = true">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>
