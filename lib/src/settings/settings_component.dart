@@ -23,49 +23,7 @@ import '../auth_guard.dart';
 import '../notifications.dart';
 import '../providers/auth_provider.dart';
 import '../providers/user_provider.dart';
-
-/// Object representation of the settings form
-class Settings {
-  String name;
-  String password;
-  String passwordRetype;
-  String passwordOld;
-
-  // Default job options
-  bool color;
-  int duplex;
-  bool a3;
-  int copies;
-  bool collate;
-  int nup;
-  int nupPageOrder;
-  bool keep;
-
-  Settings({
-    this.name = '',
-    this.password = '',
-    this.passwordRetype = '',
-    this.passwordOld = '',
-    this.color = false,
-    this.duplex = 0,
-    this.a3 = false,
-    this.copies = 1,
-    this.collate = false,
-    this.nup = 1,
-    this.nupPageOrder = 1,
-    this.keep = false,
-  });
-
-  Map<String, String> toMap() => {
-        'name': name,
-        'password': password,
-        'password_old': passwordOld,
-        'password_retype': passwordRetype,
-      };
-
-  @override
-  String toString() => toMap().toString();
-}
+import 'settings.dart';
 
 @Component(
   selector: 'settings',
@@ -94,7 +52,6 @@ class Settings {
     MaterialInkTooltipComponent,
     MaterialPaperTooltipComponent,
     MaterialTooltipTargetDirective,
-    NgIf,
   ],
   providers: [
     materialTooltipBindings,
@@ -116,8 +73,6 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   User user;
 
-  Settings settings = Settings();
-
   bool refreshing = false;
 
   AuthBloc authBloc;
@@ -127,6 +82,8 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   bool isFetchingOptions = false;
 
   JobOptions defaultOptions;
+  JobOptions newOptions = JobOptions();
+  Settings settings = Settings();
 
   SettingsComponent(
     this.authProvider,
@@ -236,13 +193,13 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         if (state.isResult) {
           defaultOptions = state.value.options;
           if (defaultOptions != null) {
-            settings.a3 = defaultOptions.a3;
-            settings.color = defaultOptions.color;
-            settings.collate = defaultOptions.collate;
-            settings.duplex = defaultOptions.duplex;
-            settings.nup = defaultOptions.nup;
-            settings.nupPageOrder = defaultOptions.nupPageOrder;
-            settings.copies = defaultOptions.copies;
+            newOptions.a3 = defaultOptions.a3;
+            newOptions.color = defaultOptions.color;
+            newOptions.collate = defaultOptions.collate;
+            newOptions.duplex = defaultOptions.duplex;
+            newOptions.nup = defaultOptions.nup;
+            newOptions.nupPageOrder = defaultOptions.nupPageOrder;
+            newOptions.copies = defaultOptions.copies;
             duplexSelection = duplexOptions[defaultOptions.duplex];
             nupSelection = defaultOptions.nup.toString();
             isFetchingOptions = false;
@@ -284,28 +241,28 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void colorChecked() {
-    settings.color = !settings.color;
-    if (defaultOptions != null) defaultOptions.color = settings.color;
+    newOptions.color = !newOptions.color;
+    if (defaultOptions != null) defaultOptions.color = newOptions.color;
   }
 
   void a3Checked() {
-    settings.a3 = !settings.a3;
-    if (defaultOptions != null) defaultOptions.a3 = settings.a3;
+    newOptions.a3 = !newOptions.a3;
+    if (defaultOptions != null) defaultOptions.a3 = newOptions.a3;
   }
 
   void collateChecked() {
-    settings.collate = !settings.collate;
-    if (defaultOptions != null) defaultOptions.collate = settings.collate;
+    newOptions.collate = !newOptions.collate;
+    if (defaultOptions != null) defaultOptions.collate = newOptions.collate;
   }
 
   void duplexChanged(String selection) {
     duplexSelection = selection;
-    settings.duplex = duplexOptions.indexWhere((String option) => option == selection);
-    if (defaultOptions != null) defaultOptions.duplex = settings.duplex;
+    newOptions.duplex = duplexOptions.indexWhere((String option) => option == selection);
+    if (defaultOptions != null) defaultOptions.duplex = newOptions.duplex;
   }
 
   void copiesChanged() {
-    if (defaultOptions != null) defaultOptions.copies = settings.copies;
+    if (defaultOptions != null) defaultOptions.copies = newOptions.copies;
   }
 
   void nupChanged(String selection) {
@@ -313,25 +270,25 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
     int index = nupOptions.indexWhere((String option) => option == selection);
     switch (index) {
       case 0:
-        settings.nup = 1;
+        newOptions.nup = 1;
         break;
       case 1:
-        settings.nup = 2;
+        newOptions.nup = 2;
         break;
       case 2:
-        settings.nup = 4;
+        newOptions.nup = 4;
         break;
       default:
-        settings.nup = 1;
+        newOptions.nup = 1;
         break;
     }
-    if (defaultOptions != null) defaultOptions.nup = settings.nup;
+    if (defaultOptions != null) defaultOptions.nup = newOptions.nup;
   }
 
   void nupOrderChanged(String selection) {
     nupOrderSelection = selection;
-    settings.nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
-    if (defaultOptions != null) defaultOptions.nupPageOrder = settings.nupPageOrder;
+    newOptions.nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
+    if (defaultOptions != null) defaultOptions.nupPageOrder = newOptions.nupPageOrder;
   }
 
   void onSubmitOptions() {

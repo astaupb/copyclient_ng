@@ -10,10 +10,12 @@ import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_creation.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/upload.dart';
+import 'package:blocs_copyclient/src/models/joboptions.dart';
 import 'package:copyclient_ng/src/providers/pdf_creation_provider.dart';
 import 'package:copyclient_ng/src/providers/pdf_provider.dart';
 import 'package:copyclient_ng/src/providers/print_queue_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 import '../auth_guard.dart';
 import '../notifications.dart';
@@ -26,14 +28,17 @@ import '../route_paths.dart';
   selector: 'joblist',
   styleUrls: [
     'joblist_component.scss.css',
+    '../settings/settings_component.css',
     'package:copyclient_ng/styles/listpage_navigation.css',
     'package:copyclient_ng/styles/printer_selector.scss.css',
     'package:copyclient_ng/styles/bottom_notification.scss.css',
   ],
   templateUrl: 'joblist_component.html',
   directives: [
+    NgIf,
     routerDirectives,
     coreDirectives,
+    formDirectives,
     MaterialListComponent,
     MaterialListItemComponent,
     MaterialIconComponent,
@@ -48,6 +53,8 @@ import '../route_paths.dart';
     ModalComponent,
     MaterialSpinnerComponent,
     MaterialTooltipDirective,
+    MaterialDropdownSelectComponent,
+    MaterialToggleComponent,
   ],
   providers: [
     materialTooltipBindings,
@@ -68,6 +75,8 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   bool refreshing = true;
 
+  JobOptions copyOptions = JobOptions();
+
   /// last complete joblist known to this component
   List<Job> lastJobs = [];
 
@@ -87,6 +96,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   bool showDeleteAll = false;
   bool showPrintAll = false;
   bool showDownloadAll = false;
+  bool showSelectCopyOptions = false;
 
   // Listeners
   StreamSubscription<UploadState> uploadListener;
@@ -134,6 +144,27 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   String get _unknownUploadError => Intl.message('Unbekannter Fehler beim Hochladen einer Datei',
       name: '_unknownUploadError', desc: 'Notify user that an unknown error occured during upload');
 
+  final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
+  String duplexSelection = _simplex;
+
+  static String get _simplex =>
+      Intl.message('Simplex', name: '_simplex', desc: 'Dropdown menu selection for simplex');
+  static String get _longBorder => Intl.message('Lange Kante',
+      name: '_longBorder', desc: 'Dropdown menu selection for duplexing at long border');
+  static String get _shortBorder => Intl.message('Kurze Kante',
+      name: '_shortBorder', desc: 'Dropdown menu selection for duplexing at short border');
+
+  List<String> nupOptions = ['1', '2', '4'];
+  String nupSelection = '1';
+
+  final List<String> nupOrderOptions = [_nupOrder1, _nupOrder2, _nupOrder3, _nupOrder4];
+  String nupOrderSelection = _nupOrder1;
+
+  static String get _nupOrder1 => Intl.message('Nach Rechts, dann Runter', name: '_nupOrder1');
+  static String get _nupOrder2 => Intl.message('Nach Unten, dann Rechts', name: '_nupOrder2');
+  static String get _nupOrder3 => Intl.message('Nach Links, dann Runter', name: '_nupOrder3');
+  static String get _nupOrder4 => Intl.message('Nach Unten, dann Links', name: '_nupOrder4');
+
   void deactivate<T>(T subject) {
     if (subject != null) {
       if (subject is StreamSubscription) {
@@ -156,7 +187,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
               !copiedIds.contains(j.id) &&
               DateTime.fromMillisecondsSinceEpoch(j.timestamp * 1000).isAfter(copyStartTime)))) {
             print('copying ${job.jobInfo.filename}');
-            jobsBloc.onPrintById(selectedPrinter, job.id);
+            jobsBloc.onPrintById(selectedPrinter, job.id, options: copyOptions);
             copiedIds.add(job.id);
           }
         }
@@ -253,9 +284,9 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onKeepJob(int id) {
-    JobOptions newOptions = jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
-    newOptions.keep = !newOptions.keep;
-    jobsBloc.onUpdateOptionsById(id, newOptions);
+    JobOptions copyOptions = jobsBloc.jobs.singleWhere((Job job) => job.id == id).jobOptions;
+    copyOptions.keep = !copyOptions.keep;
+    jobsBloc.onUpdateOptionsById(id, copyOptions);
   }
 
   void onOpenPrintDialog(int id) {
@@ -287,6 +318,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   void onStartCopying() {
     copyMode = true;
+    showSelectCopyOptions = false;
     copyStartTime = DateTime.now();
     onStartScanning();
   }
@@ -478,4 +510,49 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       args: [filename],
       desc:
           'Notify user that the provided file is not in one of the supported fiel formats (which is PDF, most images and pure text)');
+
+  void colorChecked() {
+    copyOptions.color = !copyOptions.color;
+  }
+
+  void a3Checked() {
+    copyOptions.a3 = !copyOptions.a3;
+  }
+
+  void collateChecked() {
+    copyOptions.collate = !copyOptions.collate;
+  }
+
+  void bypassChecked() {
+    copyOptions.bypass = !copyOptions.bypass;
+  }
+
+  void duplexChanged(String selection) {
+    duplexSelection = selection;
+    copyOptions.duplex = duplexOptions.indexWhere((String option) => option == selection);
+  }
+
+  void nupChanged(String selection) {
+    nupSelection = selection;
+    int index = nupOptions.indexWhere((String option) => option == selection);
+    switch (index) {
+      case 0:
+        copyOptions.nup = 1;
+        break;
+      case 1:
+        copyOptions.nup = 2;
+        break;
+      case 2:
+        copyOptions.nup = 4;
+        break;
+      default:
+        copyOptions.nup = 1;
+        break;
+    }
+  }
+
+  void nupOrderChanged(String selection) {
+    nupOrderSelection = selection;
+    copyOptions.nupPageOrder = nupOrderOptions.indexWhere((String option) => option == selection);
+  }
 }

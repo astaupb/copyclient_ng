@@ -810,5 +810,23 @@
     "description": "Title for default settings",
     "type": "text",
     "placeholders": {}
+  },
+  "Kopieroptionen setzen": "Set copy options",
+  "@Kopieroptionen setzen": {
+    "description": "Popup title for copy options",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seitlicher Papiereinzug:": "Paper bypass/side feed:",
+  "@Seitlicher Papiereinzug:": {
+    "description": "Row title for bypass print option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Übernehmen": "Apply",
+  "@Übernehmen": {
+    "description": "Apply button text",
+    "type": "text",
+    "placeholders": {}
   }
 }
