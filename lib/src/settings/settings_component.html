@@ -65,7 +65,7 @@
                         Farbe:
                     </div>
                     <div class="options-value">
-                        <material-toggle [checked]="settings.color" (checkedChange)="colorChecked()"></material-toggle>
+                        <material-toggle [checked]="newOptions.color" (checkedChange)="colorChecked()"></material-toggle>
                     </div>
                 </material-list-item>
                 <material-list-item class="options-row">
@@ -83,7 +83,7 @@
                         A3:
                     </div>
                     <div class="options-value">
-                        <material-toggle [checked]="settings.a3" (checkedChange)="a3Checked()">
+                        <material-toggle [checked]="newOptions.a3" (checkedChange)="a3Checked()">
                         </material-toggle>
                     </div>
                 </material-list-item>
@@ -92,7 +92,7 @@
                         Anzahl Kopien:
                     </div>
                     <div class="options-value">
-                        <input type="number" [(ngModel)]="settings.copies" (change)="copiesChanged()" min="1" max="999">
+                        <input type="number" [(ngModel)]="newOptions.copies" (change)="copiesChanged()" min="1" max="999">
                     </div>
                 </material-list-item>
                 <material-list-item class="options-row">
@@ -100,7 +100,7 @@
                         Kopien zusammenhalten:
                     </div>
                     <div class="options-value">
-                        <material-toggle [checked]="settings.collate" (checkedChange)="collateChecked()">
+                        <material-toggle [checked]="newOptions.collate" (checkedChange)="collateChecked()">
                         </material-toggle>
                     </div>
                 </material-list-item>

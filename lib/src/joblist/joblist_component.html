@@ -29,7 +29,7 @@
     </div>
     <div *ngIf="directPrinter && !printerLocked" class="button-wrapper">
         <material-button raised class="controls-button" tooltipTarget #refStartCopying="tooltipTarget"
-            (trigger)="onStartCopying">
+            (trigger)="showSelectCopyOptions = true">
             <material-icon class="controls-button-icon" icon="scanner"></material-icon>
             <material-icon class="controls-button-icon" icon="arrow_right_alt"></material-icon>
             <material-icon class="controls-button-icon" icon="print"></material-icon>
@@ -216,6 +216,97 @@
                 Ja
             </material-button>
             <material-button autoFocus clear-size (trigger)="showDeleteAll = false" @i18n="Cancel button text">
+                Abbrechen
+            </material-button>
+        </div>
+    </material-dialog>
+</modal>
+
+<modal [visible]="showSelectCopyOptions">
+    <material-dialog id="selectCopyOptions" class="settings-card">
+        <h1 header @i18n="Popup title for copy options">Kopieroptionen setzen</h1>
+        <material-list>
+            <div group>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for colour option">
+                        Farbe:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="copyOptions.color" (checkedChange)="colorChecked()"></material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for duplex printing option">
+                        Duplex:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="duplexSelection" [options]="duplexOptions"
+                            [buttonText]="duplexSelection" (selectionChange)="duplexChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for A3 print option">
+                        A3:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="copyOptions.a3" (checkedChange)="a3Checked()">
+                        </material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for bypass print option">
+                        Seitlicher Papiereinzug:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="copyOptions.bypass" (checkedChange)="bypassChecked()">
+                        </material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for number of copies option">
+                        Anzahl Kopien:
+                    </div>
+                    <div class="options-value">
+                        <input type="number" [(ngModel)]="copyOptions.copies" min="1" max="999">
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title for collate option">
+                        Kopien zusammenhalten:
+                    </div>
+                    <div class="options-value">
+                        <material-toggle [checked]="copyOptions.collate" (checkedChange)="collateChecked()">
+                        </material-toggle>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row">
+                    <div class="options-key" @i18n="Row title of NuP option">
+                        Seiten pro Blatt:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="nupSelection" [options]="nupOptions"
+                            [buttonText]="nupSelection" (selectionChange)="nupChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+                <material-list-item class="options-row" *ngIf="false">
+                    <div class="options-key" @i18n="Row title for NuP order option">
+                        Reihenfolge auf dem Blatt:
+                    </div>
+                    <div class="options-value">
+                        <material-dropdown-select [selection]="nupOrderSelection" [options]="nupOrderOptions"
+                            [buttonText]="nupOrderSelection" (selectionChange)="nupOrderChanged">
+                        </material-dropdown-select>
+                    </div>
+                </material-list-item>
+            </div>
+        </material-list>
+        <div footer>
+            <material-button autoFocus clear-size (trigger)="onStartCopying" @i18n="Apply button text">
+                Übernehmen
+            </material-button>
+            <material-button autoFocus clear-size (trigger)="showSelectCopyOptions = false" @i18n="Cancel button text">
                 Abbrechen
             </material-button>
         </div>
