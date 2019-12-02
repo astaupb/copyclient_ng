@@ -17,12 +17,14 @@ import 'package:blocs_copyclient/exceptions.dart';
 import 'package:blocs_copyclient/src/auth/auth_bloc.dart';
 import 'package:blocs_copyclient/user.dart';
 import 'package:blocs_copyclient/src/models/joboptions.dart';
+import 'package:copyclient_ng/src/tokens/tokens_component.dart';
 import 'package:intl/intl.dart';
 
 import '../auth_guard.dart';
 import '../notifications.dart';
 import '../providers/auth_provider.dart';
 import '../providers/user_provider.dart';
+import '../route_paths.dart';
 
 /// Object representation of the settings form
 class Settings {
@@ -95,6 +97,7 @@ class Settings {
     MaterialPaperTooltipComponent,
     MaterialTooltipTargetDirective,
     NgIf,
+    TokensComponent,
   ],
   providers: [
     materialTooltipBindings,
@@ -107,6 +110,8 @@ class Settings {
 class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   final AuthProvider authProvider;
   final UserProvider userProvider;
+
+  final Router _router;
 
   UserBloc userBloc;
 
@@ -130,7 +135,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   SettingsComponent(
     this.authProvider,
-    Router _router,
+    this._router,
     this.userProvider,
   ) : super(authProvider, _router) {
     authBloc = authProvider.authBloc;
@@ -337,5 +342,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onSubmitOptions() {
     userBloc.onChangeOptions(defaultOptions);
     print('Foobar');
+  }
+
+  void onOpenTokens() {
+    _router.navigate(RoutePaths.tokens.path);
   }
 }

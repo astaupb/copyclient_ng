@@ -18,11 +18,12 @@ import 'src/providers/auth_provider.dart';
 import 'src/providers/joblist_provider.dart';
 import 'src/providers/journal_provider.dart';
 import 'src/providers/pdf_creation_provider.dart';
-import 'src/providers/uploads_provider.dart';
+import 'src/providers/pdf_provider.dart';
 import 'src/providers/preview_provider.dart';
 import 'src/providers/print_queue_provider.dart';
+import 'src/providers/tokens_provider.dart';
+import 'src/providers/uploads_provider.dart';
 import 'src/providers/user_provider.dart';
-import 'src/providers/pdf_provider.dart';
 import 'src/route_paths.dart';
 import 'src/routes.dart';
 
@@ -60,6 +61,7 @@ import 'src/routes.dart';
     ClassProvider(PdfProvider),
     ClassProvider(JournalProvider),
     ClassProvider(PdfCreationProvider),
+    ClassProvider(TokensProvider),
     ClassProvider(http.Client, useClass: BrowserClient),
   ],
   exports: [RoutePaths, Routes],
@@ -76,6 +78,7 @@ class AppComponent implements OnInit, OnDestroy {
   PdfBloc pdfBloc;
   JournalBloc journalBloc;
   PdfCreationBloc pdfCreation;
+  TokensBloc tokensBloc;
 
   /// The [User] as shown in the drawer header
   User user;
@@ -102,6 +105,7 @@ class AppComponent implements OnInit, OnDestroy {
       PdfProvider pdfProvider,
       JournalProvider journalProvider,
       PdfCreationProvider pdfCreationProvider,
+      TokensProvider tokensProvider,
       this._router) {
     authBloc = authProvider.authBloc;
     joblistBloc = joblistProvider.joblistBloc;
@@ -112,6 +116,7 @@ class AppComponent implements OnInit, OnDestroy {
     pdfBloc = pdfProvider.pdfBloc;
     journalBloc = journalProvider.journalBloc;
     pdfCreation = pdfCreationProvider.pdfCreationBloc;
+    tokensBloc = tokensProvider.tokensBloc;
   }
 
   @override
@@ -123,6 +128,7 @@ class AppComponent implements OnInit, OnDestroy {
     printQueueBloc.close();
     userBloc.close();
     pdfBloc.close();
+    tokensBloc.close();
     if (userListener != null) userListener.cancel();
     if (refreshTimer != null) refreshTimer.cancel();
   }
@@ -140,6 +146,7 @@ class AppComponent implements OnInit, OnDestroy {
           pdfBloc.onStart(state.token);
           userBloc.onStart(state.token);
           journalBloc.onStart(state.token);
+          tokensBloc.onStart(state.token);
           onLogin();
         } else if (state.isUnauthorized) {
           authorized = false;

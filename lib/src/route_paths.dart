@@ -17,4 +17,5 @@ class RoutePaths {
   static final register = RoutePath(path: 'register');
   static final credit = RoutePath(path: 'credit');
   static final settings = RoutePath(path: 'settings');
+  static final tokens = RoutePath(path: 'settings/tokens');
 }

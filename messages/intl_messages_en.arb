@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2019-10-27T20:22:14.992830",
+  "@@last_modified": "2019-12-02T18:33:46.270137",
   "Alle herunterladen": "Download all",
   "_errorTimeout": "Timeout of connection, please check your internet connection",
   "@_errorTimeout": {
@@ -808,6 +808,30 @@
   "Standard-Joboptionen": "Default job options",
   "@Standard-Joboptionen": {
     "description": "Title for default settings",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Angemeldete Geräte": "Logged-In Devices",
+  "@Angemeldete Geräte": {
+    "description": "Title for token management",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle ansehen": "View all",
+  "@Alle ansehen": {
+    "description": "Button text for viewing all tokens",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erstellt": "Created",
+  "@Erstellt": {
+    "description": "Label for created date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zuletzt genutzt": "Last used",
+  "@Zuletzt genutzt": {
+    "description": "Label for last used date",
     "type": "text",
     "placeholders": {}
   }

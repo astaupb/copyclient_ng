@@ -1,0 +1,27 @@
+<material-button *ngIf="!compact" (trigger)="onReturn()" @i18n="Navigation back button">Zurück</material-button>
+
+<material-list>
+    <material-list-item group class="tokens-list-item" *ngFor="let token of tokens">
+        <div class="icon" [ngSwitch]="token.clientType">
+            <img class="icon-image" *ngSwitchCase="ClientType.dartio" src="img/icon_hires.png">
+            <img class="icon-image" *ngSwitchCase="ClientType.electron" src="img/icon_hires.png">
+            <img class="icon-image" *ngSwitchCase="ClientType.curl" src="img/useragents/curl.png">
+            <img class="icon-image" *ngSwitchCase="ClientType.safari" src="img/useragents/safari.png">
+            <img class="icon-image" *ngSwitchCase="ClientType.chrome" src="img/useragents/chrome.png">
+            <img class="icon-image" *ngSwitchCase="ClientType.firefox" src="img/useragents/firefox.png">
+        </div>
+        <div class="identity">
+            {{ translateClientType(token.clientType) }} <span *ngIf="!compact">({{ token.userAgent }})</span>
+            <div class="compact-date" *ngIf="compact">{{ token.updated.toString().split('.').first }}</div>
+            <br>
+            {{ token.ip }}, {{ token.location }}
+        </div>
+        <div class="timestamps" *ngIf="!compact">
+            <span @i18n="Label for created date">Erstellt</span>: {{ token.created.toString().split('.').first }}<br>
+            <span @i18n="Label for last used date">Zuletzt genutzt</span>: {{ token.updated.toString().split('.').first }}
+        </div>
+        <material-button class="delete-token" (trigger)="onDeleteToken(token.id)">
+            <material-icon icon="clear"></material-icon>
+        </material-button>
+    </material-list-item>
+</material-list>

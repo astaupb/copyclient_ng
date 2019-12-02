@@ -6,8 +6,9 @@ import 'joblist/joblist_component.template.dart' as joblist_template;
 import 'login/login_component.template.dart' as login_template;
 import 'payminator/payminator_component.template.dart' as payminator_template;
 import 'register/register_component.template.dart' as register_template;
-import 'settings/settings_component.template.dart' as settings_template;
 import 'route_paths.dart';
+import 'settings/settings_component.template.dart' as settings_template;
+import 'tokens/tokens_component.template.dart' as tokens_template;
 
 export 'route_paths.dart';
 
@@ -20,6 +21,7 @@ class Routes {
     register,
     credit,
     settings,
+    tokens,
     RouteDefinition.redirect(
       path: '',
       redirectTo: joblist.path,
@@ -66,5 +68,11 @@ class Routes {
     routePath: RoutePaths.settings,
     component: settings_template.SettingsComponentNgFactory,
     additionalData: 'Einstellungen',
+  );
+
+  static final tokens = RouteDefinition(
+    routePath: RoutePaths.tokens,
+    component: tokens_template.TokensComponentNgFactory,
+    additionalData: 'Angemeldete Geräte',
   );
 }

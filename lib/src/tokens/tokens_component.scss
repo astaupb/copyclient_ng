@@ -1,0 +1,37 @@
+.tokens-list-item {
+    display: grid;
+    grid-template-columns: 50px 1fr 64px;
+    /*grid-template-rows: 1fr 1fr;*/
+}
+
+.icon {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column: 1;
+}
+
+.icon-image {
+    max-width: 48px;
+}
+
+.compact-date {
+    font-size: 0.8em;
+    float: right;
+}
+
+.delete-token {
+    grid-column: 3;
+}
+
+.identity {
+    grid-row: 1;
+    grid-column: 2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.timestamps {
+    grid-row: 2;
+    grid-column: 2;
+}

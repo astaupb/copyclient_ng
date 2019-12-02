@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-10-30T21:49:48.306074",
+  "@@last_modified": "2019-12-02T18:33:46.270137",
   "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
   "@_enterCurrentPw": {
     "description": "notify user that he/she should enter the current password to confirm its the user",
@@ -355,6 +355,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "Angemeldete Geräte": "Angemeldete Geräte",
+  "@Angemeldete Geräte": {
+    "description": "Title for token management",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle ansehen": "Alle ansehen",
+  "@Alle ansehen": {
+    "description": "Button text for viewing all tokens",
+    "type": "text",
+    "placeholders": {}
+  },
   "Reihenfolge auf dem Blatt:": "Reihenfolge auf dem Blatt:",
   "@Reihenfolge auf dem Blatt:": {
     "description": "Row title for NuP order option",
@@ -682,6 +694,18 @@
   "Betrag": "Betrag",
   "@Betrag": {
     "description": "Literally the value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erstellt": "Erstellt",
+  "@Erstellt": {
+    "description": "Label for created date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zuletzt genutzt": "Zuletzt genutzt",
+  "@Zuletzt genutzt": {
+    "description": "Label for last used date",
     "type": "text",
     "placeholders": {}
   },

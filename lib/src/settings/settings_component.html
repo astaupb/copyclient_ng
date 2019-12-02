@@ -130,6 +130,13 @@
         <material-button type="submit" class="btn-primary" (trigger)="onSubmitOptions()"
             @i18n="Button text for changing default options">Joboptionen speichern</material-button>
     </div>
+
+    <div class="mdc-card card-narrow tokens-card">
+        <span class="card-heading" @i18n="Title for token management">Angemeldete Geräte</span>
+        <tokens loadFirst="5" compact></tokens>
+        <material-button class="btn-primary" (trigger)="onOpenTokens()" @i18n="Button text for viewing all tokens">Alle
+            ansehen</material-button>
+    </div>
 </div>
 
 <div *ngIf="notifications.show" class="bottom-notification" [innerHTML]="notifications.text"></div>
