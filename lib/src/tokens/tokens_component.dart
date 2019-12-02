@@ -55,7 +55,9 @@ class TokensComponent extends AuthGuard implements OnInit, OnDestroy {
       print('tokens: $state');
       if (state.isResult) {
         if (loadFirst != null) {
-          tokens = state.value.sublist(0, int.tryParse(loadFirst));
+          int loadCount = int.tryParse(loadFirst);
+          tokens = state.value
+              .sublist(0, (loadCount > state.value.length) ? state.value.length : loadCount);
         } else {
           tokens = state.value;
         }
