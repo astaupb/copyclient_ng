@@ -55,12 +55,14 @@ class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   bool refreshing = false;
 
+  final Router _router;
+
   DashboardComponent(
     AuthProvider authProvider,
-    Router router,
+    this._router,
     UserProvider userProvider,
     JournalProvider journalProvider,
-  ) : super(authProvider, router) {
+  ) : super(authProvider, _router) {
     authBloc = authProvider.authBloc;
     userBloc = userProvider.userBloc;
     journalBloc = journalProvider.journalBloc;
@@ -87,6 +89,10 @@ class DashboardComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onDeactivate(RouterState current, RouterState next) {
     userListener.cancel();
     journalListener.cancel();
+  }
+
+  void onOpenSettings() {
+    _router.navigateByUrl('/settings');
   }
 
   void onRefreshDashboard() {

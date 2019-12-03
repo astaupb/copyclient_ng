@@ -180,6 +180,8 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         if (state.isResult) {
           user = state.value;
           settings = Settings();
+          settings.email = user.email;
+          settings.name = user.name;
           notifications.add((isPasswordChange ? _passwordChangeSuccess : (isEmailChange ? _emailChangeSuccess : _usernameChangeSuccess)));
 
           if (isPasswordChange) {
@@ -212,6 +214,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         isEmailChange = false;
       } else if (isFetchingOptions) {
         if (state.isResult) {
+          user = state.value;
+          settings.email = user.email;
+          settings.name = user.name;
           defaultOptions = state.value.options;
           if (defaultOptions != null) {
             newOptions.a3 = defaultOptions.a3;

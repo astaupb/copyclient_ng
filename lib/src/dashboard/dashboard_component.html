@@ -1,7 +1,12 @@
 <div id="dashboard-container">
 
     <div class="mdc-card card-narrow user-card">
-        <span class="card-heading" @i18n="Title for user segment">Benutzer</span>
+        <span>
+            <span class="card-heading" @i18n="Title for user segment">Benutzer</span>
+            <a id="settings-link" [routerLink]="RoutePaths.settings.toUrl()">
+                <material-icon icon="edit"></material-icon>
+            </a>
+        </span>
         <material-list>
             <material-list-item group class="options-row">
                 <div class="options-key" @i18n="Row title for username">
@@ -9,6 +14,14 @@
                 </div>
                 <div class="options-value">
                     {{ user?.name ?? '' }}
+                </div>
+            </material-list-item>
+            <material-list-item group class="options-row">
+                <div class="options-key">
+                    E-Mail
+                </div>
+                <div class="options-value">
+                    {{ user?.email ?? '' }}
                 </div>
             </material-list-item>
             <div group>
@@ -63,7 +76,8 @@
             </material-list-item>
         </material-list>
         <a [routerLink]="RoutePaths.credit.toUrl()">
-            <material-button id="show-transactions" @i18n="Button text for showing all transactions on account">Alle Transaktionen zeigen</material-button>
+            <material-button id="show-transactions" @i18n="Button text for showing all transactions on account">Alle
+                Transaktionen zeigen</material-button>
         </a>
     </div>
 </div>
