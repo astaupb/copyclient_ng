@@ -63,7 +63,7 @@
   },
   "_usernameTaken": "This username is already taken",
   "@_usernameTaken": {
-    "description": "Notify user that thee entered username is already taken",
+    "description": "Notify user that the entered username is already taken",
     "type": "text",
     "placeholders": {}
   },
@@ -850,6 +850,36 @@
   "Übernehmen": "Apply",
   "@Übernehmen": {
     "description": "Apply button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Emailadresse ändern": "Change email address",
+  "@Emailadresse ändern": {
+    "description": "Title for email changing",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neue Emailadresse": "New email address",
+  "@Neue Emailadresse": {
+    "description": "Label text for new email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailInvalid": "The entered email address is invalid",
+  "@_emailInvalid": {
+    "description": "Notify user that the entered email address is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailChangeSuccess": "Emailadresse erfolgreich geändert",
+  "@_emailChangeSuccess": {
+    "description": "Notify user that email address change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailUnknownError": "Konnte die Emailadresse nicht ändern: Unbekannter Fehler",
+  "@_emailUnknownError": {
+    "description": "Notify user that email address could not be changed due to an unknown error",
     "type": "text",
     "placeholders": {}
   }

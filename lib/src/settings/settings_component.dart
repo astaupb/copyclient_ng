@@ -85,6 +85,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   bool isUsernameChange = false;
   bool isPasswordChange = false;
+  bool isEmailChange = false;
   bool isFetchingOptions = false;
 
   JobOptions defaultOptions;
@@ -107,7 +108,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   String get _passwordChangeSuccess => Intl.message('Passwort erfolgreich geändert',
       name: '_passwordChangeSuccess',
-      desc: 'Notify user that password or user change was a success');
+      desc: 'Notify user that password change was a success');
 
   String get _passwordInvalid => Intl.message('Das Passwort ist ungültig',
       name: '_passwordInvalid', desc: 'Notify user that entered password is invalid');
@@ -124,13 +125,13 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
 
   String get _usernameChangeSuccess => Intl.message('Benutzername erfolgreich geändert',
       name: '_usernameChangeSuccess',
-      desc: 'Notify user that password or user change was a success');
+      desc: 'Notify user that username change was a success');
 
   String get _usernameInvalid => Intl.message('Der Benutzername ist ungültig',
       name: '_usernameInvalid', desc: 'Notify user that the entered username is invalid');
 
   String get _usernameTaken => Intl.message('Der Benutzername ist bereits vergeben',
-      name: '_usernameTaken', desc: 'Notify user that thee entered username is already taken');
+      name: '_usernameTaken', desc: 'Notify user that the entered username is already taken');
 
   String get _usernameTooShort => Intl.message('Der Benutzername ist zu kurz',
       name: '_usernameTooShort', desc: 'Notify user that the entered name is too short');
@@ -139,6 +140,17 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
       Intl.message('Konnte den Benutzernamen nicht ändern: Unbekannter Fehler',
           name: '_usernameUnknownError',
           desc: 'Notify user that username could not be changed due to an unknown error');
+
+  String get _emailInvalid => Intl.message('Die Emailadresse ist ungültig',
+      name: '_emailInvalid', desc: 'Notify user that the entered email address is invalid');
+
+  String get _emailChangeSuccess => Intl.message('Emailadresse erfolgreich geändert',
+      name: '_emailChangeSuccess',
+      desc: 'Notify user that email address change was a success');
+
+  String get _emailUnknownError => Intl.message('Konnte die Emailadresse nicht ändern: Unbekannter Fehler',
+      name: '_emailUnknownError',
+      desc: 'Notify user that email address could not be changed due to an unknown error');
 
   final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
   String duplexSelection = _simplex;
@@ -164,11 +176,11 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   @override
   void onActivate(_, RouterState current) async {
     userListener = userBloc.listen((UserState state) {
-      if (isUsernameChange || isPasswordChange) {
+      if (isUsernameChange || isPasswordChange || isEmailChange) {
         if (state.isResult) {
           user = state.value;
           settings = Settings();
-          notifications.add((isPasswordChange ? _passwordChangeSuccess : _usernameChangeSuccess));
+          notifications.add((isPasswordChange ? _passwordChangeSuccess : (isEmailChange ? _emailChangeSuccess : _usernameChangeSuccess)));
 
           if (isPasswordChange) {
             authBloc.onLogout();
@@ -184,6 +196,8 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
               notifications.add(_passwordInvalid);
             else
               notifications.add(_pwUnknownError);
+          } else if (isEmailChange) {
+            notifications.add(_emailUnknownError);
           } else {
             if (statusCode == 471)
               notifications.add(_usernameInvalid);
@@ -195,6 +209,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
         }
         isPasswordChange = false;
         isUsernameChange = false;
+        isEmailChange = false;
       } else if (isFetchingOptions) {
         if (state.isResult) {
           defaultOptions = state.value.options;
@@ -225,6 +240,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
   void onSubmitName() {
     isPasswordChange = false;
     isUsernameChange = true;
+    isEmailChange = false;
     if (settings.name.length < 2) {
       notifications.add(_usernameTooShort);
     } else {
@@ -232,9 +248,21 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
     }
   }
 
+  void onSubmitEmail() {
+    isPasswordChange = false;
+    isUsernameChange = false;
+    isEmailChange = true;
+    if (! RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(settings.email)) {
+      notifications.add(_emailInvalid);
+    } else {
+      userBloc.onChangeEmail(settings.email);
+    }
+  }
+
   void onSubmitPassword() {
     isPasswordChange = true;
     isUsernameChange = false;
+    isEmailChange = false;
     if (settings.passwordOld.length < 1) {
       notifications.add(_enterCurrentPw);
     } else if (settings.password.length < 7) {
