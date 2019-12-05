@@ -160,6 +160,8 @@ class AppComponent implements OnInit, OnDestroy {
     document.on["logout"].listen((Event event) {
       onLogout();
     });
+
+    document.dispatchEvent(CustomEvent('unsetScanLock'));
   }
 
   void onLogin() {
@@ -255,6 +257,7 @@ class AppComponent implements OnInit, OnDestroy {
       if (uploadListener != null) uploadListener.cancel();
       if (refreshTimer != null) refreshTimer.cancel();
       if (pdfCreationListener != null) pdfCreationListener.cancel();
+      document.dispatchEvent(CustomEvent('unsetScanLock'));
     }
   }
 }

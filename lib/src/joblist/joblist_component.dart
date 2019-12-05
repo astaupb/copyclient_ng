@@ -324,6 +324,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onStartScanning() {
+    document.dispatchEvent(CustomEvent('setScanLock'));
     printQueueListener = printQueueBloc.listen((PrintQueueState state) {
       if (state.isResult) {
         printQueue = state.value.processing;
@@ -363,6 +364,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
   }
 
   void onUnlockPrinter() {
+    document.dispatchEvent(CustomEvent('unsetScanLock'));
     printQueueBloc.onDelete();
     lockUid = null;
     printerLocked = false;
