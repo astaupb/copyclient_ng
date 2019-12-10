@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/tokens.dart';
+import 'package:blocs_copyclient/auth.dart';
+import 'package:blocs_copyclient/user.dart';
 
 import '../auth_guard.dart';
 import '../providers/auth_provider.dart';
+import '../providers/user_provider.dart';
 import '../providers/tokens_provider.dart';
 
 @Component(
@@ -28,6 +32,8 @@ import '../providers/tokens_provider.dart';
 class TokensComponent extends AuthGuard implements OnInit, OnDestroy {
   final Router _router;
   TokensBloc tokensBloc;
+  AuthBloc authBloc;
+  UserBloc userBloc;
 
   List<Token> tokens = [];
 
@@ -39,9 +45,11 @@ class TokensComponent extends AuthGuard implements OnInit, OnDestroy {
   @Input()
   bool compact = false;
 
-  TokensComponent(AuthProvider authProvider, TokensProvider tokensProvider, this._router)
+  TokensComponent(AuthProvider authProvider, TokensProvider tokensProvider, UserProvider userProvider, this._router)
       : super(authProvider, _router) {
     tokensBloc = tokensProvider.tokensBloc;
+    authBloc = authProvider.authBloc;
+    userBloc = userProvider.userBloc;
   }
 
   @override
@@ -70,6 +78,11 @@ class TokensComponent extends AuthGuard implements OnInit, OnDestroy {
 
   void onDeleteToken(int id) {
     tokensBloc.onDeleteToken(id);
+    if (userBloc.user.tokenId == id) {
+      authBloc.onLogout();
+      window.localStorage.remove('token');
+      window.location.reload();
+    }
   }
 
   void onReturn() {
