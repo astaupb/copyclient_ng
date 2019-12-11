@@ -34,46 +34,46 @@
     <div id="card-grid">
         <div class="mdc-card mdc-card--outlined job-card">
             <b class="heading" @i18n="Title for infos about documents">Infos zum Originaldokument:</b><br>
-            <material-list-item class="options-row">
+            <div class="options-row">
                 <div class="options-key" @i18n="Row title for filename">
                     Dateiname:
                 </div>
                 <div class="options-value">
                     {{ job?.jobInfo?.filename }}
                 </div>
-            </material-list-item>
-            <material-list-item class="options-row">
+            </div>
+            <div class="options-row">
                 <div class="options-key" @i18n="Row title for page count">
                     Seitenzahl:
                 </div>
                 <div class="options-value">
                     {{ job?.jobInfo?.pagecount }}
                 </div>
-            </material-list-item>
-            <material-list-item class="options-row">
+            </div>
+            <div class="options-row">
                 <div class="options-key" @i18n="Row title for colour page count">
                     Farbseiten:
                 </div>
                 <div class="options-value">
                     {{ job?.jobInfo?.colored }}
                 </div>
-            </material-list-item>
-            <material-list-item class="options-row">
+            </div>
+            <div class="options-row">
                 <div class="options-key" @i18n="Row title for A3 information">
                     A3:
                 </div>
                 <div class="options-value">
                     {{ (job?.jobInfo?.a3 ?? false) ? yes : no }}
                 </div>
-            </material-list-item>
-            <material-list-item class="options-row">
+            </div>
+            <div class="options-row">
                 <div class="options-key" @i18n="Row title for landscape information">
                     Querformat:
                 </div>
                 <div class="options-value">
                     {{ (job?.jobInfo?.landscape ?? false) ? yes : no }}
                 </div>
-            </material-list-item>
+            </div>
         </div>
 
         <div class="mdc-card mdc-card--outlined estimation-card">
@@ -83,28 +83,27 @@
                 Druck:</span>
             {{ (((user?.credit ?? 0) / 100 - estimatedDouble)  | number:'1.2-2').toString() }} €
         </div>
-
         <div class="mdc-card mdc-card--outlined job-card">
             <b @i18n="Card title for job options">Optionen:</b>
-            <material-list>
+            <div>
                 <div group>
-                    <material-list-item class="options-row">
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for display name">
                             Anzeigename:
                         </div>
                         <div class="options-value">
                             <material-input hint="Anzeigename" [(ngModel)]="displayname" (change)="displaynameChanged()"></material-input>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row">
+                    </div>
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for colour option">
                             Farbe:
                         </div>
                         <div class="options-value">
                             <material-toggle [checked]="color" (checkedChange)="colorChecked()"></material-toggle>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row">
+                    </div>
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for duplex printing option">
                             Duplex:
                         </div>
@@ -113,8 +112,8 @@
                                 [buttonText]="duplexSelection" (selectionChange)="duplexChanged">
                             </material-dropdown-select>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row">
+                    </div>
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for A3 print option">
                             A3:
                         </div>
@@ -122,8 +121,8 @@
                             <material-toggle [checked]="a3" (checkedChange)="a3Checked()">
                             </material-toggle>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row">
+                    </div>
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for bypass mode option">
                             Seiteneinzug (Bypass):
                         </div>
@@ -131,35 +130,35 @@
                             <material-toggle [checked]="bypass" (checkedChange)="bypassChecked()">
                             </material-toggle>
                         </div>
-                    </material-list-item>
+                    </div>
                 </div>
 
                 <div group>
-                    <material-list-item class="options-row">
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for number of copies option">
                             Anzahl Kopien:
                         </div>
                         <div class="options-value">
                             <input type="number" [(ngModel)]="copies" (change)="copiesChanged()" min="1" max="999">
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row">
+                    </div>
+                    <div class="options-row">
                         <div class="options-key" @i18n="Row title for collate option">
                             Kopien zusammenhalten:
                         </div>
                         <div class="options-value">
                             <material-toggle [checked]="collate" (checkedChange)="collateChecked()"></material-toggle>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
+                    </div>
+                    <div class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
                         <div class="options-key" @i18n="Row title of page range option">
                             Seitenbereich:
                         </div>
                         <div class="options-value">
                             <material-input hint="Alle" [(ngModel)]="range" (change)="rangeChanged()"></material-input>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
+                    </div>
+                    <div class="options-row" *ngIf="(job?.jobInfo?.pagecount ?? 1 * copies) > 1">
                         <div class="options-key" @i18n="Row title of NuP option">
                             Seiten pro Blatt:
                         </div>
@@ -168,8 +167,8 @@
                                 [buttonText]="nupSelection" (selectionChange)="nupChanged">
                             </material-dropdown-select>
                         </div>
-                    </material-list-item>
-                    <material-list-item class="options-row" *ngIf="nup > 2 && false">
+                    </div>
+                    <div class="options-row" *ngIf="nup > 2 && false">
                         <div class="options-key" @i18n="Row title for NuP order option">
                             Reihenfolge auf dem Blatt:
                         </div>
@@ -178,9 +177,9 @@
                                 [buttonText]="nupOrderSelection" (selectionChange)="nupOrderChanged">
                             </material-dropdown-select>
                         </div>
-                    </material-list-item>
+                    </div>
                 </div>
-            </material-list>
+            </div>
         </div>
     </div>
 

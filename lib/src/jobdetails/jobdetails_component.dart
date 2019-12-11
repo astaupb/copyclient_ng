@@ -7,8 +7,6 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_components/material_list/material_list.dart';
-import 'package:angular_components/material_list/material_list_item.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -40,8 +38,6 @@ import '../route_paths.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialToggleComponent,
-    MaterialListItemComponent,
-    MaterialListComponent,
     MaterialDropdownSelectComponent,
     MaterialFabComponent,
     MaterialInputComponent,

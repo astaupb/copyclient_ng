@@ -93,3 +93,21 @@
 material-spinner {
     border-color: whitesmoke;
 }
+
+div.options-row {
+    font-size: 15px;
+    padding-left: 24px;
+    padding-right: 24px;
+    vertical-align: center;
+    cursor: pointer;
+}
+
+div.options-row:hover {
+    background-color: #eeeeee;
+}
+
+div.options-row > .options-key, div.options-row > .options-value {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    vertical-align: center;
+}
