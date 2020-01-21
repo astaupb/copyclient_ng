@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Duplex:" : MessageLookupByLibrary.simpleMessage("Duplex:"),
     "Duplex:" : MessageLookupByLibrary.simpleMessage("Duplex:"),
     "E-Mail-Adresse (optional)" : MessageLookupByLibrary.simpleMessage("Email address (optional)"),
+    "E-Mail-Adresse ändern" : MessageLookupByLibrary.simpleMessage("Change email address"),
     "Eingeloggt bleiben" : MessageLookupByLibrary.simpleMessage("Remember me"),
     "Einloggen" : MessageLookupByLibrary.simpleMessage("Login"),
     "Einstellungen" : MessageLookupByLibrary.simpleMessage("Settings"),

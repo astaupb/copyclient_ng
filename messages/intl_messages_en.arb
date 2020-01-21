@@ -853,7 +853,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "E-Mmail-Adresse ändern": "Change email address",
+  "E-Mail-Adresse ändern": "Change email address",
   "@E-Mail-Adresse ändern": {
     "description": "Title for email changing",
     "type": "text",
