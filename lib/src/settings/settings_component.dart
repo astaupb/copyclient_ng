@@ -141,6 +141,10 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
           name: '_usernameUnknownError',
           desc: 'Notify user that username could not be changed due to an unknown error');
 
+  String get _emailUsed =>
+      Intl.message('Diese E-Mail-Adresse ist leider schon vergeben, bitte probiere einen andere.',
+          name: '_emailUsed', desc: 'Notification to be shown if entered email is already used');
+
   String get _emailInvalid => Intl.message('Die E-Mail-Adresse ist ungültig',
       name: '_emailInvalid', desc: 'Notify user that the entered email address is invalid');
 
@@ -199,7 +203,10 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
             else
               notifications.add(_pwUnknownError);
           } else if (isEmailChange) {
-            notifications.add(_emailUnknownError);
+            if (statusCode == 472)
+              notifications.add(_emailUsed);
+            else
+              notifications.add(_emailUnknownError);
           } else {
             if (statusCode == 471)
               notifications.add(_usernameInvalid);
