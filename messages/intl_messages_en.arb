@@ -853,14 +853,14 @@
     "type": "text",
     "placeholders": {}
   },
-  "Emailadresse ändern": "Change email address",
-  "@Emailadresse ändern": {
+  "E-Mmail-Adresse ändern": "Change email address",
+  "@E-Mail-Adresse ändern": {
     "description": "Title for email changing",
     "type": "text",
     "placeholders": {}
   },
-  "Neue Emailadresse": "New email address",
-  "@Neue Emailadresse": {
+  "Neue E-Mail-Adresse": "New email address",
+  "@Neue E-Mail-Adresse": {
     "description": "Label text for new email",
     "type": "text",
     "placeholders": {}
@@ -871,15 +871,33 @@
     "type": "text",
     "placeholders": {}
   },
-  "_emailChangeSuccess": "Emailadresse erfolgreich geändert",
+  "_emailChangeSuccess": "Successfully changed email address",
   "@_emailChangeSuccess": {
     "description": "Notify user that email address change was a success",
     "type": "text",
     "placeholders": {}
   },
-  "_emailUnknownError": "Konnte die Emailadresse nicht ändern: Unbekannter Fehler",
+  "_emailUnknownError": "Could not chage the email address due to an unknown error",
   "@_emailUnknownError": {
     "description": "Notify user that email address could not be changed due to an unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "E-Mail-Adresse (optional)": "Email address (optional)",
+  "@E-Mail-Adresse (optional)": {
+    "description": "Form field label of new email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Passwortwiederherstellung (optional)": "For password recovery (optional)",
+  "@Zur Passwortwiederherstellung (optional)": {
+    "description": "Tooltip text for email restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailUsed": "This email address is already taken, please try another one.",
+  "@_emailUsed": {
+    "description": "Notification to be shown if entered email is already used",
     "type": "text",
     "placeholders": {}
   }

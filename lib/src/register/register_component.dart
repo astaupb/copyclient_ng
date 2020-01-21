@@ -79,6 +79,8 @@ class RegisterComponent implements OnActivate, OnDeactivate {
           notifications.add(_nameUsed);
         } else if (error.statusCode == 471) {
           notifications.add(_forbiddenCharacters);
+        } else if (error.statusCode == 472) {
+          notifications.add(_emailUsed);
         } else if (error.statusCode >= 500) {
           notifications.add(_serverError);
         } else if (error.statusCode == 0) {
@@ -98,7 +100,7 @@ class RegisterComponent implements OnActivate, OnDeactivate {
     else if (creds.password.length < 7)
       notifications.add(_passwordShort);
     else {
-      authBloc.onRegister(creds.name.trim(), creds.password.trim());
+      authBloc.onRegister(creds.name.trim(), creds.password.trim(), creds.email.trim());
       notifications.add(_registrationSubmitted);
     }
   }
@@ -113,6 +115,10 @@ class RegisterComponent implements OnActivate, OnDeactivate {
   String get _nameUsed =>
       Intl.message('Dieser Name ist leider schon vergeben, bitte probiere einen anderen.',
           name: '_nameUsed', desc: 'Notification to be shown if entered name is already used');
+
+  String get _emailUsed =>
+      Intl.message('Diese E-Mail-Adresse ist leider schon vergeben, bitte probiere einen andere.',
+          name: '_emailUsed', desc: 'Notification to be shown if entered email is already used');
 
   String get _forbiddenCharacters => Intl.message(
       'Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben.',
@@ -150,17 +156,20 @@ class RegisterCredentials {
   String name;
   String password;
   String passwordRetype;
+  String email;
 
   RegisterCredentials({
     this.name = '',
     this.password = '',
     this.passwordRetype = '',
+    this.email = '',
   });
 
   Map<String, String> toMap() => {
         'name': name,
         'password': password,
         'password_retype': passwordRetype,
+        'email': email,
       };
 
   @override

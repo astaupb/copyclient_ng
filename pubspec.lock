@@ -90,10 +90,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "616b520d0d6ebcb84b2c70de509fde4f0cfb2eeb"
+      resolved-ref: ef7394bc3c218561b8e3e10db8c8612c8e57dfe3
       url: "https://git.uni-paderborn.de/asta/blocs_copyclient.git"
     source: git
-    version: "1.0.2"
+    version: "1.0.3"
   build:
     dependency: transitive
     description:
@@ -233,7 +233,7 @@ packages:
       name: dart_internal
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.7"
+    version: "0.1.8"
   dart_style:
     dependency: transitive
     description:
@@ -627,4 +627,4 @@ packages:
     source: hosted
     version: "2.2.0"
 sdks:
-  dart: ">=2.6.0 <2.7.0"
+  dart: ">=2.6.0 <2.8.0"

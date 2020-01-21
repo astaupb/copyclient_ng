@@ -34,6 +34,19 @@
         label="Password wiederholen" required floatingLabel
         @i18n:label="Form field label of password confirmation field"></material-input>
 
+    <div>
+        <material-input [(ngModel)]="creds.email" type="text" class="form-control" id="email" label="E-Mail-Adresse (optional)"
+            required floatingLabel @i18n:label="Form field label of new email">
+        </material-input>
+        <material-icon icon="help_outline" tooltipTarget tabIndex="0" keyboardOnlyFocusIndicator size="medium"
+            #ref2="tooltipTarget">
+        </material-icon>
+        <material-tooltip-card [for]="ref2">
+            <header @i18n="Tooltip text for email  restrictions while registration">Zur Passwortwiederherstellung (optional)
+            </header>
+        </material-tooltip-card>
+    </div>
+
     <material-button type="submit" class="btn-primary" (trigger)="onSubmitForm()"
         @i18n="Button text for submit button of registration form">Abschicken</material-button>
 </form>

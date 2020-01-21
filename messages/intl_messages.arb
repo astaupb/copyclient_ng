@@ -1,39 +1,483 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-12-03T14:46:55.584515",
-  "Nutzername/SN": "Nutzername/SN",
-  "@Nutzername/SN": {
-    "description": "Label for username field of login form",
+  "@@last_modified": "2020-01-21T11:51:13.409693",
+  "_simplex": "Simplex",
+  "@_simplex": {
+    "description": "Dropdown menu selection for simplex",
     "type": "text",
     "placeholders": {}
   },
-  "Passwort/PIN": "Passwort/PIN",
-  "@Passwort/PIN": {
-    "description": "Label for password field of login form",
+  "_longBorder": "Lange Kante",
+  "@_longBorder": {
+    "description": "Dropdown menu selection for duplexing at long border",
     "type": "text",
     "placeholders": {}
   },
-  "Eingeloggt bleiben": "Eingeloggt bleiben",
-  "@Eingeloggt bleiben": {
-    "description": "Label for checkbox deciding wether you wanna stay logged in",
+  "_shortBorder": "Kurze Kante",
+  "@_shortBorder": {
+    "description": "Dropdown menu selection for duplexing at short border",
     "type": "text",
     "placeholders": {}
   },
-  "Einloggen": "Einloggen",
-  "@Einloggen": {
-    "description": "Login button text of login form",
+  "_nupOrder1": "Nach Rechts, dann Runter",
+  "@_nupOrder1": {
     "type": "text",
     "placeholders": {}
   },
-  "Login-Formular zurücksetzen": "Login-Formular zurücksetzen",
-  "@Login-Formular zurücksetzen": {
-    "description": "Tooltip text for reset-login-form button",
+  "_nupOrder2": "Nach Unten, dann Rechts",
+  "@_nupOrder2": {
     "type": "text",
     "placeholders": {}
   },
-  "Zur Registrierung": "Zur Registrierung",
-  "@Zur Registrierung": {
-    "description": "Button text for link to account registration",
+  "_nupOrder3": "Nach Links, dann Runter",
+  "@_nupOrder3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nupOrder4": "Nach Unten, dann Links",
+  "@_nupOrder4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "Ja",
+  "@yes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "Nein",
+  "@no": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "_paypalWindowTitle": "PayPal Zahlung für {name}",
+  "@_paypalWindowTitle": {
+    "description": "Title of the newly opened paypal window containing the users name",
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "_userDefinedMessage": "Benutzerdefiniert",
+  "@_userDefinedMessage": {
+    "description": "Shows a value can be user defined as opposed to a predefined value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_registerSucessful": "Registrierung als {name} erfolgreich . Du wirst nun zum Login weitergeleitet.",
+  "@_registerSucessful": {
+    "description": "Message to be shown if registration went well and the ui is returning to login window",
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "_nameUsed": "Dieser Name ist leider schon vergeben, bitte probiere einen anderen.",
+  "@_nameUsed": {
+    "description": "Notification to be shown if entered name is already used",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailUsed": "Diese E-Mail-Adresse ist leider schon vergeben, bitte probiere einen andere.",
+  "@_emailUsed": {
+    "description": "Notification to be shown if entered email is already used",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_forbiddenCharacters": "Nicht erlaubte Zeichen im Nutzernamen oder Passwort",
+  "@_forbiddenCharacters": {
+    "description": "Notify user that the username/password that was entered contains forbidden characters",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_serverError": "Serverfehler - Bitte versuche es in einem Moment noch mal",
+  "@_serverError": {
+    "description": "Notify user about server error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_timeout": "Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.",
+  "@_timeout": {
+    "description": "Notification to  be shown if connection to server takes too long",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordMismatch": "Die neuen Passwörter stimmen nicht überein",
+  "@_passwordMismatch": {
+    "description": "Notify user that the entered password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_nameShort": "Der Name ist zu kurz",
+  "@_nameShort": {
+    "description": "Notification to be shown if the name to be registered is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordShort": "Das Passwort ist zu kurz",
+  "@_passwordShort": {
+    "description": "Notification to be shown if password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_registrationSubmitted": "Registrierung wurde abgeschickt...",
+  "@_registrationSubmitted": {
+    "description": "Notification to be shown if registration is submitted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_errorTimeout": "Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung",
+  "@_errorTimeout": {
+    "description": "Notify user that the connection timed out",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_wrongCredentials": "Username oder Passwort falsch",
+  "@_wrongCredentials": {
+    "description": "Notify user that the entered credentials are wrong",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
+  "@_enterCurrentPw": {
+    "description": "notify user that he/she should enter the current password to confirm its the user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordChangeSuccess": "Passwort erfolgreich geändert",
+  "@_passwordChangeSuccess": {
+    "description": "Notify user that password change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordInvalid": "Das Passwort ist ungültig",
+  "@_passwordInvalid": {
+    "description": "Notify user that entered password is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_passwordTooShort": "Das neue Passwort ist zu kurz",
+  "@_passwordTooShort": {
+    "description": "Notify user that the entered new password is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_pwUnknownError": "Konnte das Passwort nicht ändern: Unbekannter Fehler",
+  "@_pwUnknownError": {
+    "description": "Notify user that password could not be changed due to unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameChangeSuccess": "Benutzername erfolgreich geändert",
+  "@_usernameChangeSuccess": {
+    "description": "Notify user that username change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameInvalid": "Der Benutzername ist ungültig",
+  "@_usernameInvalid": {
+    "description": "Notify user that the entered username is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTaken": "Der Benutzername ist bereits vergeben",
+  "@_usernameTaken": {
+    "description": "Notify user that the entered username is already taken",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameTooShort": "Der Benutzername ist zu kurz",
+  "@_usernameTooShort": {
+    "description": "Notify user that the entered name is too short",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_usernameUnknownError": "Konnte den Benutzernamen nicht ändern: Unbekannter Fehler",
+  "@_usernameUnknownError": {
+    "description": "Notify user that username could not be changed due to an unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailInvalid": "Die E-Mail-Adresse ist ungültig",
+  "@_emailInvalid": {
+    "description": "Notify user that the entered email address is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailChangeSuccess": "E-Mail-Adresse erfolgreich geändert",
+  "@_emailChangeSuccess": {
+    "description": "Notify user that email address change was a success",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_emailUnknownError": "Konnte die E-Mail-Adresse nicht ändern: Unbekannter Fehler",
+  "@_emailUnknownError": {
+    "description": "Notify user that email address could not be changed due to an unknown error",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_fileBroken": "Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.",
+  "@_fileBroken": {
+    "description": "Notify user that the selected file is corrupt or  cant  be read",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_printerLocked": "Der Drucker ist bereits gesperrt!",
+  "@_printerLocked": {
+    "description": "Notify user that the selected printer is locked by another user",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_unknownUploadError": "Unbekannter Fehler beim Hochladen einer Datei",
+  "@_unknownUploadError": {
+    "description": "Notify user that an unknown error occured during upload",
+    "type": "text",
+    "placeholders": {}
+  },
+  "_unsupportedFormat": "{filename} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.",
+  "@_unsupportedFormat": {
+    "description": "Notify user that the provided file is not in one of the supported fiel formats (which is PDF, most images and pure text)",
+    "type": "text",
+    "placeholders": {
+      "filename": {}
+    }
+  },
+  "Zurück": "Zurück",
+  "@Zurück": {
+    "description": "Navigation back button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jobdetails für": "Jobdetails für",
+  "@Jobdetails für": {
+    "description": "Title for job details",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job löschen": "Job löschen",
+  "@Job löschen": {
+    "description": "Tootlip text for delete job button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zugehörige PDF herunterladen": "Zugehörige PDF herunterladen",
+  "@Zugehörige PDF herunterladen": {
+    "description": "Tooltip text for pdf download button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job nach dem Drucken behalten": "Job nach dem Drucken behalten",
+  "@Job nach dem Drucken behalten": {
+    "description": "tooltip text for keep button (keeps job after printing)",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Infos zum Originaldokument:": "Infos zum Originaldokument:",
+  "@Infos zum Originaldokument:": {
+    "description": "Title for infos about documents",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dateiname:": "Dateiname:",
+  "@Dateiname:": {
+    "description": "Row title for filename",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seitenzahl:": "Seitenzahl:",
+  "@Seitenzahl:": {
+    "description": "Row title for page count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Farbseiten:": "Farbseiten:",
+  "@Farbseiten:": {
+    "description": "Row title for colour page count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "A3:": "A3:",
+  "@A3:": {
+    "description": "Row title for A3 print option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Querformat:": "Querformat:",
+  "@Querformat:": {
+    "description": "Row title for landscape information",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erwartete Kosten für das ganze Dokument:": "Erwartete Kosten für das ganze Dokument:",
+  "@Erwartete Kosten für das ganze Dokument:": {
+    "description": "Title of estimated cost for printing the document",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Verbleibendes Guthaben nach Druck:": "Verbleibendes Guthaben nach Druck:",
+  "@Verbleibendes Guthaben nach Druck:": {
+    "description": "Title for remaining credit after printing this document",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Optionen:": "Optionen:",
+  "@Optionen:": {
+    "description": "Card title for job options",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzeigename:": "Anzeigename:",
+  "@Anzeigename:": {
+    "description": "Row title for display name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Farbe:": "Farbe:",
+  "@Farbe:": {
+    "description": "Row title for colour option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Duplex:": "Duplex:",
+  "@Duplex:": {
+    "description": "Row title for duplex printing option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seiteneinzug (Bypass):": "Seiteneinzug (Bypass):",
+  "@Seiteneinzug (Bypass):": {
+    "description": "Row title for bypass mode option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Anzahl Kopien:": "Anzahl Kopien:",
+  "@Anzahl Kopien:": {
+    "description": "Row title for number of copies option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Kopien zusammenhalten:": "Kopien zusammenhalten:",
+  "@Kopien zusammenhalten:": {
+    "description": "Row title for collate option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktualisieren": "Aktualisieren",
+  "@Aktualisieren": {
+    "description": "Button text for refreshing components",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Drucker auswählen": "Drucker auswählen",
+  "@Drucker auswählen": {
+    "description": "Popup title for printer selection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Abbrechen": "Abbrechen",
+  "@Abbrechen": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seitenbereich:": "Seitenbereich:",
+  "@Seitenbereich:": {
+    "description": "Row title of page range option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Seiten pro Blatt:": "Seiten pro Blatt:",
+  "@Seiten pro Blatt:": {
+    "description": "Row title of NuP option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reihenfolge auf dem Blatt:": "Reihenfolge auf dem Blatt:",
+  "@Reihenfolge auf dem Blatt:": {
+    "description": "Row title for NuP order option",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Linker": "Linker",
+  "@Linker": {
+    "description": "Text saying left",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Drucker": "Drucker",
+  "@Drucker": {
+    "description": "Text saying printer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rechter": "Rechter",
+  "@Rechter": {
+    "description": "Text saying right",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.",
+  "@Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": {
+    "description": "Tell the user to log out if he finds this being logged into another user's account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Guthaben:": "Aktuelles Guthaben:",
+  "@Aktuelles Guthaben:": {
+    "description": "Label for current user credit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aufladung": "Aufladung",
+  "@Aufladung": {
+    "description": "Title of the credit buying selection",
+    "type": "text",
+    "placeholders": {}
+  },
+  "PayPal öffnen": "PayPal öffnen",
+  "@PayPal öffnen": {
+    "description": "Button text for opening paypal",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle Transaktionen": "Alle Transaktionen",
+  "@Alle Transaktionen": {
+    "description": "title of the transactions list segment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beschreibung": "Beschreibung",
+  "@Beschreibung": {
+    "description": "column title for descriptions",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zeit": "Zeit",
+  "@Zeit": {
+    "description": "column title for timestamps",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wert": "Wert",
+  "@Wert": {
+    "description": "column title for transaction value",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Transaktionen aktualisieren": "Transaktionen aktualisieren",
+  "@Transaktionen aktualisieren": {
+    "description": "Tooltip text for refresh transactions button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "mit Kartennummer": "mit Kartennummer",
+  "@mit Kartennummer": {
+    "description": "imitation of a sentence with [username] [this text] [card number]",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Betrag": "Betrag",
+  "@Betrag": {
+    "description": "Literally the value",
     "type": "text",
     "placeholders": {}
   },
@@ -73,9 +517,177 @@
     "type": "text",
     "placeholders": {}
   },
-  "Aktualisieren": "Aktualisieren",
-  "@Aktualisieren": {
-    "description": "Refresh button tooltip",
+  "AStA Copyservice Account Registrieren": "AStA Copyservice Account Registrieren",
+  "@AStA Copyservice Account Registrieren": {
+    "description": "Title of account registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9",
+  "@Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": {
+    "description": "Info text about name restrictions: at least 2 alphabetical characters or numbers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort": "Passwort",
+  "@Passwort": {
+    "description": "Form field label of new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.",
+  "@Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": {
+    "description": "Info text saying password consist of at least 5 letters and can include special characters",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password wiederholen": "Password wiederholen",
+  "@Password wiederholen": {
+    "description": "Label text for password confirmation field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "E-Mail-Adresse (optional)": "E-Mail-Adresse (optional)",
+  "@E-Mail-Adresse (optional)": {
+    "description": "Form field label of new email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Passwortwiederherstellung (optional)": "Zur Passwortwiederherstellung (optional)",
+  "@Zur Passwortwiederherstellung (optional)": {
+    "description": "Tooltip text for email restrictions while registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Abschicken": "Abschicken",
+  "@Abschicken": {
+    "description": "Button text for submit button of registration form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Nutzername/SN": "Nutzername/SN",
+  "@Nutzername/SN": {
+    "description": "Label for username field of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort/PIN": "Passwort/PIN",
+  "@Passwort/PIN": {
+    "description": "Label for password field of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Eingeloggt bleiben": "Eingeloggt bleiben",
+  "@Eingeloggt bleiben": {
+    "description": "Label for checkbox deciding wether you wanna stay logged in",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einloggen": "Einloggen",
+  "@Einloggen": {
+    "description": "Login button text of login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Login-Formular zurücksetzen": "Login-Formular zurücksetzen",
+  "@Login-Formular zurücksetzen": {
+    "description": "Tooltip text for reset-login-form button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zur Registrierung": "Zur Registrierung",
+  "@Zur Registrierung": {
+    "description": "Button text for link to account registration",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Einstellungen": "Einstellungen",
+  "@Einstellungen": {
+    "description": "Navigation link text for settings",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Benutzername ändern": "Benutzername ändern",
+  "@Benutzername ändern": {
+    "description": "Title for name changing",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neuer Benutzername": "Neuer Benutzername",
+  "@Neuer Benutzername": {
+    "description": "Label text for new username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Speichern": "Speichern",
+  "@Speichern": {
+    "description": "button text for saving",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Passwort ändern": "Passwort ändern",
+  "@Passwort ändern": {
+    "description": "Title for password change",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Aktuelles Password": "Aktuelles Password",
+  "@Aktuelles Password": {
+    "description": "Label text for current password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neues Passwort": "Neues Passwort",
+  "@Neues Passwort": {
+    "description": "Label text for new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "E-Mail-Adresse ändern": "E-Mail-Adresse ändern",
+  "@E-Mail-Adresse ändern": {
+    "description": "Title for email changing",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Neue E-Mail-Adresse": "Neue E-Mail-Adresse",
+  "@Neue E-Mail-Adresse": {
+    "description": "Label text for new email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Standard-Joboptionen": "Standard-Joboptionen",
+  "@Standard-Joboptionen": {
+    "description": "Title for default settings",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Joboptionen speichern": "Joboptionen speichern",
+  "@Joboptionen speichern": {
+    "description": "Button text for changing default options",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Angemeldete Geräte": "Angemeldete Geräte",
+  "@Angemeldete Geräte": {
+    "description": "Title for token management",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Alle ansehen": "Alle ansehen",
+  "@Alle ansehen": {
+    "description": "Button text for viewing all tokens",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Erstellt": "Erstellt",
+  "@Erstellt": {
+    "description": "Label for created date",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Zuletzt genutzt": "Zuletzt genutzt",
+  "@Zuletzt genutzt": {
+    "description": "Label for last used date",
     "type": "text",
     "placeholders": {}
   },
@@ -121,18 +733,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Drucker auswählen": "Drucker auswählen",
-  "@Drucker auswählen": {
-    "description": "Select printer title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Abbrechen": "Abbrechen",
-  "@Abbrechen": {
-    "description": "Cancel button text",
-    "type": "text",
-    "placeholders": {}
-  },
   "Wirklich alle Jobs drucken?": "Wirklich alle Jobs drucken?",
   "@Wirklich alle Jobs drucken?": {
     "description": "Dialog header asking if user really wants to print all jobs",
@@ -163,45 +763,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "Farbe:": "Farbe:",
-  "@Farbe:": {
-    "description": "Row title for colour option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Duplex:": "Duplex:",
-  "@Duplex:": {
-    "description": "Row title for duplex printing option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "A3:": "A3:",
-  "@A3:": {
-    "description": "Row title for A3 information",
-    "type": "text",
-    "placeholders": {}
-  },
   "Seitlicher Papiereinzug:": "Seitlicher Papiereinzug:",
   "@Seitlicher Papiereinzug:": {
     "description": "Row title for bypass print option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzahl Kopien:": "Anzahl Kopien:",
-  "@Anzahl Kopien:": {
-    "description": "Row title for number of copies option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Kopien zusammenhalten:": "Kopien zusammenhalten:",
-  "@Kopien zusammenhalten:": {
-    "description": "Row title for collate option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Seiten pro Blatt:": "Seiten pro Blatt:",
-  "@Seiten pro Blatt:": {
-    "description": "Row title of NuP option",
     "type": "text",
     "placeholders": {}
   },
@@ -283,18 +847,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Job nach dem Drucken behalten": "Job nach dem Drucken behalten",
-  "@Job nach dem Drucken behalten": {
-    "description": "Tooltip text for keep button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Job löschen": "Job löschen",
-  "@Job löschen": {
-    "description": "Tooltip text for delete job button",
-    "type": "text",
-    "placeholders": {}
-  },
   "Job als PDF speichern": "Job als PDF speichern",
   "@Job als PDF speichern": {
     "description": "tooltip text for save single job as pdf button",
@@ -310,306 +862,6 @@
   "Job rechts drucken": "Job rechts drucken",
   "@Job rechts drucken": {
     "description": "Print button tooltip text when printing to right printer",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Linker": "Linker",
-  "@Linker": {
-    "description": "Text saying left",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Drucker": "Drucker",
-  "@Drucker": {
-    "description": "Text saying printer",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Rechter": "Rechter",
-  "@Rechter": {
-    "description": "Text saying right",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Reihenfolge auf dem Blatt:": "Reihenfolge auf dem Blatt:",
-  "@Reihenfolge auf dem Blatt:": {
-    "description": "Row title for NuP order option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Einstellungen": "Einstellungen",
-  "@Einstellungen": {
-    "description": "Navigation link text for settings",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Benutzername ändern": "Benutzername ändern",
-  "@Benutzername ändern": {
-    "description": "Title for name changing",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neuer Benutzername": "Neuer Benutzername",
-  "@Neuer Benutzername": {
-    "description": "Label text for new username",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": "Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9",
-  "@Der Name muss aus mindestens 2 Zeichen bestehen. Es dürfen folgende Zeichen in Kombination benutzt werden: A bis Z, a bis z, 0 bis 9": {
-    "description": "Tootip text for username restrictions while registration",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Speichern": "Speichern",
-  "@Speichern": {
-    "description": "button text for saving",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Passwort ändern": "Passwort ändern",
-  "@Passwort ändern": {
-    "description": "Title for password change",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Aktuelles Password": "Aktuelles Password",
-  "@Aktuelles Password": {
-    "description": "Label text for current password",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neues Passwort": "Neues Passwort",
-  "@Neues Passwort": {
-    "description": "Label text for new password",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": "Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.",
-  "@Das Passwort muss aus mindestens 5 Zeichen bestehen. Sonderzeichen sind erlaubt.": {
-    "description": "Tooltip text for password restrictions while registration",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Password wiederholen": "Password wiederholen",
-  "@Password wiederholen": {
-    "description": "Form field label of password confirmation field",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Emailadresse ändern": "Emailadresse ändern",
-  "@Emailadresse ändern": {
-    "description": "Title for email changing",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Neue Emailadresse": "Neue Emailadresse",
-  "@Neue Emailadresse": {
-    "description": "Label text for new email",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Standard-Joboptionen": "Standard-Joboptionen",
-  "@Standard-Joboptionen": {
-    "description": "Title for default settings",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Joboptionen speichern": "Joboptionen speichern",
-  "@Joboptionen speichern": {
-    "description": "Button text for changing default options",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Angemeldete Geräte": "Angemeldete Geräte",
-  "@Angemeldete Geräte": {
-    "description": "Title for token management",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Alle ansehen": "Alle ansehen",
-  "@Alle ansehen": {
-    "description": "Button text for viewing all tokens",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zurück": "Zurück",
-  "@Zurück": {
-    "description": "Button text for navigating back a page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Erstellt": "Erstellt",
-  "@Erstellt": {
-    "description": "Label for created date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zuletzt genutzt": "Zuletzt genutzt",
-  "@Zuletzt genutzt": {
-    "description": "Label for last used date",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Jobdetails für": "Jobdetails für",
-  "@Jobdetails für": {
-    "description": "Title for job details",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zugehörige PDF herunterladen": "Zugehörige PDF herunterladen",
-  "@Zugehörige PDF herunterladen": {
-    "description": "Tooltip text for pdf download button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Infos zum Originaldokument:": "Infos zum Originaldokument:",
-  "@Infos zum Originaldokument:": {
-    "description": "Title for infos about documents",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Dateiname:": "Dateiname:",
-  "@Dateiname:": {
-    "description": "Row title for filename",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Seitenzahl:": "Seitenzahl:",
-  "@Seitenzahl:": {
-    "description": "Row title for page count",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Farbseiten:": "Farbseiten:",
-  "@Farbseiten:": {
-    "description": "Row title for colour page count",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Querformat:": "Querformat:",
-  "@Querformat:": {
-    "description": "Row title for landscape information",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Erwartete Kosten für das ganze Dokument:": "Erwartete Kosten für das ganze Dokument:",
-  "@Erwartete Kosten für das ganze Dokument:": {
-    "description": "Title of estimated cost for printing the document",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Verbleibendes Guthaben nach Druck:": "Verbleibendes Guthaben nach Druck:",
-  "@Verbleibendes Guthaben nach Druck:": {
-    "description": "Title for remaining credit after printing this document",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Optionen:": "Optionen:",
-  "@Optionen:": {
-    "description": "Card title for job options",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Anzeigename:": "Anzeigename:",
-  "@Anzeigename:": {
-    "description": "Row title for display name",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Seiteneinzug (Bypass):": "Seiteneinzug (Bypass):",
-  "@Seiteneinzug (Bypass):": {
-    "description": "Row title for bypass mode option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Seitenbereich:": "Seitenbereich:",
-  "@Seitenbereich:": {
-    "description": "Row title of page range option",
-    "type": "text",
-    "placeholders": {}
-  },
-  "AStA Copyservice Account Registrieren": "AStA Copyservice Account Registrieren",
-  "@AStA Copyservice Account Registrieren": {
-    "description": "Title of account registration",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Passwort": "Passwort",
-  "@Passwort": {
-    "description": "Form field label of new password",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Abschicken": "Abschicken",
-  "@Abschicken": {
-    "description": "Button text for submit button of registration form",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": "Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.",
-  "@Das ist nicht dein Benutzer? Dann logge dich bitte links beim letzten Punkt aus.": {
-    "description": "Tell the user to log out if he finds this being logged into another user's account",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Aktuelles Guthaben:": "Aktuelles Guthaben:",
-  "@Aktuelles Guthaben:": {
-    "description": "Label for current user credit",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Aufladung": "Aufladung",
-  "@Aufladung": {
-    "description": "Title of the credit buying selection",
-    "type": "text",
-    "placeholders": {}
-  },
-  "PayPal öffnen": "PayPal öffnen",
-  "@PayPal öffnen": {
-    "description": "Button text for opening paypal",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Alle Transaktionen": "Alle Transaktionen",
-  "@Alle Transaktionen": {
-    "description": "title of the transactions list segment",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beschreibung": "Beschreibung",
-  "@Beschreibung": {
-    "description": "column title for descriptions",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Zeit": "Zeit",
-  "@Zeit": {
-    "description": "column title for timestamps",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Wert": "Wert",
-  "@Wert": {
-    "description": "column title for transaction value",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Transaktionen aktualisieren": "Transaktionen aktualisieren",
-  "@Transaktionen aktualisieren": {
-    "description": "Tooltip text for refresh transactions button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "mit Kartennummer": "mit Kartennummer",
-  "@mit Kartennummer": {
-    "description": "imitation of a sentence with [username] [this text] [card number]",
-    "type": "text",
-    "placeholders": {}
-  },
-  "Betrag": "Betrag",
-  "@Betrag": {
-    "description": "Literally the value",
     "type": "text",
     "placeholders": {}
   },
@@ -634,240 +886,6 @@
   "Logout": "Logout",
   "@Logout": {
     "description": "Logout button text",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_errorTimeout": "Zeitüberschreitung beim Login - Bitte überprüfe deine Internetverbindung",
-  "@_errorTimeout": {
-    "description": "Notify user that the connection timed out",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_forbiddenCharacters": "Unerlaubte Zeichen im Namen/Passwort oder nicht übereinstimmende Passwörter. Bitte überprüfe deine Eingaben.",
-  "@_forbiddenCharacters": {
-    "description": "Notification to be shown if username contains forbidden characters",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_serverError": "Serverfehler - Bitte probiere es in einem Moment erneut.",
-  "@_serverError": {
-    "description": "Notification to be shown if app receives a server error (500)",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_wrongCredentials": "Username oder Passwort falsch",
-  "@_wrongCredentials": {
-    "description": "Notify user that the entered credentials are wrong",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_fileBroken": "Die hochgeladene Datei ist fehlerhaft oder kann nicht gelesen werden. Bitte überprüfe dein Dokument.",
-  "@_fileBroken": {
-    "description": "Notify user that the selected file is corrupt or  cant  be read",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_printerLocked": "Der Drucker ist bereits gesperrt!",
-  "@_printerLocked": {
-    "description": "Notify user that the selected printer is locked by another user",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_unknownUploadError": "Unbekannter Fehler beim Hochladen einer Datei",
-  "@_unknownUploadError": {
-    "description": "Notify user that an unknown error occured during upload",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_simplex": "Simplex",
-  "@_simplex": {
-    "description": "Dropdown menu selection for simplex",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_longBorder": "Lange Kante",
-  "@_longBorder": {
-    "description": "Dropdown menu selection for duplexing at long border",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_shortBorder": "Kurze Kante",
-  "@_shortBorder": {
-    "description": "Dropdown menu selection for duplexing at short border",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_nupOrder1": "Nach Rechts, dann Runter",
-  "@_nupOrder1": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_nupOrder2": "Nach Unten, dann Rechts",
-  "@_nupOrder2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_nupOrder3": "Nach Links, dann Runter",
-  "@_nupOrder3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_nupOrder4": "Nach Unten, dann Links",
-  "@_nupOrder4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_unsupportedFormat": "{filename} hat ein nicht unterstütztes Format. Bitte versuche es mit gültigen PDFs, Bildern oder reinem Text.",
-  "@_unsupportedFormat": {
-    "description": "Notify user that the provided file is not in one of the supported fiel formats (which is PDF, most images and pure text)",
-    "type": "text",
-    "placeholders": {
-      "filename": {}
-    }
-  },
-  "_enterCurrentPw": "Bitte geben Sie Ihr aktuelles Passwort oder Ihre PIN ein",
-  "@_enterCurrentPw": {
-    "description": "notify user that he/she should enter the current password to confirm its the user",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordChangeSuccess": "Passwort erfolgreich geändert",
-  "@_passwordChangeSuccess": {
-    "description": "Notify user that password change was a success",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordInvalid": "Das Passwort ist ungültig",
-  "@_passwordInvalid": {
-    "description": "Notify user that entered password is invalid",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordMismatch": "Die angegebenen Passwörter stimmen nicht überein",
-  "@_passwordMismatch": {
-    "description": "Notification to be shown if the password confirmation on register page fails",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordTooShort": "Das neue Passwort ist zu kurz",
-  "@_passwordTooShort": {
-    "description": "Notify user that the entered new password is too short",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_pwUnknownError": "Konnte das Passwort nicht ändern: Unbekannter Fehler",
-  "@_pwUnknownError": {
-    "description": "Notify user that password could not be changed due to unknown error",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_usernameChangeSuccess": "Benutzername erfolgreich geändert",
-  "@_usernameChangeSuccess": {
-    "description": "Notify user that username change was a success",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_usernameInvalid": "Der Benutzername ist ungültig",
-  "@_usernameInvalid": {
-    "description": "Notify user that the entered username is invalid",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_usernameTaken": "Der Benutzername ist bereits vergeben",
-  "@_usernameTaken": {
-    "description": "Notify user that the entered username is already taken",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_usernameTooShort": "Der Benutzername ist zu kurz",
-  "@_usernameTooShort": {
-    "description": "Notify user that the entered name is too short",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_usernameUnknownError": "Konnte den Benutzernamen nicht ändern: Unbekannter Fehler",
-  "@_usernameUnknownError": {
-    "description": "Notify user that username could not be changed due to an unknown error",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_emailInvalid": "Die Emailadresse ist ungültig",
-  "@_emailInvalid": {
-    "description": "Notify user that the entered email address is invalid",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_emailChangeSuccess": "Successfully changed email address",
-  "@_emailChangeSuccess": {
-    "description": "Notify user that email address change was a success",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_emailUnknownError": "Could not change the email address due to an unknown error",
-  "@_emailUnknownError": {
-    "description": "Notify user that email address could not be changed due to an unknown error",
-    "type": "text",
-    "placeholders": {}
-  },
-  "yes": "Ja",
-  "@yes": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "no": "Nein",
-  "@no": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "_registerSucessful": "Registrierung als {name} erfolgreich . Du wirst nun zum Login weitergeleitet.",
-  "@_registerSucessful": {
-    "description": "Message to be shown if registration went well and the ui is returning to login window",
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "_nameUsed": "Dieser Name ist leider schon vergeben, bitte probiere einen anderen.",
-  "@_nameUsed": {
-    "description": "Notification to be shown if entered name is already used",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_timeout": "Zeitüberschreitung der Verbindung - Bitte prüfe deine Internetverbindung.",
-  "@_timeout": {
-    "description": "Notification to  be shown if connection to server takes too long",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_nameShort": "Der Name ist zu kurz",
-  "@_nameShort": {
-    "description": "Notification to be shown if the name to be registered is too short",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_passwordShort": "Das Passwort ist zu kurz",
-  "@_passwordShort": {
-    "description": "Notification to be shown if password is too short",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_registrationSubmitted": "Registrierung wurde abgeschickt...",
-  "@_registrationSubmitted": {
-    "description": "Notification to be shown if registration is submitted",
-    "type": "text",
-    "placeholders": {}
-  },
-  "_paypalWindowTitle": "PayPal Zahlung für {name}",
-  "@_paypalWindowTitle": {
-    "description": "Title of the newly opened paypal window containing the users name",
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "_userDefinedMessage": "Benutzerdefiniert",
-  "@_userDefinedMessage": {
-    "description": "Shows a value can be user defined as opposed to a predefined value",
     "type": "text",
     "placeholders": {}
   }

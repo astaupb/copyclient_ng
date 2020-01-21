@@ -141,14 +141,14 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
           name: '_usernameUnknownError',
           desc: 'Notify user that username could not be changed due to an unknown error');
 
-  String get _emailInvalid => Intl.message('Die Emailadresse ist ungültig',
+  String get _emailInvalid => Intl.message('Die E-Mail-Adresse ist ungültig',
       name: '_emailInvalid', desc: 'Notify user that the entered email address is invalid');
 
-  String get _emailChangeSuccess => Intl.message('Emailadresse erfolgreich geändert',
+  String get _emailChangeSuccess => Intl.message('E-Mail-Adresse erfolgreich geändert',
       name: '_emailChangeSuccess',
       desc: 'Notify user that email address change was a success');
 
-  String get _emailUnknownError => Intl.message('Konnte die Emailadresse nicht ändern: Unbekannter Fehler',
+  String get _emailUnknownError => Intl.message('Konnte die E-Mail-Adresse nicht ändern: Unbekannter Fehler',
       name: '_emailUnknownError',
       desc: 'Notify user that email address could not be changed due to an unknown error');
 

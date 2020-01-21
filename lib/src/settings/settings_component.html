@@ -56,11 +56,11 @@
         </form>
 
         <form class="mdc-card card-narrow settings-card">
-            <span class="card-heading" @i18n="Title for email changing">Emailadresse ändern</span>
-        
+            <span class="card-heading" @i18n="Title for email changing">E-Mail-Adresse ändern</span>
+
             <div>
                 <material-input [(ngModel)]="settings.email" type="text" class="form-control" id="email"
-                    label="Neue Emailadresse" required floatingLabel @i18n:label="Label text for new email">
+                    label="Neue E-Mail-Adresse" required floatingLabel @i18n:label="Label text for new email">
                 </material-input>
             </div>
             <material-button type="submit" class="btn-primary" (trigger)="onSubmitEmail()" @i18n="button text for saving">
