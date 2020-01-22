@@ -20,6 +20,18 @@
             <header @i18n="Tooltip text for pdf download button">Zugehörige PDF herunterladen</header>
         </material-tooltip-text>
     </material-button>
+    <material-button tooltipTarget #refCopy="tooltipTarget" raised (trigger)="copyJob(false)">
+        <material-icon icon="file_copy"></material-icon>
+        <material-tooltip-text [for]="refCopy">
+            <header @i18n="Tooltip text for copy job button">Job duplizieren</header>
+        </material-tooltip-text>
+    </material-button>
+    <material-button tooltipTarget #refCopyAsImage="tooltipTarget" raised (trigger)="copyJob(true)">
+        <material-icon icon="photo_library"></material-icon>
+        <material-tooltip-text [for]="refCopyAsImage">
+            <header @i18n="Tooltip text for copy job as image button">Job als Bild duplizieren</header>
+        </material-tooltip-text>
+    </material-button>
     <material-button id="keep-button" raised tooltipTarget #refKeep="tooltipTarget" (trigger)="onKeepJob(job?.id)">
         <material-icon [icon]="(job?.jobOptions?.keep ?? false) ? 'favorite' : 'favorite_outline'">
         </material-icon>

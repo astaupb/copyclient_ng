@@ -14,6 +14,7 @@ import 'package:angular_router/angular_router.dart';
 import 'package:blocs_copyclient/joblist.dart';
 import 'package:blocs_copyclient/pdf_download.dart';
 import 'package:blocs_copyclient/src/models/job.dart';
+import 'package:blocs_copyclient/upload.dart';
 import 'package:blocs_copyclient/user.dart';
 import 'package:copyclient_ng/src/providers/user_provider.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,7 @@ import '../preview_grid/preview_grid_component.dart';
 import '../providers/auth_provider.dart';
 import '../providers/joblist_provider.dart';
 import '../providers/pdf_provider.dart';
+import '../providers/uploads_provider.dart';
 import '../route_paths.dart';
 
 @Component(
@@ -64,10 +66,12 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
   final JoblistProvider joblistProvider;
   final PdfProvider pdfProvider;
   final UserProvider userProvider;
+  final UploadsProvider uploadProvider;
 
   JoblistBloc joblistBloc;
   UserBloc userBloc;
   PdfBloc pdfBloc;
+  UploadBloc uploadBloc;
   Job job;
 
   StreamSubscription jobListener;
@@ -132,10 +136,12 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
     this.joblistProvider,
     this.userProvider,
     this.pdfProvider,
+    this.uploadProvider,
   ) : super(authProvider, _router) {
     joblistBloc = joblistProvider.joblistBloc;
     pdfBloc = pdfProvider.pdfBloc;
     userBloc = userProvider.userBloc;
+    uploadBloc = uploadProvider.uploadBloc;
   }
 
   void a3Checked() {
@@ -353,5 +359,13 @@ class JobDetailsComponent extends AuthGuard implements OnActivate, OnDeactivate 
       default:
         return 0;
     }
+  }
+
+  void copyJob(bool image) async {
+    joblistBloc.onCopyById(job.id, image);
+    await Future<void>.delayed(const Duration(seconds: 1));
+    uploadBloc.onRefresh();
+    joblistBloc.onRefresh();
+    goBack();
   }
 }

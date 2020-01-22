@@ -900,5 +900,17 @@
     "description": "Notification to be shown if entered email is already used",
     "type": "text",
     "placeholders": {}
+  },
+  "Job duplizieren": "Duplicate job",
+  "@Job duplizieren": {
+    "description": "Tooltip text for copy job button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "Job als Bild duplizieren": "Duplicate job as image",
+  "@Job als Bild duplizieren": {
+    "description": "Tooltip text for copy job as image button",
+    "type": "text",
+    "placeholders": {}
   }
 }
