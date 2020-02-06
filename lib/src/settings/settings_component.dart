@@ -107,8 +107,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
       desc: 'notify user that he/she should enter the current password to confirm its the user');
 
   String get _passwordChangeSuccess => Intl.message('Passwort erfolgreich geändert',
-      name: '_passwordChangeSuccess',
-      desc: 'Notify user that password change was a success');
+      name: '_passwordChangeSuccess', desc: 'Notify user that password change was a success');
 
   String get _passwordInvalid => Intl.message('Das Passwort ist ungültig',
       name: '_passwordInvalid', desc: 'Notify user that entered password is invalid');
@@ -124,8 +123,7 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
       desc: 'Notify user that password could not be changed due to unknown error');
 
   String get _usernameChangeSuccess => Intl.message('Benutzername erfolgreich geändert',
-      name: '_usernameChangeSuccess',
-      desc: 'Notify user that username change was a success');
+      name: '_usernameChangeSuccess', desc: 'Notify user that username change was a success');
 
   String get _usernameInvalid => Intl.message('Der Benutzername ist ungültig',
       name: '_usernameInvalid', desc: 'Notify user that the entered username is invalid');
@@ -149,12 +147,12 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
       name: '_emailInvalid', desc: 'Notify user that the entered email address is invalid');
 
   String get _emailChangeSuccess => Intl.message('E-Mail-Adresse erfolgreich geändert',
-      name: '_emailChangeSuccess',
-      desc: 'Notify user that email address change was a success');
+      name: '_emailChangeSuccess', desc: 'Notify user that email address change was a success');
 
-  String get _emailUnknownError => Intl.message('Konnte die E-Mail-Adresse nicht ändern: Unbekannter Fehler',
-      name: '_emailUnknownError',
-      desc: 'Notify user that email address could not be changed due to an unknown error');
+  String get _emailUnknownError =>
+      Intl.message('Konnte die E-Mail-Adresse nicht ändern: Unbekannter Fehler',
+          name: '_emailUnknownError',
+          desc: 'Notify user that email address could not be changed due to an unknown error');
 
   final List<String> duplexOptions = [_simplex, _longBorder, _shortBorder];
   String duplexSelection = _simplex;
@@ -186,7 +184,9 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
           settings = Settings();
           settings.email = user.email;
           settings.name = user.name;
-          notifications.add((isPasswordChange ? _passwordChangeSuccess : (isEmailChange ? _emailChangeSuccess : _usernameChangeSuccess)));
+          notifications.add((isPasswordChange
+              ? _passwordChangeSuccess
+              : (isEmailChange ? _emailChangeSuccess : _usernameChangeSuccess)));
 
           if (isPasswordChange) {
             authBloc.onLogout();
@@ -264,7 +264,8 @@ class SettingsComponent extends AuthGuard implements OnActivate, OnDeactivate {
     isPasswordChange = false;
     isUsernameChange = false;
     isEmailChange = true;
-    if (! RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(settings.email)) {
+    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(settings.email)) {
       notifications.add(_emailInvalid);
     } else {
       userBloc.onChangeEmail(settings.email);

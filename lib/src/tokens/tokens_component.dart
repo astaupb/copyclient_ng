@@ -45,8 +45,12 @@ class TokensComponent extends AuthGuard implements OnInit, OnDestroy {
   @Input()
   bool compact = false;
 
-  TokensComponent(AuthProvider authProvider, TokensProvider tokensProvider, UserProvider userProvider, this._router)
-      : super(authProvider, _router) {
+  TokensComponent(
+    AuthProvider authProvider,
+    TokensProvider tokensProvider,
+    UserProvider userProvider,
+    this._router,
+  ) : super(authProvider, _router) {
     tokensBloc = tokensProvider.tokensBloc;
     authBloc = authProvider.authBloc;
     userBloc = userProvider.userBloc;
