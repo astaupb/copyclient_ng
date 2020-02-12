@@ -38,6 +38,7 @@ class Credentials {
   styleUrls: [
     'login_component.css',
     'package:angular_components/css/mdc_web/card/mdc-card.scss.css',
+    'package:copyclient_ng/styles/bottom_notification.scss.css',
   ],
   templateUrl: 'login_component.html',
   directives: [
