@@ -11,7 +11,7 @@ class Settings {
     this.password = '',
     this.passwordRetype = '',
     this.passwordOld = '',
-    this.email = ''
+    this.email = '',
   });
 
   Map<String, String> toMap() => {
