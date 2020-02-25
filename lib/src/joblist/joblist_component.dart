@@ -360,7 +360,7 @@ class JobListComponent extends AuthGuard implements OnActivate, OnDeactivate {
       }
     });
 
-    printQueueBloc.setDeviceId(int.tryParse(selectedPrinter));
+    printQueueBloc.onSetDeviceId(int.tryParse(selectedPrinter));
   }
 
   void onUnlockPrinter() {
