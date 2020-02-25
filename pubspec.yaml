@@ -1,6 +1,6 @@
 name: copyclient_ng
 description: AStA Copyclient Web App using AngularDart
-version: 0.3.10
+version: 0.3.11
 homepage: https://asta.upb.de/
 author: Leon Tappe <ltappe@asta.upb.de>
 
@@ -13,8 +13,8 @@ dependencies:
   angular_forms: ^2.1.2
   blocs_copyclient:
     version: ^1.1.0
-    #git: https://git.uni-paderborn.de/asta/blocs_copyclient.git
-    path: ../blocs_copyclient/
+    git: https://git.uni-paderborn.de/asta/blocs_copyclient.git
+    #path: ../blocs_copyclient/
   logging: 0.11.3+2
   angular_router: ^2.0.0-alpha+21
   mime: ^0.9.6+3
