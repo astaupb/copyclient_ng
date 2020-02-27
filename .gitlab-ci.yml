@@ -36,7 +36,7 @@ deploy:
     - web
   script:
     - apt update
-    - apt install -y build-essential
+    - apt install -y make
     - mv $MAKEMK make.mk
     - mkdir -p $HOME/.ssh && mv $RSA $HOME/.ssh/id_rsa
     - make deploy

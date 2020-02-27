@@ -8,7 +8,7 @@ format:
 build:
 	pub get && webdev build
 
-deploy: build
+deploy:
 	tar czf copyclient.tar.gz build
 	scp copyclient.tar.gz ${REMOTE_USER}@${REMOTE_HOST}:/srv/www/
 	rm copyclient.tar.gz
