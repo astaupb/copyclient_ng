@@ -36,5 +36,5 @@ deploy:
     - web
   script:
     - ls build
-    - mv MAKEMK make.mk
+    - echo $MAKEMK > make.mk
     - cat make.mk
