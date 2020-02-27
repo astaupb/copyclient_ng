@@ -38,5 +38,5 @@ deploy:
     - apt update
     - apt install -y make ssh
     - mv $MAKEMK make.mk
-    - mkdir -p $HOME/.ssh && mv $RSA $HOME/.ssh/id_rsa
+    - mkdir -p $HOME/.ssh && mv $RSA $HOME/.ssh/id_rsa && mv $KNOWN_HOSTS $HOME/.ssh/known_hosts
     - make deploy
