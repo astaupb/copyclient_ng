@@ -35,6 +35,6 @@ deploy:
     - schedules
     - web
   script:
-    - apt install -y make
+    - apt install -y build-essential
     - mv $MAKEMK make.mk
     - make deploy
