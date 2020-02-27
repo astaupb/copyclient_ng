@@ -35,6 +35,6 @@ deploy:
     - schedules
     - web
   script:
-    - mv MAKEMK make.mk
     - ls build
+    - mv MAKEMK make.mk
     - cat make.mk
