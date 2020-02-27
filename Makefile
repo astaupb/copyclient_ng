@@ -1,3 +1,5 @@
+include make.mk
+
 .PHONY: format build deploy clean
 
 format:
@@ -8,9 +10,9 @@ build:
 
 deploy: build
 	tar czf copyclient.tar.gz build
-	scp copyclient.tar.gz root@shiva:/srv/www/
+	scp copyclient.tar.gz ${REMOTE_USER}@${REMOTE_HOST}:/srv/www/
 	rm copyclient.tar.gz
-	ssh root@shiva "cd /srv/www && tar xzf copyclient.tar.gz && rm -rf copyclient && mv build copyclient && rm copyclient.tar.gz" 
+	ssh ${REMOTE_USER}@${REMOTE_HOST} "cd /srv/www && tar xzf copyclient.tar.gz && rm -rf copyclient && mv build copyclient && rm copyclient.tar.gz" 
 
 clean:
 	rm -rf build
