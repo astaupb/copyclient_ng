@@ -6,7 +6,7 @@ stages:
 
 build:
   stage: build
-  image: dart:2
+  image: google/dart:2
   only:
     - tags
     - triggers
