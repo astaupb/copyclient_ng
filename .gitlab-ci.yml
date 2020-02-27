@@ -5,6 +5,10 @@ stages:
 
 build:
   stage: build
+  only:
+    - tags
+    - triggers
+    - schedules
   script:
     - apt update
     - apt install -y apt-transport-https curl gnupg git-core
