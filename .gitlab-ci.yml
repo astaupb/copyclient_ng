@@ -13,7 +13,7 @@ build:
     - web
   script:
     - apt update
-    - apt install -y apt-transport-https curl gnupg git-core make
+    - apt install -y apt-transport-https curl gnupg git-core
     - sh -c 'curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
     - sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_unstable.list'
     - apt update
@@ -35,6 +35,6 @@ deploy:
     - schedules
     - web
   script:
+    - apt install -y make
     - mv $MAKEMK make.mk
-    - cat make.mk
     - make deploy
