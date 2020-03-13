@@ -6,7 +6,8 @@ format:
 	dartfmt -w -l 100 --fix .
 
 build:
-	pub get && pub run build_runner build -o web:build
+	# pub get && pub run build_runner build -o web:build # This seems to be a workaround for MissingPortFile error
+	pub get && webdev build
 
 deploy:
 	tar czf copyclient.tar.gz build
