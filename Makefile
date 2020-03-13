@@ -6,7 +6,7 @@ format:
 	dartfmt -w -l 100 --fix .
 
 build:
-	pub get && pub run build_runner build
+	pub get && pub run build_runner build -o web:build
 
 deploy:
 	tar czf copyclient.tar.gz build
