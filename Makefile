@@ -6,14 +6,17 @@ format:
 	dartfmt -w -l 100 --fix .
 
 build:
-	# pub get && pub run build_runner build -o web:build # This seems to be a workaround for MissingPortFile error
 	pub get && webdev build
+
+build-workaround:
+	# This seems to be a workaround for MissingPortFile error
+	pub get && pub run build_runner build -o web:build -r
 
 deploy:
 	tar czf copyclient.tar.gz build
 	scp copyclient.tar.gz ${REMOTE_USER}@${REMOTE_HOST}:/srv/www/
 	rm copyclient.tar.gz
-	ssh ${REMOTE_USER}@${REMOTE_HOST} "cd /srv/www && tar xzf copyclient.tar.gz && rm -rf copyclient && mv build copyclient && rm copyclient.tar.gz" 
+	ssh ${REMOTE_USER}@${REMOTE_HOST} "cd /srv/www && tar xzf copyclient.tar.gz && rm -rf copyclient && mv build copyclient && rm copyclient.tar.gz"
 
 clean:
 	rm -rf build
