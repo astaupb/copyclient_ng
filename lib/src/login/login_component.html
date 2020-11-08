@@ -5,13 +5,12 @@
 <div class="login-container">
     <form #loginForm="ngForm" class="mdc-card login-card">
         <h2>AStA Copyclient Login</h2>
-        <material-input autoFocus id="username" class="login-input" label="Nutzername/SN" [maxRows]="1"
+        <material-input autoFocus id="username" class="login-input" label="Nutzername/SN"
             [checkValid]="validateUsername" required type="text" #username="ngForm" ngControl="username"
             [(ngModel)]="cred.username" @i18n:label="Label for username field of login form"></material-input>
         <material-input id="password" type="password" class="login-input" label="Passwort/PIN" #password="ngForm"
-            ngControl="password" [maxRows]="1" [checkValid]="validatePassword" required name="password"
-            [(ngModel)]="cred.password" (keyup.enter)="submitForm()"
-            @i18n:label="Label for password field of login form"></material-input>
+            ngControl="password" [checkValid]="validatePassword" required name="password" [(ngModel)]="cred.password"
+            (keyup.enter)="submitForm()" @i18n:label="Label for password field of login form"></material-input>
         <material-checkbox [(ngModel)]="cred.saveToken" label="Eingeloggt bleiben"
             @i18n:label="Label for checkbox deciding wether you wanna stay logged in"></material-checkbox>
         <material-button (trigger)="submitForm()" type="submit" class="login-button" raised
